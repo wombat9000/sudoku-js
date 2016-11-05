@@ -2,20 +2,26 @@ var gulp = require('gulp');
 var watch = require('gulp-watch');
 var babel = require('gulp-babel');
 var del = require('del');
+var browserify = require('browserify');
 
 var paths = {
-  js: 'src/**/*.js'
+  es6: 'src/**/*.es6',
+  compiledJs: 'js'
 }
 
 gulp.task('clean', function() {
-  return del(['js']);
+  return del([paths.compiledJs]);
 });
 
 gulp.task('build', ['clean'], function() {
-  return gulp.src(paths.js)
-      .pipe(babel({ presets: ['es2015'] }))
-        .on('error', errorHandler)
-      .pipe(gulp.dest('js'));
+  return gulp.src(paths.es6, {read: false})
+      .pipe(browserify({
+        transform: ['babelify'],
+        extensions: ['.es6']
+      }))
+      // .pipe(babel({ presets: ['es2015'] }))
+        // .on('error', errorHandler)
+      .pipe(gulp.dest(paths.compiledJs));
 });
 
 gulp.task('watch', function () {
