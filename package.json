@@ -10,10 +10,13 @@
     "gulp-babel": "^6.1.2"
   },
   "devDependencies": {
+    "babelify": "^7.3.0",
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.2.0",
     "gulp-watch": "^4.3.10",
-    "http-server": "^0.9.0"
+    "http-server": "^0.9.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
     "build": "babel src -d build",
