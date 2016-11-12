@@ -27,14 +27,6 @@ gulp.task('build', ['clean'], function() {
   .on("error", function (err) { console.log("Error : " + err.message); })
   .pipe(source('main.js'))
   .pipe(gulp.dest(paths.compiledJsDir));
-
-  // return gulp.src(paths.mainSrc)
-      // .pipe(browserify({
-      //   extensions: ['.es6']
-      // }))
-      // .bundle()
-      // .pipe(source('main.js'))
-      // .pipe(gulp.dest(paths.compiledJsDir));
 });
 
 gulp.task('watch', function () {
