@@ -6,4 +6,5 @@ let gridDom = document.getElementsByClassName("grid")[0];
 
 const grid = gridModule(gridDom);
 
+grid.init();
 grid.log();
