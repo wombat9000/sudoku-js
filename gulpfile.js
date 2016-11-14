@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
-var babel = require('gulp-babel');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
 var browserify = require('browserify');
@@ -11,7 +10,7 @@ var paths = {
   mainSrc: './src/main.es6',
   compiledJsDir: './js/',
   mainCompile: './js/main.js'
-}
+};
 
 gulp.task('clean', function() {
   return del([paths.compiledJsDir]);
@@ -33,9 +32,4 @@ gulp.task('watch', function () {
   gulp.watch(paths.es6Src, ['build']);
 });
 
-gulp.task('default', ['watch', 'build'])
-
-function errorHandler (error) {
-  console.log(error.toString())
-  this.emit('end')
-};
+gulp.task('default', ['watch', 'build']);
