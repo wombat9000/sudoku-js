@@ -11,9 +11,10 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: [
-      'jasmine',
       'browserify',
-      'mocha'
+      'mocha',
+      'chai-sinon',
+      'es6-shim'
     ],
 
     // list of files / patterns to load in the browser
@@ -32,14 +33,15 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'src/**/*.es6': ['browserify'],
-      'test/**/*.js': ['browserify']
+      'test/**/*.test.es6': ['browserify']
     },
 
     browserify: {
       debug: true,
+      // transform: ['babelify', {presets: 'es2015'}],
       configure: function (bundle) {
         bundle.once('prebundle', function () {
-          bundle.transform('babelify').plugin('proxyquireify/plugin');
+          bundle.transform('babelify', {presets: 'latest'}).plugin('proxyquireify/plugin');
         });
       }
     },
@@ -71,6 +73,7 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['PhantomJS'],
 
+    // plugins: ['karma-phantomjs-launcher'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
