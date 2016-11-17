@@ -2,33 +2,12 @@
 
 class Cell {
 
-    constructor(dom, value = 0) {
+    constructor(dom) {
         this.dom = dom;
-        this.value = value;
-    };
-
-    getValue() {
-        return this.value;
-    };
-
-    setValue(newValue) {
-      this.value = newValue;
-    };
-
-    getRow() {
-        const rowIndex = 0;
-        const rowNumberIndex = 3;
-        return parseInt(this.dom.classList[rowIndex][rowNumberIndex]);
-    };
-
-    getColumn() {
-        const colIndex = 1;
-        const colNumberIndex = 3;
-        return parseInt(this.dom.classList[colIndex][colNumberIndex]);
     };
 
     setRowNumber(rowNumber) {
-
+        this.dom.classList.add('row'+rowNumber);
     };
 }
 
