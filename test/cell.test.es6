@@ -22,4 +22,11 @@ describe('Cell', function () {
 
         expect(cellDomStub.classList.add).to.have.been.calledWith('row'+someRowNumber)
     })
+
+    it('updates classlist when setting column', function () {
+        const someColumnNumber = 5;
+        testee.setColumnNumber(someColumnNumber);
+
+        expect(cellDomStub.classList.add).to.have.been.calledWith('col'+someColumnNumber)
+    })
 });

@@ -1,11 +1,14 @@
 'use strict';
 
-import {Cell} from '../src/Cell.es6';
-
 class Row {
 
     constructor(rowNumber, rowDom, cells) {
-        cells.map(cell => cell.setRowNumber(rowNumber));
+        let colIndex = 0;
+        cells.map(cell => {
+            cell.setRowNumber(rowNumber);
+            cell.setColumnNumber(colIndex);
+            colIndex++;
+        });
     };
 }
 

@@ -9,6 +9,10 @@ class Cell {
     setRowNumber(rowNumber) {
         this.dom.classList.add('row'+rowNumber);
     };
+
+    setColumnNumber(colNumber) {
+        this.dom.classList.add('col'+colNumber);
+    };
 }
 
 export {Cell};
