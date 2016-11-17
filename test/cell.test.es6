@@ -4,13 +4,10 @@ import {Cell} from '../src/Cell.es6';
 
 describe('Cell', function () {
 
-
     let testee;
 
     const rowNumber = 1;
     const colNumber = 3;
-
-    // let domFixture = '<td class="row'+rowNumber+' col'+colNumber+'"></td>';
 
     const cellDom = document.createElement('td');
     const cellClasses = 'row' + rowNumber + ' col' + colNumber;

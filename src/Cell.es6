@@ -26,6 +26,10 @@ class Cell {
         const colNumberIndex = 3;
         return parseInt(this.dom.classList[colIndex][colNumberIndex]);
     };
+
+    setRowNumber(rowNumber) {
+
+    };
 }
 
 export {Cell};
