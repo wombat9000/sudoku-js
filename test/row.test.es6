@@ -10,8 +10,9 @@ describe('Row', function() {
         const rowDom = document.createElement('tr');
         const someCellMock = sinon.createStubInstance(Cell);
         const anotherCellMock = sinon.createStubInstance(Cell);
+        const cellArray = [someCellMock, anotherCellMock];
 
-        const testee = new Row(rowNumber, rowDom, [someCellMock, anotherCellMock]);
+        const testee = new Row(rowNumber, rowDom, cellArray);
 
         expect(someCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
         expect(anotherCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
@@ -22,8 +23,9 @@ describe('Row', function() {
         const rowDom = document.createElement('tr');
         const firstColumnCellMock = sinon.createStubInstance(Cell);
         const secondColumnCellMock = sinon.createStubInstance(Cell);
+        const cellArray = [firstColumnCellMock, secondColumnCellMock];
 
-        const testee = new Row(rowNumber, rowDom, [firstColumnCellMock, secondColumnCellMock]);
+        const testee = new Row(rowNumber, rowDom, cellArray);
 
         expect(firstColumnCellMock.setColumnNumber).to.have.been.calledWith(0);
         expect(secondColumnCellMock.setColumnNumber).to.have.been.calledWith(1);

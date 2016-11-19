@@ -1,7 +1,10 @@
 'use strict';
 
-const gridModule = require('./grid.es6');
+
+import {Grid} from '../src/Grid.es6';
+
+const grid = new Grid();
 
 let gridDom = document.getElementsByClassName("grid")[0];
 
-const grid = gridModule(gridDom);
+// gridDom.innerHTML = grid.getHtml();
