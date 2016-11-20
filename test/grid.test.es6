@@ -7,16 +7,25 @@ describe('Grid', function () {
 
     let testee;
 
-    beforeEach(() => {
-        // testee = new Grid();
-    });
+    it('should provide its HTML representation', function () {
+        const gridDom = document.createElement('table');
+        gridDom.classList.add('grid');
 
-    it('should create 9 rows on initialisation', function () {
-        testee = new Grid();
+        let rowMock = sinon.createStubInstance(Row);
 
-        const rows = testee.getRows();
+        rowMock.getHtml = sinon.spy(function () {
+            let rowDom = document.createElement('tr');
+            return rowDom;
+        });
 
-        expect(rows).to.have.lengthOf(9);
-        expect(rows[0]).to.be.an.instanceOf(Row);
+        const rowArray = [rowMock];
+
+        const expectedHtml = '<table class="grid"><tr></tr></table>';
+
+        testee = new Grid(gridDom, rowArray);
+
+        const actualHtml = testee.getHtml();
+
+        expect(actualHtml.outerHTML).to.equal(expectedHtml);
     });
 });
