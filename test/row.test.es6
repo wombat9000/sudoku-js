@@ -4,31 +4,32 @@ import {Cell} from '../src/Cell.es6';
 import {Row} from '../src/Row.es6';
 
 describe('Row', function() {
+    describe('instantiation', function() {
+        it('should update all member cells with its row number', function () {
+            const rowNumber = 0;
+            const rowDom = document.createElement('tr');
+            const someCellMock = createCellMock(rowNumber, 0);
+            const anotherCellMock = createCellMock(rowNumber, 1);
+            const cellArray = [someCellMock, anotherCellMock];
 
-    it('should update all member cells with its row number', function () {
-        const rowNumber = 0;
-        const rowDom = document.createElement('tr');
-        const someCellMock = createCellMock(rowNumber, 0);
-        const anotherCellMock = createCellMock(rowNumber, 1);
-        const cellArray = [someCellMock, anotherCellMock];
+            new Row(rowNumber, rowDom, cellArray);
 
-        const testee = new Row(rowNumber, rowDom, cellArray);
+            expect(someCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
+            expect(anotherCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
+        });
 
-        expect(someCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
-        expect(anotherCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
-    });
+        it('should update all member cells with their col number', function() {
+            const rowNumber = 0;
+            const rowDom = document.createElement('tr');
+            const firstColumnCellMock = createCellMock(rowNumber, 0);
+            const secondColumnCellMock = createCellMock(rowNumber, 1);
+            const cellArray = [firstColumnCellMock, secondColumnCellMock];
 
-    it('should update all member cells with their col number', function() {
-        const rowNumber = 0;
-        const rowDom = document.createElement('tr');
-        const firstColumnCellMock = createCellMock(rowNumber, 0);
-        const secondColumnCellMock = createCellMock(rowNumber, 1);
-        const cellArray = [firstColumnCellMock, secondColumnCellMock];
+            new Row(rowNumber, rowDom, cellArray);
 
-        const testee = new Row(rowNumber, rowDom, cellArray);
-
-        expect(firstColumnCellMock.setColumnNumber).to.have.been.calledWith(0);
-        expect(secondColumnCellMock.setColumnNumber).to.have.been.calledWith(1);
+            expect(firstColumnCellMock.setColumnNumber).to.have.been.calledWith(0);
+            expect(secondColumnCellMock.setColumnNumber).to.have.been.calledWith(1);
+        });
     });
 
     it('provides its html representation', function() {
