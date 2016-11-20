@@ -8,8 +8,8 @@ describe('Row', function() {
     it('should update all member cells with its row number', function () {
         const rowNumber = 0;
         const rowDom = document.createElement('tr');
-        const someCellMock = sinon.createStubInstance(Cell);
-        const anotherCellMock = sinon.createStubInstance(Cell);
+        const someCellMock = createCellMock(rowNumber, 0);
+        const anotherCellMock = createCellMock(rowNumber, 1);
         const cellArray = [someCellMock, anotherCellMock];
 
         const testee = new Row(rowNumber, rowDom, cellArray);
@@ -21,8 +21,8 @@ describe('Row', function() {
     it('should update all member cells with their col number', function() {
         const rowNumber = 0;
         const rowDom = document.createElement('tr');
-        const firstColumnCellMock = sinon.createStubInstance(Cell);
-        const secondColumnCellMock = sinon.createStubInstance(Cell);
+        const firstColumnCellMock = createCellMock(rowNumber, 0);
+        const secondColumnCellMock = createCellMock(rowNumber, 1);
         const cellArray = [firstColumnCellMock, secondColumnCellMock];
 
         const testee = new Row(rowNumber, rowDom, cellArray);
@@ -30,4 +30,36 @@ describe('Row', function() {
         expect(firstColumnCellMock.setColumnNumber).to.have.been.calledWith(0);
         expect(secondColumnCellMock.setColumnNumber).to.have.been.calledWith(1);
     });
+
+    it('provides its html representation', function() {
+        const rowDom = document.createElement('tr');
+        rowDom.classList.add('row');
+        const rowNumber = 1;
+        const colNumber = 0;
+        const someCellMock = createCellMock(rowNumber, colNumber);
+
+        const cellArray = [someCellMock];
+
+        const expectedHtml = '<tr class="row"><td class="row' + rowNumber + ' col'+ 0 +'"></td></tr>';
+
+        const testee = new Row(rowNumber, rowDom, cellArray);
+
+        const actualHtml = testee.getHtml();
+
+        expect(actualHtml.outerHTML).to.equal(expectedHtml);
+    });
+
+    const createCellMock = (rowNumber, colNumber) => {
+        let cellMock = sinon.createStubInstance(Cell);
+
+        cellMock.getHtml = sinon.spy(function () {
+            let cellDom = document.createElement('td');
+            cellDom.classList.add('row' + rowNumber);
+            cellDom.classList.add('col' + colNumber);
+
+            return cellDom;
+        });
+
+        return cellMock;
+    };
 });

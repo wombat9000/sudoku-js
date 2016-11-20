@@ -31,7 +31,6 @@ describe('Cell', function () {
     });
 
     it('provides its html representation', function () {
-        // TODO: should i stub this domElement?
         let testee = new Cell(document.createElement('td'));
         const someRowNumber = 5;
         testee.setRowNumber(someRowNumber);
