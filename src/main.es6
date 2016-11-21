@@ -1,10 +1,9 @@
 'use strict';
 
+const gridBuilderModule =  require('./builder/GridBuilder.es6');
 
-import {Grid} from '../src/Grid.es6';
+const gridBuilder = gridBuilderModule();
+const grid = gridBuilder.createGrid();
 
-// const grid = new Grid();
-
-// let gridDom = document.getElementsByClassName("grid")[0];
-
-// gridDom.innerHTML = grid.getHtml();
+const body = document.body;
+body.appendChild(grid.getHtml());

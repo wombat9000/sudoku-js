@@ -16,11 +16,11 @@ class Cell {
 
     setValue(value) {
         this.dom.innerHTML = value;
-    }
+    };
 
     getHtml() {
        return this.dom;
-    }
+    };
 }
 
 export {Cell};

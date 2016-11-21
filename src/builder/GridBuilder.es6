@@ -30,7 +30,9 @@ module.exports = () => {
 
         for (let i = 0; i < 9; i++) {
             let cellDom = document.createElement('td');
-            cells[i] = new Cell(cellDom);
+            let cell = new Cell(cellDom);
+            cell.setValue("0");
+            cells[i] = cell;
         }
         return cells;
     };
