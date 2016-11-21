@@ -2,6 +2,8 @@
 
 import {Grid} from '../../src/Grid.es6';
 import {Row} from '../../src/Row.es6';
+import {Cell} from '../../src/Cell.es6';
+
 
 module.exports = () => {
     const module = {};
@@ -17,9 +19,20 @@ module.exports = () => {
 
         for (let i = 0; i < 9; i++) {
             let rowDom = document.createElement('tr');
-            rows[i] = new Row(0, rowDom, []);
+            let cells = createCells();
+            rows[i] = new Row(0, rowDom, cells);
         }
         return rows;
+    };
+
+    const createCells = () => {
+        const cells = [];
+
+        for (let i = 0; i < 9; i++) {
+            let cellDom = document.createElement('td');
+            cells[i] = new Cell(cellDom);
+        }
+        return cells;
     };
 
     return module;

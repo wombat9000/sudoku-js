@@ -11,8 +11,13 @@ class Row {
             colIndex++;
         });
 
+        this.cells = cells;
         this.rowDom = rowDom;
     };
+
+    getCells() {
+        return this.cells;
+    }
 
     getHtml() {
         return this.rowDom;
