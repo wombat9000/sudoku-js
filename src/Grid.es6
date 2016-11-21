@@ -7,7 +7,12 @@ class Grid {
             gridDom.appendChild(row.getHtml());
         });
         this.dom = gridDom;
+        this.rows = rows;
     };
+
+    getRows() {
+        return this.rows;
+    }
 
     getHtml() {
         return this.dom;

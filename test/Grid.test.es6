@@ -12,18 +12,13 @@ describe('Grid', function () {
         gridDom.classList.add('grid');
 
         let rowMock = sinon.createStubInstance(Row);
-
         rowMock.getHtml = sinon.spy(function () {
-            let rowDom = document.createElement('tr');
-            return rowDom;
+            return document.createElement('tr');
         });
-
-        const rowArray = [rowMock];
 
         const expectedHtml = '<table class="grid"><tr></tr></table>';
 
-        testee = new Grid(gridDom, rowArray);
-
+        testee = new Grid(gridDom, [rowMock]);
         const actualHtml = testee.getHtml();
 
         expect(actualHtml.outerHTML).to.equal(expectedHtml);
