@@ -6,13 +6,15 @@ describe('Cell', function () {
 
     let testee;
 
-    const cellDomStub = {
-        classList: {
-            add: sinon.stub()
-        }
-    };
+    let cellDomStub;
+
 
     beforeEach(() => {
+        cellDomStub = {
+            classList: {
+                add: sinon.stub()
+            }
+        };
         testee = new Cell(cellDomStub);
     });
 
@@ -47,5 +49,35 @@ describe('Cell', function () {
         const actualHtml = testee.getHtml();
 
         expect(actualHtml.outerHTML).to.equal(expectedHtml);
+    });
+
+    it('applies bold-bottom-border class for third row', function() {
+        testee.setRowNumber(3);
+        expect(cellDomStub.classList.add).to.have.been.calledWith('bold-bottom-border');
+    });
+
+    it('applies bold-bottom-border class for sixth row', function() {
+        testee.setRowNumber(6);
+        expect(cellDomStub.classList.add).to.have.been.calledWith('bold-bottom-border');
+    });
+
+    it('does not apply bold-bottom-border class for fifth row', function() {
+        testee.setRowNumber(5);
+        expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-bottom-border');
+    });
+
+    it('applies bold-right-border class for third column', function() {
+        testee.setColumnNumber(3);
+        expect(cellDomStub.classList.add).to.have.been.calledWith('bold-right-border');
+    });
+
+    it('applies bold-right-border class for sixth column', function() {
+        testee.setColumnNumber(6);
+        expect(cellDomStub.classList.add).to.have.been.calledWith('bold-right-border');
+    });
+
+    it('does not apply bold-right-border class for fifth columnw', function() {
+        testee.setColumnNumber(5);
+        expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-right-border');
     });
 });

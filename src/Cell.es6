@@ -9,10 +9,16 @@ class Cell {
 
     setRowNumber(rowNumber) {
         this.dom.classList.add('row'+rowNumber);
+        if (rowNumber == 3 || rowNumber == 6) {
+            this.dom.classList.add('bold-bottom-border');
+        }
     };
 
     setColumnNumber(colNumber) {
         this.dom.classList.add('col'+colNumber);
+        if (colNumber == 3 || colNumber == 6) {
+            this.dom.classList.add('bold-right-border');
+        }
     };
 
     setValue(value) {

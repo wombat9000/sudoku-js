@@ -12,7 +12,7 @@ body {
 
 .grid {
     margin: 10px auto;
-    width: (($cell-size + $cell-border-width) * 9) + $cell-border-width;
+    width: (($cell-size + $cell-border-width) * 9) + $cell-border-width + 4;
 }
 
 .row {
@@ -37,4 +37,13 @@ body {
     background-color: #888;
     color: darkorange;
     font-size: 20px;
+}
+
+
+.bold-right-border {
+    border-right-width: 3px;
+}
+
+.bold-bottom-border {
+    border-bottom-width: 3px;
 }
