@@ -3,6 +3,7 @@
 class Cell {
 
     constructor(dom) {
+        dom.classList.add('cell');
         this.dom = dom;
     };
 

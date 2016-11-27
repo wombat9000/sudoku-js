@@ -3,6 +3,8 @@
 class Row {
 
     constructor(rowNumber, rowDom, cells) {
+        rowDom.classList.add('row');
+
         let colIndex = 0;
         cells.map(cell => {
             cell.setRowNumber(rowNumber);

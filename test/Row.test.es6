@@ -34,7 +34,6 @@ describe('Row', function() {
 
     it('provides its html representation', function() {
         const rowDom = document.createElement('div');
-        rowDom.classList.add('row');
         const rowNumber = 1;
         const colNumber = 0;
         const someCellMock = createCellMock(rowNumber, colNumber);

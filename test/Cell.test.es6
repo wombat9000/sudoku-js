@@ -16,18 +16,22 @@ describe('Cell', function () {
         testee = new Cell(cellDomStub);
     });
 
+    it('updates classlist with cell', function () {
+        expect(cellDomStub.classList.add).to.have.been.calledWith('cell');
+    });
+
     it('updates classlist when setting row', function () {
         const someRowNumber = 5;
         testee.setRowNumber(someRowNumber);
 
-        expect(cellDomStub.classList.add).to.have.been.calledWith('row'+someRowNumber)
+        expect(cellDomStub.classList.add).to.have.been.calledWith('row'+someRowNumber);
     });
 
     it('updates classlist when setting column', function () {
         const someColumnNumber = 5;
         testee.setColumnNumber(someColumnNumber);
 
-        expect(cellDomStub.classList.add).to.have.been.calledWith('col'+someColumnNumber)
+        expect(cellDomStub.classList.add).to.have.been.calledWith('col'+someColumnNumber);
     });
 
     it('provides its html representation', function () {
@@ -38,7 +42,7 @@ describe('Cell', function () {
         testee.setColumnNumber(someColumnNumber);
         const someValue = 1;
         testee.setValue(someValue);
-        const expectedHtml = '<div class="row' + someRowNumber + ' col' + someColumnNumber + '">' + someValue + '</div>';
+        const expectedHtml = '<div class="cell row' + someRowNumber + ' col' + someColumnNumber + '">' + someValue + '</div>';
 
         const actualHtml = testee.getHtml();
 
