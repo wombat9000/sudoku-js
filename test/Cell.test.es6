@@ -76,7 +76,7 @@ describe('Cell', function () {
         expect(cellDomStub.classList.add).to.have.been.calledWith('bold-right-border');
     });
 
-    it('does not apply bold-right-border class for fifth columnw', function() {
+    it('does not apply bold-right-border class for fifth column', function() {
         testee.setColumnNumber(5);
         expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-right-border');
     });
