@@ -31,14 +31,14 @@ describe('Cell', function () {
     });
 
     it('provides its html representation', function () {
-        let testee = new Cell(document.createElement('td'));
+        let testee = new Cell(document.createElement('div'));
         const someRowNumber = 5;
         testee.setRowNumber(someRowNumber);
         const someColumnNumber = 5;
         testee.setColumnNumber(someColumnNumber);
         const someValue = 1;
         testee.setValue(someValue);
-        const expectedHtml = '<td class="row' + someRowNumber + ' col' + someColumnNumber + '">' + someValue + '</td>';
+        const expectedHtml = '<div class="row' + someRowNumber + ' col' + someColumnNumber + '">' + someValue + '</div>';
 
         const actualHtml = testee.getHtml();
 

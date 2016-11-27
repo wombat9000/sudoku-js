@@ -9,7 +9,7 @@ module.exports = () => {
     const module = {};
 
     module.createGrid = () => {
-        const gridDom = document.createElement('table');
+        const gridDom = document.createElement('div');
         const rows = createRows();
         return new Grid(gridDom, rows);
     };
@@ -18,7 +18,7 @@ module.exports = () => {
         const rows = [];
 
         for (let i = 0; i < 9; i++) {
-            let rowDom = document.createElement('tr');
+            let rowDom = document.createElement('div');
             let cells = createCells();
             rows[i] = new Row(0, rowDom, cells);
         }
@@ -29,7 +29,7 @@ module.exports = () => {
         const cells = [];
 
         for (let i = 0; i < 9; i++) {
-            let cellDom = document.createElement('td');
+            let cellDom = document.createElement('div');
             let cell = new Cell(cellDom);
             cell.setValue("0");
             cells[i] = cell;

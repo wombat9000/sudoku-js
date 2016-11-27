@@ -4,10 +4,10 @@ import {Cell} from '../src/Cell.es6';
 import {Row} from '../src/Row.es6';
 
 describe('Row', function() {
-    describe('instantiation', function() {
+    describe('- instantiation', function() {
         it('should update all member cells with its row number', function () {
             const rowNumber = 0;
-            const rowDom = document.createElement('tr');
+            const rowDom = document.createElement('div');
             const someCellMock = createCellMock(rowNumber, 0);
             const anotherCellMock = createCellMock(rowNumber, 1);
             const cellArray = [someCellMock, anotherCellMock];
@@ -20,7 +20,7 @@ describe('Row', function() {
 
         it('should update all member cells with their col number', function() {
             const rowNumber = 0;
-            const rowDom = document.createElement('tr');
+            const rowDom = document.createElement('div');
             const firstColumnCellMock = createCellMock(rowNumber, 0);
             const secondColumnCellMock = createCellMock(rowNumber, 1);
             const cellArray = [firstColumnCellMock, secondColumnCellMock];
@@ -33,7 +33,7 @@ describe('Row', function() {
     });
 
     it('provides its html representation', function() {
-        const rowDom = document.createElement('tr');
+        const rowDom = document.createElement('div');
         rowDom.classList.add('row');
         const rowNumber = 1;
         const colNumber = 0;
@@ -41,7 +41,7 @@ describe('Row', function() {
 
         const cellArray = [someCellMock];
 
-        const expectedHtml = '<tr class="row"><td class="row' + rowNumber + ' col'+ 0 +'"></td></tr>';
+        const expectedHtml = '<div class="row"><div class="row' + rowNumber + ' col'+ 0 +'"></div></div>';
 
         const testee = new Row(rowNumber, rowDom, cellArray);
 
@@ -54,7 +54,7 @@ describe('Row', function() {
         let cellMock = sinon.createStubInstance(Cell);
 
         cellMock.getHtml = sinon.spy(function () {
-            let cellDom = document.createElement('td');
+            let cellDom = document.createElement('div');
             cellDom.classList.add('row' + rowNumber);
             cellDom.classList.add('col' + colNumber);
 

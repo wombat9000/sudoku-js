@@ -8,15 +8,15 @@ describe('Grid', function () {
     let testee;
 
     it('should provide its HTML representation', function () {
-        const gridDom = document.createElement('table');
+        const gridDom = document.createElement('div');
         gridDom.classList.add('grid');
 
         let rowMock = sinon.createStubInstance(Row);
         rowMock.getHtml = sinon.spy(function () {
-            return document.createElement('tr');
+            return document.createElement('div');
         });
 
-        const expectedHtml = '<table class="grid"><tr></tr></table>';
+        const expectedHtml = '<div class="grid"><div></div></div>';
 
         testee = new Grid(gridDom, [rowMock]);
         const actualHtml = testee.getHtml();
