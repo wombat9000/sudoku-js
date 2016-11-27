@@ -19,7 +19,7 @@ class Row {
 
     getCells() {
         return this.cells;
-    }
+    };
 
     getHtml() {
         return this.rowDom;

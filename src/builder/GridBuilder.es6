@@ -20,7 +20,7 @@ module.exports = () => {
         for (let i = 0; i < 9; i++) {
             let rowDom = document.createElement('div');
             let cells = createCells();
-            rows[i] = new Row(0, rowDom, cells);
+            rows[i] = new Row(i+1, rowDom, cells);
         }
         return rows;
     };

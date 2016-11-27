@@ -14,7 +14,7 @@ class Grid {
 
     getRows() {
         return this.rows;
-    }
+    };
 
     getHtml() {
         return this.dom;

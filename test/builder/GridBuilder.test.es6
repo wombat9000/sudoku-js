@@ -21,5 +21,17 @@ describe('GridBuilder', function () {
         const cells = rows[0].getCells();
 
         expect(cells).to.have.lengthOf(9);
-    })
+    });
+
+    it('should initialise the rows with rownumbers', function () {
+        const grid = testee.createGrid();
+
+        const rows = grid.getRows();
+        const firstRowCell = rows[0].getCells()[0];
+        const secondRowCell = rows[1].getCells()[0];
+
+
+        expect(firstRowCell.getHtml().classList.contains('row1')).to.equal(true);
+        expect(secondRowCell.getHtml().classList.contains('row2')).to.equal(true);
+    });
 });
