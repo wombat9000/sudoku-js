@@ -1,3 +1,7 @@
+$border-color: #888;
+$cell-size: 50px;
+$cell-border-width: 1px;
+
 body {
     background-color: #444;
 }
@@ -8,8 +12,7 @@ body {
 
 .grid {
     margin: 10px auto;
-    /* 9*50 + 9 * 1 + 1 = 460 */
-    width: 460px;
+    width: (($cell-size + $cell-border-width) * 9) + $cell-border-width;
 }
 
 .row {
@@ -18,11 +21,11 @@ body {
 
 .cell {
     text-align: center;
-    line-height: 50px;
-    height: 50px;
-    width: 50px;
-    border-top: 1px solid #888;
-    border-right: 1px solid #888;
+    line-height: $cell-size;
+    height: $cell-size;
+    width: $cell-size;
+    border-top: $cell-border-width solid $border-color;
+    border-right: $cell-border-width solid $border-color;
 }
 
 .cell:hover {
@@ -32,9 +35,9 @@ body {
 }
 
 .row9 {
-    border-bottom: 1px solid #888;
+    border-bottom: $cell-border-width solid $border-color;
 }
 
 .col1 {
-    border-left: 1px solid #888;
+    border-left: $cell-border-width solid $border-color;
 }
