@@ -9,7 +9,6 @@ describe('Grid', function () {
 
     it('should provide its HTML representation', function () {
         const gridDom = document.createElement('div');
-        gridDom.classList.add('grid');
 
         let rowMock = sinon.createStubInstance(Row);
         rowMock.getHtml = sinon.spy(function () {

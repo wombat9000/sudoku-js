@@ -1,8 +1,5 @@
 'use strict';
 
-// import {Row} from '../src/Row.es6';
-// import {Grid} from '../src/Grid.es6';
-
 const gridBuilder =  require('../../src/builder/GridBuilder.es6');
 
 describe('GridBuilder', function () {

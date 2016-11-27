@@ -1,0 +1,30 @@
+.wrapper {
+    width: 100%;
+}
+
+.grid {
+    margin: 10px auto;
+    width: 600px;
+}
+
+.row {
+    display: flex;
+}
+
+.cell {
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
+    width: 50px;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    padding: 5px;
+}
+
+.row9 {
+    border-bottom: 1px solid black;
+}
+
+.col1 {
+    border-left: 1px solid black;
+}

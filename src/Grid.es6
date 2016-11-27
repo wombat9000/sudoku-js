@@ -3,6 +3,8 @@
 class Grid {
 
     constructor(gridDom, rows) {
+        gridDom.classList.add('grid');
+
         rows.map(row => {
             gridDom.appendChild(row.getHtml());
         });

@@ -5,7 +5,7 @@ class Row {
     constructor(rowNumber, rowDom, cells) {
         rowDom.classList.add('row');
 
-        let colIndex = 0;
+        let colIndex = 1;
         cells.map(cell => {
             cell.setRowNumber(rowNumber);
             cell.setColumnNumber(colIndex);

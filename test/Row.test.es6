@@ -21,14 +21,14 @@ describe('Row', function() {
         it('should update all member cells with their col number', function() {
             const rowNumber = 0;
             const rowDom = document.createElement('div');
-            const firstColumnCellMock = createCellMock(rowNumber, 0);
-            const secondColumnCellMock = createCellMock(rowNumber, 1);
+            const firstColumnCellMock = createCellMock(rowNumber, 1);
+            const secondColumnCellMock = createCellMock(rowNumber, 2);
             const cellArray = [firstColumnCellMock, secondColumnCellMock];
 
             new Row(rowNumber, rowDom, cellArray);
 
-            expect(firstColumnCellMock.setColumnNumber).to.have.been.calledWith(0);
-            expect(secondColumnCellMock.setColumnNumber).to.have.been.calledWith(1);
+            expect(firstColumnCellMock.setColumnNumber).to.have.been.calledWith(1);
+            expect(secondColumnCellMock.setColumnNumber).to.have.been.calledWith(2);
         });
     });
 
@@ -40,7 +40,7 @@ describe('Row', function() {
 
         const cellArray = [someCellMock];
 
-        const expectedHtml = '<div class="row"><div class="row' + rowNumber + ' col'+ 0 +'"></div></div>';
+        const expectedHtml = '<div class="row"><div class="row' + rowNumber + ' col'+ colNumber +'"></div></div>';
 
         const testee = new Row(rowNumber, rowDom, cellArray);
 
