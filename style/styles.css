@@ -1,3 +1,7 @@
+body {
+    background-color: #444;
+}
+
 .wrapper {
     width: 100%;
 }
@@ -17,14 +21,20 @@
     line-height: 50px;
     height: 50px;
     width: 50px;
-    border-top: 1px solid black;
-    border-right: 1px solid black;
+    border-top: 1px solid #888;
+    border-right: 1px solid #888;
+}
+
+.cell:hover {
+    background-color: #888;
+    color: darkorange;
+    font-size: 20px;
 }
 
 .row9 {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #888;
 }
 
 .col1 {
-    border-left: 1px solid black;
+    border-left: 1px solid #888;
 }
