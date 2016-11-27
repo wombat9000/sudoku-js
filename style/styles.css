@@ -4,7 +4,8 @@
 
 .grid {
     margin: 10px auto;
-    width: 600px;
+    /* 9*50 + 9 * 1 + 1 = 460 */
+    width: 460px;
 }
 
 .row {
@@ -18,7 +19,6 @@
     width: 50px;
     border-top: 1px solid black;
     border-right: 1px solid black;
-    padding: 5px;
 }
 
 .row9 {
