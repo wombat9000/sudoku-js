@@ -30,7 +30,7 @@ body {
     height: $cell-size;
     width: $cell-size;
     border: $cell-border-width solid $border-color;
-    margin: -1px 0 0 -1px;
+    margin: (-1 * $cell-border-width) 0 0 (-1 * $cell-border-width);
 }
 
 .cell:hover {
