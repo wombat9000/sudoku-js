@@ -29,20 +29,12 @@ body {
     line-height: $cell-size;
     height: $cell-size;
     width: $cell-size;
-    border-top: $cell-border-width solid $border-color;
-    border-right: $cell-border-width solid $border-color;
+    border: $cell-border-width solid $border-color;
+    margin: -$cell-border-width 0 0 -$cell-border-width;
 }
 
 .cell:hover {
     background-color: #888;
     color: darkorange;
     font-size: 20px;
-}
-
-.row9 {
-    border-bottom: $cell-border-width solid $border-color;
-}
-
-.col1 {
-    border-left: $cell-border-width solid $border-color;
 }
