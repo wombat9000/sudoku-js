@@ -46,3 +46,30 @@ body {
 .bold-bottom-border {
     border-bottom: 3px solid darken(darkorange, 15%);
 }
+
+
+#selector_pad {
+  position:absolute;
+  display: flex;
+  flex-direction: column;
+
+  .selector_row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .cell {
+    $selector-size: 20px;
+    height: $selector-size;
+    width: $selector-size;
+    line-height: $selector-size;
+  }
+
+  .cell:hover {
+      font-size: 16px;
+  }
+}
+
+#selector_pad.hidden {
+  display: none;
+}
