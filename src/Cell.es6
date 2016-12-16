@@ -9,20 +9,37 @@ class Cell {
 
     setRowNumber(rowNumber) {
         this.dom.classList.add('row'+rowNumber);
-        if (rowNumber == 3 || rowNumber == 6) {
-            this.dom.classList.add('bold-bottom-border');
+
+        if (this.isBoxDelimiter(rowNumber)) {
+            this.addBottomBorderCSS();
         }
     };
 
     setColumnNumber(colNumber) {
         this.dom.classList.add('col'+colNumber);
-        if (colNumber == 3 || colNumber == 6) {
-            this.dom.classList.add('bold-right-border');
+
+        if (this.isBoxDelimiter(colNumber)) {
+            this.addRightBorderCSS();
         }
+    };
+
+    //TODO: 16.12.2016 move this into the row/col classes
+    // have row/col decide whether it is the border of a box,
+    // then, have it set its member cells css
+    isBoxDelimiter(colOrRowNumber) {
+        return colOrRowNumber == 3 || colOrRowNumber == 6;
     };
 
     setValue(value) {
         this.dom.innerHTML = value;
+    };
+
+    addBottomBorderCSS() {
+        this.dom.classList.add('bold-bottom-border');
+    };
+
+    addRightBorderCSS() {
+        this.dom.classList.add('bold-right-border');
     };
 
     getHtml() {
