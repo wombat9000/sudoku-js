@@ -5,7 +5,7 @@ import {Row} from '../../src/Row.es6';
 import {Cell} from '../../src/Cell.es6';
 
 
-module.exports = () => {
+module.exports = (showPad) => {
     const module = {};
 
     module.createGrid = () => {
@@ -30,7 +30,7 @@ module.exports = () => {
 
         for (let i = 0; i < 9; i++) {
             let cellDom = document.createElement('div');
-            let cell = new Cell(cellDom);
+            let cell = new Cell(cellDom, showPad);
             cell.setValue("0");
             cells[i] = cell;
         }

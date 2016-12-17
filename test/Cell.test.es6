@@ -8,14 +8,20 @@ describe('Cell', function () {
 
     let cellDomStub;
 
+    let someEventHandler;
 
     beforeEach(() => {
+
         cellDomStub = {
             classList: {
                 add: sinon.stub()
-            }
+            },
+            addEventListener: sinon.stub()
         };
-        testee = new Cell(cellDomStub);
+
+        someEventHandler = () => {};
+
+        testee = new Cell(cellDomStub, someEventHandler);
     });
 
     it('updates classlist with cell', function () {
@@ -79,5 +85,9 @@ describe('Cell', function () {
     it('does not apply bold-right-border class for fifth column', function() {
         testee.setColumnNumber(5);
         expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-right-border');
+    });
+
+    it('registers the eventlistener on the dom object', function() {
+       expect(cellDomStub.addEventListener).to.have.been.calledWith('click', someEventHandler);
     });
 });

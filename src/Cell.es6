@@ -2,8 +2,9 @@
 
 class Cell {
 
-    constructor(dom) {
+    constructor(dom, showPad) {
         dom.classList.add('cell');
+        dom.addEventListener('click', showPad);
         this.dom = dom;
     };
 
