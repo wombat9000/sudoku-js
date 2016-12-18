@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "some description",
   "engines": {
-    "node": "6.2.0"
+    "node": "6.2.0",
+    "npm": "4.0.5"
   },
   "repository": {
     "type": "git",
