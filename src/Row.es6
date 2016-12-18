@@ -24,6 +24,12 @@ class Row {
     getHtml() {
         return this.rowDom;
     };
+
+    deselectAllCells() {
+        this.cells.map(function(cell) {
+            cell.deselect();
+        });
+    };
 }
 
 export {Row};

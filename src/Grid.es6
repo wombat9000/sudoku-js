@@ -8,9 +8,21 @@ class Grid {
         rows.map(row => {
             gridDom.appendChild(row.getHtml());
         });
-        this.dom = gridDom;
         this.rows = rows;
+
+        const deselectCellsHandler = () => {
+            this.deselectAllCells();
+        };
+
+        gridDom.addEventListener('click', deselectCellsHandler, true);
+        this.dom = gridDom;
     };
+
+    deselectAllCells() {
+        this.rows.map(function (row) {
+            row.deselectAllCells();
+        });
+    }
 
     getRows() {
         return this.rows;

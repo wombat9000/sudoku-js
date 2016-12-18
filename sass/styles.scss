@@ -39,6 +39,12 @@ body {
     font-size: 20px;
 }
 
+.cell.active {
+    background-color: #666;
+    color: red;
+    font-size: 20px;
+}
+
 .bold-right-border {
     border-right: 3px solid darken(darkorange, 15%);
 }
@@ -49,6 +55,7 @@ body {
 
 
 #selector_pad {
+  background-color: #AAA;
   position:absolute;
   display: flex;
   flex-direction: column;
@@ -59,6 +66,7 @@ body {
   }
 
   .cell {
+    color: darkgoldenrod;
     $selector-size: 20px;
     height: $selector-size;
     width: $selector-size;

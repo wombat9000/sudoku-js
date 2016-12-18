@@ -2,11 +2,23 @@
 
 class Cell {
 
-    constructor(dom, showPad) {
+    constructor(dom, showPadCallback) {
         dom.classList.add('cell');
-        dom.addEventListener('click', showPad);
+        const clickHandler = this.createClickHandler(showPadCallback);
+        dom.addEventListener('click', clickHandler, false);
         this.dom = dom;
     };
+
+    deselect() {
+        this.dom.classList.remove('active');
+    };
+
+    createClickHandler(showPadCallback) {
+        return (evt) => {
+            this.dom.classList.add('active');
+            showPadCallback(evt, this);
+        };
+    }
 
     setRowNumber(rowNumber) {
         this.dom.classList.add('row'+rowNumber);
