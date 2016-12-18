@@ -1,6 +1,6 @@
 {
   "name": "sudoku-js",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "some description",
   "engines": {
     "node": "6.2.0",
@@ -14,21 +14,13 @@
   "dependencies": {
     "babel-cli": "^6.18.0",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2"
-  },
-  "babel": {
-    "presets": [
-      "latest"
-    ]
-  },
-  "devDependencies": {
+    "gulp-babel": "^6.1.2",
     "babel-core": "^6.18.2",
     "babel-preset-latest": "^6.16.0",
     "babelify": "7.3.0",
     "browserify": "13.0.0",
     "chai": "^3.5.0",
     "del": "^2.2.2",
-    "gulp": "^3.9.1",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.0",
     "gulp-watch": "^4.3.10",
@@ -49,6 +41,14 @@
     "sinon-chai": "^2.8.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
+  "devDependencies": {
+
   },
   "scripts": {
     "heroku-prebuild": "echo heroku prebuild:",
