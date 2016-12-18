@@ -5,6 +5,7 @@ var del = require('del');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var sass = require('gulp-sass');
+var Server = require('karma').Server;
 
 var paths = {
     es6Src: './src/**/*.es6',
@@ -44,6 +45,25 @@ gulp.task('sass', ['cleanCss'], function () {
     return gulp.src(paths.scssFiles)
         .pipe(sass.sync().on('error', sass.logError))
         .pipe(gulp.dest(paths.cssDir));
+});
+
+gulp.task('test', function (done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, function (exitCode) {
+        done();
+        process.exit(exitCode);
+    }).start();
+});
+
+gulp.task('tdd', function (done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js'
+    }, function (exitCode) {
+        done();
+        process.exit(exitCode);
+    }).start();
 });
 
 gulp.task('default', ['watch', 'build']);
