@@ -54,7 +54,7 @@
     "heroku-prebuild": "echo heroku prebuild:",
     "heroku-postbuild": "echo heroku postbuild:",
     "build": "babel src -d build",
-    "postinstall": "gulp build",
+    "postinstall": "gulp build && gulp sass",
     "start": "http-server"
   },
   "author": "stone.bastian@gmail.com",
