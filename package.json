@@ -2,6 +2,9 @@
   "name": "sudoku-js",
   "version": "1.0.0",
   "description": "some description",
+  "engines": {
+    "node": "6.2.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/wombat9000/sudoku-js"
@@ -47,7 +50,10 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
+    "heroku-prebuild": "echo heroku prebuild:",
+    "heroku-postbuild": "echo heroku postbuild:",
     "build": "babel src -d build",
+    "postinstall": "gulp build",
     "start": "http-server"
   },
   "author": "stone.bastian@gmail.com",
