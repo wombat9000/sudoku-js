@@ -1,10 +1,14 @@
 'use strict';
 
-const gridBuilder =  require('../../src/builder/GridBuilder.es6');
+import {GridBuilder} from '../../src/builder/GridBuilder.es6';
+
+// const gridBuilder = require('../../src/builder/GridBuilder.es6');
 
 describe('GridBuilder', function () {
 
-    const testee = gridBuilder();
+    const someCallback = () => {};
+
+    const testee = new GridBuilder(someCallback);
 
     it('should initialise a grid with 9 rows', function () {
         const grid = testee.createGrid();

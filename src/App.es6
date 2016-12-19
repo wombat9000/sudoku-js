@@ -1,5 +1,7 @@
 'use strict';
 
+import {GridBuilder} from './builder/GridBuilder.es6';
+
 class App {
 
     initialise() {
@@ -22,9 +24,7 @@ class App {
             grid.deselectAllCells();
         };
 
-        const gridBuilderModule =  require('./builder/GridBuilder.es6');
-
-        const gridBuilder = gridBuilderModule(showPad);
+        const gridBuilder = new GridBuilder(showPad);
         const grid = gridBuilder.createGrid();
 
         const wrapper = document.getElementsByClassName('wrapper')[0];
