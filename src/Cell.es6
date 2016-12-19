@@ -10,12 +10,12 @@ class Cell {
     };
 
     deselect() {
-        this.dom.classList.remove('active');
+        this.setInactive();
     };
 
     createClickHandler(showPadCallback) {
         return (evt) => {
-            this.dom.classList.add('active');
+            this.setActive();
             showPadCallback(evt, this);
         };
     }
@@ -36,9 +36,6 @@ class Cell {
         }
     };
 
-    //TODO: 16.12.2016 move this into the row/col classes
-    // have row/col decide whether it is the border of a box,
-    // then, have it set its member cells css
     isBoxDelimiter(colOrRowNumber) {
         return colOrRowNumber == 3 || colOrRowNumber == 6;
     };
@@ -54,6 +51,14 @@ class Cell {
     addRightBorderCSS() {
         this.dom.classList.add('bold-right-border');
     };
+
+    setActive() {
+        this.dom.classList.add('active');
+    }
+
+    setInactive() {
+        this.dom.classList.remove('active');
+    }
 
     getHtml() {
        return this.dom;
