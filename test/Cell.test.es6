@@ -5,9 +5,7 @@ import {Cell} from '../src/Cell.es6';
 describe('Cell', function () {
 
     let testee;
-
     let cellDomStub;
-
     let someEventHandler;
 
     beforeEach(() => {
@@ -87,7 +85,12 @@ describe('Cell', function () {
         expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-right-border');
     });
 
-    it('registers the eventlistener on the dom object', function() {
-       expect(cellDomStub.addEventListener).to.have.been.calledWith('click', someEventHandler);
+    it('registers the eventhandler on the dom object', function() {
+        const someClickHandler = () => {};
+        testee.createClickHandler = sinon.stub().returns(someClickHandler);
+
+        testee.constructor(cellDomStub, someEventHandler);
+
+        expect(cellDomStub.addEventListener).to.have.been.calledWith('click', someClickHandler, false);
     });
 });
