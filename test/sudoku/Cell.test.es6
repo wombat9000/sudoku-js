@@ -1,6 +1,6 @@
 'use strict';
 
-import {Cell} from '../src/Cell.es6';
+import {Cell} from '../../src/sudoku/Cell.es6';
 
 describe('Cell', function () {
 

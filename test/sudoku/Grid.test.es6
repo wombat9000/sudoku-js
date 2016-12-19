@@ -1,7 +1,7 @@
 'use strict';
 
-import {Row} from '../src/Row.es6';
-import {Grid} from '../src/Grid.es6';
+import {Row} from '../../src/sudoku/Row.es6';
+import {Grid} from '../../src/sudoku/Grid.es6';
 
 describe('Grid', function () {
 

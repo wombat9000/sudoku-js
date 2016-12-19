@@ -1,7 +1,7 @@
 'use strict';
 
-import {Cell} from '../src/Cell.es6';
-import {Row} from '../src/Row.es6';
+import {Cell} from '../../src/sudoku/Cell.es6';
+import {Row} from '../../src/sudoku/Row.es6';
 
 describe('Row', function() {
     describe('- instantiation', function() {

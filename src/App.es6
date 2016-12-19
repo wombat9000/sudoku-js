@@ -31,6 +31,7 @@ class App {
         wrapper.appendChild(grid.getHtml());
         wrapper.addEventListener('click', hidePad, false);
     };
+
 }
 
 export {App};

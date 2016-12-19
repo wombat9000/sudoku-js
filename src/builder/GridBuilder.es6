@@ -1,8 +1,8 @@
 'use strict';
 
-import {Grid} from '../../src/Grid.es6';
-import {Row} from '../../src/Row.es6';
-import {Cell} from '../../src/Cell.es6';
+import {Grid} from '../sudoku/Grid.es6';
+import {Row} from '../sudoku/Row.es6';
+import {Cell} from '../sudoku/Cell.es6';
 
 
 module.exports = (showPad) => {
