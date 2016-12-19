@@ -18,7 +18,7 @@ class Cell {
             this.setActive();
             showPadCallback(evt, this);
         };
-    }
+    };
 
     setRowNumber(rowNumber) {
         this.dom.classList.add('row'+rowNumber);
@@ -54,11 +54,11 @@ class Cell {
 
     setActive() {
         this.dom.classList.add('active');
-    }
+    };
 
     setInactive() {
         this.dom.classList.remove('active');
-    }
+    };
 
     getHtml() {
        return this.dom;

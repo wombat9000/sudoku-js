@@ -2,8 +2,6 @@
 
 import {GridBuilder} from '../../src/builder/GridBuilder.es6';
 
-// const gridBuilder = require('../../src/builder/GridBuilder.es6');
-
 describe('GridBuilder', function () {
 
     const someCallback = () => {};

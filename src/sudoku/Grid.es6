@@ -22,7 +22,7 @@ class Grid {
         this.rows.map(function (row) {
             row.deselectAllCells();
         });
-    }
+    };
 
     getRows() {
         return this.rows;
