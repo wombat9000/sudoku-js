@@ -6,10 +6,6 @@ import {Cell} from '../sudoku/Cell.es6';
 
 class GridBuilder {
 
-    constructor(showPadCallback) {
-        this.showPadCallback = showPadCallback;
-    };
-
     createGrid() {
         const gridDom = document.createElement('div');
         const rows = this.createRows();
@@ -32,7 +28,7 @@ class GridBuilder {
 
         for (let i = 0; i < 9; i++) {
             let cellDom = document.createElement('div');
-            let cell = new Cell(cellDom, this.showPadCallback);
+            let cell = new Cell(cellDom);
             cell.setValue("0");
             cells[i] = cell;
         }

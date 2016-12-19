@@ -2,10 +2,8 @@
 
 class Cell {
 
-    constructor(dom, showPadCallback) {
+    constructor(dom) {
         dom.classList.add('cell');
-        const clickHandler = this.createClickHandler(showPadCallback);
-        dom.addEventListener('click', clickHandler, false);
         this.dom = dom;
     };
 
@@ -13,10 +11,15 @@ class Cell {
         this.setInactive();
     };
 
+    registerSelectionHandler(handler) {
+        const clickHandler = this.createClickHandler(handler);
+        this.dom.addEventListener('click', clickHandler, false);
+    };
+
     createClickHandler(showPadCallback) {
-        return (evt) => {
+        return (event) => {
             this.setActive();
-            showPadCallback(evt, this);
+            showPadCallback(event, this);
         };
     };
 

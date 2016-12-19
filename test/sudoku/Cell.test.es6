@@ -19,7 +19,7 @@ describe('Cell', function () {
 
         someEventHandler = () => {};
 
-        testee = new Cell(cellDomStub, someEventHandler);
+        testee = new Cell(cellDomStub);
     });
 
     it('updates classlist with cell', function () {
@@ -89,7 +89,7 @@ describe('Cell', function () {
         const someClickHandler = () => {};
         testee.createClickHandler = sinon.stub().returns(someClickHandler);
 
-        testee.constructor(cellDomStub, someEventHandler);
+        testee.registerSelectionHandler(someEventHandler);
 
         expect(cellDomStub.addEventListener).to.have.been.calledWith('click', someClickHandler, false);
     });

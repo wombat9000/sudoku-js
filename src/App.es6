@@ -4,6 +4,10 @@ import {GridBuilder} from './builder/GridBuilder.es6';
 
 class App {
 
+    constructor(appDom) {
+        this.dom = appDom;
+    }
+
     initialise() {
         const showPad = (event) => {
             const cursorX = event.clientX + 'px';
@@ -24,14 +28,14 @@ class App {
             grid.deselectAllCells();
         };
 
-        const gridBuilder = new GridBuilder(showPad);
+        const gridBuilder = new GridBuilder();
         const grid = gridBuilder.createGrid();
 
-        const wrapper = document.getElementsByClassName('wrapper')[0];
-        wrapper.appendChild(grid.getHtml());
-        wrapper.addEventListener('click', hidePad, false);
-    };
+        grid.registerCellSelectionHandler(showPad);
 
+        this.dom.appendChild(grid.getHtml());
+        this.dom.addEventListener('click', hidePad, false);
+    };
 }
 
 export {App};

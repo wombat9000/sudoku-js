@@ -49,7 +49,25 @@ describe('Row', function() {
         expect(actualHtml.outerHTML).to.equal(expectedHtml);
     });
 
-    const createCellMock = (rowNumber, colNumber) => {
+    it('should register eventhandler with every cell', function() {
+        const rowDom = document.createElement('div');
+        const rowNumber = 1;
+        const colNumber = 0;
+
+        const someHandler = () => {};
+
+        const someCellMock = createCellMock(rowNumber, colNumber);
+        const cellArray = [someCellMock];
+
+        const testee = new Row(rowNumber, rowDom, cellArray);
+
+        testee.registerCellSelectionHandler(someHandler);
+
+        expect(someCellMock.registerSelectionHandler).to.have.been.calledWith(someHandler);
+    });
+
+
+        const createCellMock = (rowNumber, colNumber) => {
         let cellMock = sinon.createStubInstance(Cell);
 
         cellMock.getHtml = sinon.spy(function () {

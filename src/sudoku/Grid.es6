@@ -18,6 +18,13 @@ class Grid {
         this.dom = gridDom;
     };
 
+    registerCellSelectionHandler(handler) {
+        //TODO: write this method, currently in gridBuilder
+        this.rows.map(row => {
+            row.registerCellSelectionHandler(handler);
+        });
+    };
+
     deselectAllCells() {
         this.rows.map(function (row) {
             row.deselectAllCells();

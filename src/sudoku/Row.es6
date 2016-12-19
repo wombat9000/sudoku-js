@@ -25,6 +25,12 @@ class Row {
         return this.rowDom;
     };
 
+    registerCellSelectionHandler(handler) {
+        this.cells.map(cell => {
+            cell.registerSelectionHandler(handler);
+        });
+    };
+
     deselectAllCells() {
         this.cells.map(function(cell) {
             cell.deselect();
