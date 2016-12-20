@@ -29,9 +29,30 @@ describe('App', function () {
     });
 
     describe('initialisation', function () {
+        it('should build a new grid', function () {
+           testee.initialise();
+
+           expect(gridBuilderStub.createGrid).to.have.been.called;
+        });
+
         it('should register cell click handler on grid', function() {
             testee.initialise();
+
             expect(gridStub.registerCellSelectionHandler).to.have.been.called;
+        });
+
+        it('should append gridDom to appDom', function() {
+            testee.initialise();
+
+            const gridHtml = gridStub.getHtml();
+
+            expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
+        });
+
+        it('should register the deselection handler on the appdom', function() {
+           testee.initialise();
+
+           expect(appDomStub.addEventListener).to.have.been.called;
         });
     });
 });
