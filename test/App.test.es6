@@ -12,7 +12,8 @@ describe('App', function () {
 
     beforeEach(() => {
         gridStub = {
-            getHtml: sinon.stub()
+            getHtml: sinon.spy(),
+            registerCellSelectionHandler: sinon.spy()
         };
 
         appDomStub = {
@@ -28,13 +29,9 @@ describe('App', function () {
     });
 
     describe('initialisation', function () {
-        it('should register cell click handler', function() {
-            let mock = sinon.mock(testee);
-            mock.expects('registerCellSelectionHandler').once();
-
+        it('should register cell click handler on grid', function() {
             testee.initialise();
-
-            mock.verify();
+            expect(gridStub.registerCellSelectionHandler).to.have.been.called;
         });
     });
 });

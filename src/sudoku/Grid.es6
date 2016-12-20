@@ -19,7 +19,6 @@ class Grid {
     };
 
     registerCellSelectionHandler(handler) {
-        //TODO: write this method, currently in gridBuilder
         this.rows.map(row => {
             row.registerCellSelectionHandler(handler);
         });
