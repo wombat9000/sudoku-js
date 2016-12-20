@@ -12,9 +12,9 @@ describe('Cell', function () {
 
         cellDomStub = {
             classList: {
-                add: sinon.stub()
+                add: sinon.spy()
             },
-            addEventListener: sinon.stub()
+            addEventListener: sinon.spy()
         };
 
         someEventHandler = () => {};

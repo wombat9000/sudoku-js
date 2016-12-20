@@ -2,24 +2,39 @@
 
 import {App} from '../src/App.es6';
 
+
 describe('App', function () {
 
     let testee;
     let appDomStub;
+    let gridBuilderStub;
+    let gridStub;
 
     beforeEach(() => {
-        appDomStub = {
-            appendChild: sinon.stub(),
-            addEventListener: sinon.stub()
+        gridStub = {
+            getHtml: sinon.stub()
         };
 
-        testee = new App(appDomStub);
+        appDomStub = {
+            appendChild: sinon.spy(),
+            addEventListener: sinon.spy()
+        };
+
+        gridBuilderStub = {
+            createGrid: sinon.stub().returns(gridStub)
+        };
+
+        testee = new App(appDomStub, gridBuilderStub);
     });
 
     describe('initialisation', function () {
         it('should register cell click handler', function() {
+            let mock = sinon.mock(testee);
+            mock.expects('registerCellSelectionHandler').once();
 
             testee.initialise();
+
+            mock.verify();
         });
     });
 });

@@ -1,10 +1,9 @@
 'use strict';
 
-import {GridBuilder} from './builder/GridBuilder.es6';
-
 class App {
 
-    constructor(appDom) {
+    constructor(appDom, gridBuilder) {
+        this.gridBuilder = gridBuilder;
         this.dom = appDom;
     }
 
@@ -28,14 +27,17 @@ class App {
             grid.deselectAllCells();
         };
 
-        const gridBuilder = new GridBuilder();
-        const grid = gridBuilder.createGrid();
+        const grid = this.gridBuilder.createGrid();
 
-        grid.registerCellSelectionHandler(showPad);
+        this.registerCellSelectionHandler(showPad, grid);
 
         this.dom.appendChild(grid.getHtml());
         this.dom.addEventListener('click', hidePad, false);
     };
+
+    registerCellSelectionHandler(handler, grid) {
+        grid.registerCellSelectionHandler(handler);
+    }
 }
 
 export {App};
