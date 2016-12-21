@@ -14,7 +14,7 @@ class App {
         const spawnPadCb = this.selectorPadService.getSpawnPadCb();
 
         const destroySelectionPad = () => {
-            console.log('EVENT: destroy pad');
+            // console.log('EVENT: destroy pad');
 
             const selectorPad = document.getElementById(SELECTOR_ID);
 

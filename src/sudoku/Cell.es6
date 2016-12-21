@@ -7,19 +7,15 @@ class Cell {
         this.dom = dom;
     };
 
-    deselect() {
-        this.setInactive();
-    };
-
-    registerSelectionHandler(handler) {
-        const clickHandler = this.createClickHandler(handler);
+    registerSelectionHandler(createPadCallback) {
+        const clickHandler = this.createClickHandler(createPadCallback);
         this.dom.addEventListener('click', clickHandler, false);
     };
 
-    createClickHandler(showPadCallback) {
+    createClickHandler(createPadCallback) {
         return (event) => {
             this.setActive();
-            showPadCallback(event, this);
+            const selectorPad = createPadCallback(event, this);
         };
     };
 
@@ -53,6 +49,10 @@ class Cell {
 
     addRightBorderCSS() {
         this.dom.classList.add('bold-right-border');
+    };
+
+    deselect() {
+        this.setInactive();
     };
 
     setActive() {

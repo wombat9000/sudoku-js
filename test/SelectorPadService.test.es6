@@ -36,22 +36,15 @@ describe('SelectorPadService', function () {
             callBack = testee.getSpawnPadCb();
         });
 
-        it('should build new selection pad', function() {
-            const mock = sinon.mock(testee);
-            mock.expects('createNewPadFor')
-                .withArgs(cellStub)
-                .once();
+        it('should return new selection pad', function() {
+            const selector = callBack(eventStub, cellStub);
 
-            callBack(eventStub, cellStub);
-
-            mock.verify();
+            expect(selector.getCell()).to.equal(cellStub);
         });
 
         it('should stop event propagation', function() {
             callBack(eventStub, cellStub);
             expect(eventStub.stopPropagation).to.have.been.called;
         });
-
     });
-
 });

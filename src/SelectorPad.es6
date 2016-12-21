@@ -1,6 +1,5 @@
 'use strict';
 
-
 class SelectorPad {
 
     constructor(selectorPadRepresentation, targetCell) {

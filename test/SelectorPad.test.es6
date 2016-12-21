@@ -2,7 +2,6 @@
 
 import {SelectorPad} from '../src/SelectorPad.es6';
 
-
 describe('SelectorPad', function () {
 
     let testee;
