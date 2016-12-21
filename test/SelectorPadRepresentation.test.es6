@@ -52,5 +52,14 @@ describe('SelectorPadRepresentation', function () {
             expect(dom.style.left).to.equal(rectStub.left + 20 + 'px');
             expect(dom.style.top).to.equal(rectStub.top + 40 + 'px');
         });
+
+        it('should fade in', function() {
+            const dom = testee.getDom();
+            expect(dom.classList.contains('fade')).to.equal(false);
+
+            testee.bindToCell(cellStub);
+            expect(dom.classList.contains('fade')).to.equal(true);
+
+        })
     });
 });

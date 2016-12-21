@@ -18,6 +18,8 @@ class SelectorPadRepresentation {
         this.dom.style.top = rect.top + TOP_OFFSET + 'px';
 
         cellDom.appendChild(this.dom);
+
+        this.dom.classList.add('fade');
     };
 
     getDom() {
