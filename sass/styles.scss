@@ -59,6 +59,14 @@ body {
   position:absolute;
   display: flex;
   flex-direction: column;
+  height: 50px;
+  width: 50px;
+  opacity: 0;
+  //-webkit-transition: opacity 1.1s ease-in-out;
+  //-moz-transition: opacity 1.1s ease-in-out;
+  //-ms-transition: opacity 1.1s ease-in-out;
+  //-o-transition: opacity 1.1s ease-in-out;
+  //transition: opacity 1.1s ease-in-out;
 
   .selector_row {
     display: flex;
@@ -76,8 +84,18 @@ body {
   .cell:hover {
       font-size: 16px;
   }
+
+  &.fade {
+    -webkit-animation: fade 0.2s;
+    animation: fade 0.2s;
+    opacity: 1;
+  }
 }
 
-#selector_pad.hidden {
-  display: none;
-}
+@-webkit-keyframes fade {
+  from {opacity: 0}
+  to {opacity: 1}
+}@keyframes fade {
+   from {opacity: 0}
+   to {opacity: 1}
+ }

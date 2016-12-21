@@ -2,37 +2,36 @@
 
 class App {
 
-    constructor(appDom, gridBuilder) {
-        this.gridBuilder = gridBuilder;
+    constructor(appDom, gridBuilder, selectorPadBuilder) {
         this.dom = appDom;
+        this.gridBuilder = gridBuilder;
+        this.selectorPadBuilder = selectorPadBuilder;
     }
 
     initialise() {
-        const showPad = (event) => {
-            const cursorX = event.clientX + 'px';
-            const cursorY = event.clientY + 'px';
+        const spawnPad = (event, cell) => {
 
-            const selectorPad = document.getElementById('selector_pad');
+            this.selectorPadBuilder.buildNewPad(cell);
 
-            selectorPad.style.left = cursorX;
-            selectorPad.style.top = cursorY;
-
-            selectorPad.classList.remove('hidden');
             event.stopPropagation();
         };
 
-        const hidePad = () => {
+        const destroySelectionPad = () => {
             const selectorPad = document.getElementById('selector_pad');
-            selectorPad.classList.add('hidden');
+
+            if (selectorPad) {
+                selectorPad.parentNode.removeChild(selectorPad);
+            }
+
             grid.deselectAllCells();
         };
 
         const grid = this.gridBuilder.createGrid();
 
-        this.registerCellSelectionHandler(showPad, grid);
+        this.registerCellSelectionHandler(spawnPad, grid);
 
         this.dom.appendChild(grid.getHtml());
-        this.dom.addEventListener('click', hidePad, false);
+        this.dom.addEventListener('click', destroySelectionPad, true);
     };
 
     registerCellSelectionHandler(handler, grid) {
