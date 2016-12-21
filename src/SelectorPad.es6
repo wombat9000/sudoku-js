@@ -3,7 +3,12 @@
 
 class SelectorPad {
 
-    constructor(selectorPadRepresentation) {
+    constructor(selectorPadRepresentation, targetCell) {
+        this.cell = targetCell;
+    }
+
+    getCell() {
+        return this.cell;
     }
 }
 

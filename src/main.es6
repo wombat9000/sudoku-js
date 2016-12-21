@@ -2,7 +2,7 @@
 
 import {App} from '../src/App.es6';
 import {GridBuilder} from './builder/GridBuilder.es6';
-import {SelectorPadService} from './builder/SelectorPadService.es6';
+import {SelectorPadService} from './SelectorPadService.es6';
 
 
 const appDom = document.getElementById('app');
