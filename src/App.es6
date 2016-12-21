@@ -1,5 +1,7 @@
 'use strict';
 
+const SELECTOR_ID = 'selector_pad';
+
 class App {
 
     constructor(appDom, gridBuilder, selectorPadBuilder) {
@@ -17,7 +19,7 @@ class App {
         };
 
         const destroySelectionPad = () => {
-            const selectorPad = document.getElementById('selector_pad');
+            const selectorPad = document.getElementById(SELECTOR_ID);
 
             if (selectorPad) {
                 selectorPad.parentNode.removeChild(selectorPad);
