@@ -46,7 +46,7 @@ describe('SelectorPad', function () {
         it('should set same position as cell', function() {
             const dom = testee.getDom();
 
-            expect(dom.style.left).to.equal(rectStub.left + 20 +'px');
+            expect(dom.style.left).to.equal(rectStub.left + 20 + 'px');
             expect(dom.style.top).to.equal(rectStub.top + 40 + 'px');
         });
     });
