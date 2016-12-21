@@ -22,7 +22,7 @@ describe('SelectorPadRepresentation', function () {
         };
 
         cellStub = {
-            getHtml: sinon.stub().returns(cellDomStub)
+            getDom: sinon.stub().returns(cellDomStub)
         };
 
         testee = new SelectorPadRepresentation();

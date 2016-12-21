@@ -50,7 +50,7 @@ describe('Cell', function () {
         testee.setValue(someValue);
         const expectedHtml = '<div class="cell row' + someRowNumber + ' col' + someColumnNumber + '">' + someValue + '</div>';
 
-        const actualHtml = testee.getHtml();
+        const actualHtml = testee.getDom();
 
         expect(actualHtml.outerHTML).to.equal(expectedHtml);
     });

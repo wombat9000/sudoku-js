@@ -33,7 +33,7 @@ describe('GridBuilder', function () {
         const secondRowCell = rows[1].getCells()[0];
 
 
-        expect(firstRowCell.getHtml().classList.contains('row1')).to.equal(true);
-        expect(secondRowCell.getHtml().classList.contains('row2')).to.equal(true);
+        expect(firstRowCell.getDom().classList.contains('row1')).to.equal(true);
+        expect(secondRowCell.getDom().classList.contains('row2')).to.equal(true);
     });
 });

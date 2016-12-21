@@ -44,7 +44,7 @@ describe('Row', function() {
 
         const testee = new Row(rowNumber, rowDom, cellArray);
 
-        const actualHtml = testee.getHtml();
+        const actualHtml = testee.getDom();
 
         expect(actualHtml.outerHTML).to.equal(expectedHtml);
     });
@@ -70,7 +70,7 @@ describe('Row', function() {
         const createCellMock = (rowNumber, colNumber) => {
         let cellMock = sinon.createStubInstance(Cell);
 
-        cellMock.getHtml = sinon.spy(function () {
+        cellMock.getDom = sinon.spy(function () {
             let cellDom = document.createElement('div');
             cellDom.classList.add('row' + rowNumber);
             cellDom.classList.add('col' + colNumber);

@@ -12,7 +12,7 @@ class SelectorPadRepresentation {
     };
 
     bindToCell(cell) {
-        const cellDom = cell.getHtml();
+        const cellDom = cell.getDom();
         const rect = cellDom.getBoundingClientRect();
         this.dom.style.left = rect.left + LEFT_OFFSET + 'px';
         this.dom.style.top = rect.top + TOP_OFFSET + 'px';

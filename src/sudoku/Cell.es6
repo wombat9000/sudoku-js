@@ -63,7 +63,7 @@ class Cell {
         this.dom.classList.remove('active');
     };
 
-    getHtml() {
+    getDom() {
        return this.dom;
     };
 }

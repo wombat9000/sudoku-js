@@ -12,7 +12,7 @@ describe('App', function () {
 
     beforeEach(() => {
         gridStub = {
-            getHtml: sinon.spy(),
+            getDom: sinon.spy(),
             registerCellSelectionHandler: sinon.spy()
         };
 
@@ -44,7 +44,7 @@ describe('App', function () {
         it('should append gridDom to appDom', function() {
             testee.initialise();
 
-            const gridHtml = gridStub.getHtml();
+            const gridHtml = gridStub.getDom();
 
             expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
         });

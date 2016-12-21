@@ -11,14 +11,14 @@ describe('Grid', function () {
         const gridDom = document.createElement('div');
 
         let rowMock = sinon.createStubInstance(Row);
-        rowMock.getHtml = sinon.spy(function () {
+        rowMock.getDom = sinon.spy(function () {
             return document.createElement('div');
         });
 
         const expectedHtml = '<div class="grid"><div></div></div>';
 
         testee = new Grid(gridDom, [rowMock]);
-        const actualHtml = testee.getHtml();
+        const actualHtml = testee.getDom();
 
         expect(actualHtml.outerHTML).to.equal(expectedHtml);
     });
@@ -27,12 +27,12 @@ describe('Grid', function () {
         const gridDom = document.createElement('div');
 
         let someRow = sinon.createStubInstance(Row);
-        someRow.getHtml = sinon.spy(function () {
+        someRow.getDom = sinon.spy(function () {
             return document.createElement('div');
         });
 
         let anotherRow = sinon.createStubInstance(Row);
-        anotherRow.getHtml = sinon.spy(function () {
+        anotherRow.getDom = sinon.spy(function () {
             return document.createElement('div');
         });
 

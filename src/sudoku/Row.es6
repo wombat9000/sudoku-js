@@ -9,7 +9,7 @@ class Row {
         cells.map(cell => {
             cell.setRowNumber(rowNumber);
             cell.setColumnNumber(colIndex);
-            rowDom.appendChild(cell.getHtml());
+            rowDom.appendChild(cell.getDom());
             colIndex++;
         });
 
@@ -21,7 +21,7 @@ class Row {
         return this.cells;
     };
 
-    getHtml() {
+    getDom() {
         return this.rowDom;
     };
 

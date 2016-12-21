@@ -32,7 +32,7 @@ class App {
 
         this.registerCellSelectionHandler(spawnPad, grid);
 
-        this.dom.appendChild(grid.getHtml());
+        this.dom.appendChild(grid.getDom());
         this.dom.addEventListener('click', destroySelectionPad, true);
     };
 

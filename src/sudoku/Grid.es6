@@ -6,7 +6,7 @@ class Grid {
         gridDom.classList.add('grid');
 
         rows.map(row => {
-            gridDom.appendChild(row.getHtml());
+            gridDom.appendChild(row.getDom());
         });
         this.rows = rows;
 
@@ -34,7 +34,7 @@ class Grid {
         return this.rows;
     };
 
-    getHtml() {
+    getDom() {
         return this.dom;
     };
 }
