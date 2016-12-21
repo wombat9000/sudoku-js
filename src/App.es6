@@ -4,21 +4,18 @@ const SELECTOR_ID = 'selector_pad';
 
 class App {
 
-    constructor(appDom, gridBuilder, selectorPadBuilder) {
+    constructor(appDom, gridBuilder, selectorPadService) {
         this.dom = appDom;
         this.gridBuilder = gridBuilder;
-        this.selectorPadBuilder = selectorPadBuilder;
+        this.selectorPadService = selectorPadService;
     }
 
     initialise() {
-        const spawnPad = (event, cell) => {
-
-            this.selectorPadBuilder.buildNewPad(cell);
-
-            event.stopPropagation();
-        };
+        const spawnPadCb = this.selectorPadService.getSpawnPadCb();
 
         const destroySelectionPad = () => {
+            console.log('EVENT: destroy pad');
+
             const selectorPad = document.getElementById(SELECTOR_ID);
 
             if (selectorPad) {
@@ -30,15 +27,11 @@ class App {
 
         const grid = this.gridBuilder.createGrid();
 
-        this.registerCellSelectionHandler(spawnPad, grid);
+        grid.registerCellSelectionHandler(spawnPadCb);
 
         this.dom.appendChild(grid.getDom());
         this.dom.addEventListener('click', destroySelectionPad, true);
     };
-
-    registerCellSelectionHandler(handler, grid) {
-        grid.registerCellSelectionHandler(handler);
-    }
 }
 
 export {App};

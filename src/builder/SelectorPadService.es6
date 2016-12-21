@@ -5,15 +5,22 @@ import {SelectorPadRepresentation} from '../SelectorPadRepresentation.es6';
 
 
 
-class SelectorPadBuilder {
+class SelectorPadService {
+
+    getSpawnPadCb() {
+        return (event, cell) => {
+            console.log('EVENT: spawn new pad');
+            this.buildNewPad(cell);
+            event.stopPropagation();
+        };
+    };
 
     buildNewPad(cell) {
-
         const representation = new SelectorPadRepresentation();
         representation.bindToCell(cell);
 
         return new SelectorPad(representation);
-    }
+    };
 }
 
-export {SelectorPadBuilder};
+export {SelectorPadService};

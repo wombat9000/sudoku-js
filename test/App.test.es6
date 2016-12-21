@@ -8,6 +8,7 @@ describe('App', function () {
     let testee;
     let appDomStub;
     let gridBuilderStub;
+    let selectorServiceStub;
     let gridStub;
 
     beforeEach(() => {
@@ -25,7 +26,11 @@ describe('App', function () {
             createGrid: sinon.stub().returns(gridStub)
         };
 
-        testee = new App(appDomStub, gridBuilderStub);
+        selectorServiceStub = {
+            getSpawnPadCb: sinon.stub()
+        };
+
+        testee = new App(appDomStub, gridBuilderStub, selectorServiceStub);
     });
 
     describe('initialisation', function () {

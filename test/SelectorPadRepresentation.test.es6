@@ -59,7 +59,6 @@ describe('SelectorPadRepresentation', function () {
 
             testee.bindToCell(cellStub);
             expect(dom.classList.contains('fade')).to.equal(true);
-
-        })
+        });
     });
 });
