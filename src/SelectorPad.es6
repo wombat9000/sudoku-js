@@ -6,13 +6,13 @@ const TOP_OFFSET = 40;
 
 class SelectorPad {
 
-    constructor(cell) {
+    constructor(parentCell) {
         const alreadyExists = document.getElementById(SELECTOR_ID);
         if (alreadyExists) {
             throw 'error';
         }
 
-        const cellDom = cell.getHtml();
+        const cellDom = parentCell.getHtml();
         const dom = document.createElement('div');
         dom.id = SELECTOR_ID;
         const rect = cellDom.getBoundingClientRect();
