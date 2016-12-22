@@ -113,7 +113,7 @@ describe('Cell', function () {
             const cellDom = testee.getDom();
             const children = cellDom.children;
             expect(children).to.have.length(1);
-            expect(children[0].id).to.equal('selector_pad');
+            expect(children[0].classList.contains('selector_pad')).to.equal(true);
         });
     });
 });

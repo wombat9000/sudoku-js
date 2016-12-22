@@ -1,6 +1,6 @@
 'use strict';
 
-const SELECTOR_ID = 'selector_pad';
+const SELECTOR_CLASS = 'selector_pad';
 const LEFT_OFFSET = 20;
 const TOP_OFFSET = 40;
 
@@ -8,7 +8,7 @@ class SelectorPadRepresentation {
 
     constructor(cellDom) {
         this.dom = document.createElement('div');
-        this.dom.classList.add('selector_pad');
+        this.dom.classList.add(SELECTOR_CLASS);
         this.bindToCell(cellDom);
     };
 

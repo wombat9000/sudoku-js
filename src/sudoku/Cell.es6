@@ -1,5 +1,8 @@
 'use strict';
 
+import {SelectorPadRepresentation} from '../../src/SelectorPadRepresentation.es6';
+
+
 class Cell {
 
     constructor(dom) {
@@ -68,10 +71,11 @@ class Cell {
     };
 
     spawnSelector() {
-        const selector = document.createElement('div');
-        selector.id = 'selector_pad';
+        const selector = new SelectorPadRepresentation(this.dom);
 
-        this.dom.appendChild(selector);
+
+
+        // this.dom.appendChild(selector);
     }
 }
 
