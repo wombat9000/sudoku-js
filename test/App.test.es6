@@ -40,12 +40,6 @@ describe('App', function () {
            expect(gridBuilderStub.createGrid).to.have.been.called;
         });
 
-        it('should register cell click handler on grid', function() {
-            testee.initialise();
-
-            expect(gridStub.registerCellSelectionHandler).to.have.been.called;
-        });
-
         it('should append gridDom to appDom', function() {
             testee.initialise();
 

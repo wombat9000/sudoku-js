@@ -6,13 +6,13 @@ const TOP_OFFSET = 40;
 
 class SelectorPadRepresentation {
 
-    constructor() {
+    constructor(cellDom) {
         this.dom = document.createElement('div');
-        this.dom.id = SELECTOR_ID;
+        this.dom.classList.add('selector_pad');
+        this.bindToCell(cellDom);
     };
 
-    bindToCell(cell) {
-        const cellDom = cell.getDom();
+    bindToCell(cellDom) {
         const rect = cellDom.getBoundingClientRect();
         this.dom.style.left = rect.left + LEFT_OFFSET + 'px';
         this.dom.style.top = rect.top + TOP_OFFSET + 'px';

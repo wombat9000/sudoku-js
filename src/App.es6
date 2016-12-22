@@ -4,15 +4,12 @@ const SELECTOR_ID = 'selector_pad';
 
 class App {
 
-    constructor(appDom, gridBuilder, selectorPadService) {
+    constructor(appDom, gridBuilder) {
         this.dom = appDom;
         this.gridBuilder = gridBuilder;
-        this.selectorPadService = selectorPadService;
     }
 
     initialise() {
-        const spawnPadCb = this.selectorPadService.getSpawnPadCb();
-
         const destroySelectionPad = () => {
             // console.log('EVENT: destroy pad');
 
@@ -26,8 +23,6 @@ class App {
         };
 
         const grid = this.gridBuilder.createGrid();
-
-        grid.registerCellSelectionHandler(spawnPadCb);
 
         this.dom.appendChild(grid.getDom());
         this.dom.addEventListener('click', destroySelectionPad, true);

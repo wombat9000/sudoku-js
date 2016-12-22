@@ -69,6 +69,7 @@ class Cell {
 
     spawnSelector() {
         const selector = document.createElement('div');
+        selector.id = 'selector_pad';
 
         this.dom.appendChild(selector);
     }

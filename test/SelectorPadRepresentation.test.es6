@@ -25,28 +25,26 @@ describe('SelectorPadRepresentation', function () {
             getDom: sinon.stub().returns(cellDomStub)
         };
 
-        testee = new SelectorPadRepresentation();
+        testee = new SelectorPadRepresentation(cellDomStub);
     });
 
     describe('- instantiation', function () {
-        it('should create a new dom object with id selector pad', function() {
+        it('should create a new dom object with class selector pad', function() {
             const dom = testee.getDom();
 
-            expect(dom.id).to.equal('selector_pad');
+            console.log(dom.classList);
+            expect(dom.classList.contains('selector_pad')).to.equal(true);
         });
     });
 
     describe('- binding to cell', function() {
         it('should bind to a cell', function() {
-            testee.bindToCell(cellStub);
             const selectorDom = testee.getDom();
 
             expect(cellDomStub.appendChild).to.have.been.calledWith(selectorDom);
         });
 
         it('should be positioned relative to the cell', function() {
-            testee.bindToCell(cellStub);
-
             const dom = testee.getDom();
 
             expect(dom.style.left).to.equal(rectStub.left + 20 + 'px');
@@ -55,9 +53,6 @@ describe('SelectorPadRepresentation', function () {
 
         it('should fade in', function() {
             const dom = testee.getDom();
-            expect(dom.classList.contains('fade')).to.equal(false);
-
-            testee.bindToCell(cellStub);
             expect(dom.classList.contains('fade')).to.equal(true);
         });
     });

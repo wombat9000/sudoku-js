@@ -94,17 +94,17 @@ describe('Cell', function () {
         expect(cellDomStub.addEventListener).to.have.been.calledWith('click', someClickHandler, false);
     });
 
+    it('should not have a selector pad initially', function () {
+        const dom = document.createElement('div');
+        testee = new Cell(dom);
+        let cellDom = testee.getDom();
+        let children = cellDom.children;
+
+        expect(children).to.have.length(0);
+    });
+
     describe('- spawns selector pad', function() {
-        it('should not have a selector pad initially', function () {
-            const dom = document.createElement('div');
-            testee = new Cell(dom);
-            let cellDom = testee.getDom();
-            let children = cellDom.children;
-
-            expect(children).to.have.length(0);
-        });
-
-        it('should append a div to its dom', function () {
+        it('should append a div to its dom with id selector pad', function () {
             const dom = document.createElement('div');
             testee = new Cell(dom);
 
@@ -113,6 +113,7 @@ describe('Cell', function () {
             const cellDom = testee.getDom();
             const children = cellDom.children;
             expect(children).to.have.length(1);
+            expect(children[0].id).to.equal('selector_pad');
         });
     });
 });
