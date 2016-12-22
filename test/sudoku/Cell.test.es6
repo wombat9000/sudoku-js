@@ -7,14 +7,21 @@ describe('Cell', function () {
     let testee;
     let cellDomStub;
     let someEventHandler;
+    let rectStub;
 
     beforeEach(() => {
+        rectStub = {
+            left: 10,
+            top: 20
+        };
 
         cellDomStub = {
             classList: {
-                add: sinon.spy()
+                add: sinon.spy(),
+                remove: sinon.spy()
             },
-            addEventListener: sinon.spy()
+            addEventListener: sinon.spy(),
+            getBoundingClientRect: sinon.stub().returns(rectStub)
         };
 
         someEventHandler = () => {};
@@ -22,8 +29,47 @@ describe('Cell', function () {
         testee = new Cell(cellDomStub);
     });
 
-    it('updates classlist with cell', function () {
-        expect(cellDomStub.classList.add).to.have.been.calledWith('cell');
+    describe('- initialisation', function () {
+        it('should register onclick eventhandler', function () {
+            expect(cellDomStub.addEventListener).to.have.been.called;
+        });
+
+        it('should initialise as inactive', function () {
+            expect(testee.isActive()).to.equal(false);
+        });
+
+        it('updates classlist with cell', function () {
+            expect(cellDomStub.classList.add).to.have.been.calledWith('cell');
+        });
+    });
+
+    describe('- onClick', function() {
+        let clickFunction;
+        let someCellDom;
+
+        beforeEach(() => {
+            someCellDom = document.createElement('div');
+            testee = new Cell(someCellDom);
+            clickFunction = testee.clickHandler();
+        });
+
+        it('should toggle active state', function() {
+            clickFunction();
+
+            expect(testee.isActive()).to.equal(true);
+        });
+
+        xit('should spawn selection pad on activation', function() {
+
+        });
+
+        xit('should destroy selection pad on deactivation', function() {
+
+        });
+
+        xit('should toggle other cells off ... ?', function() {
+
+        });
     });
 
     it('updates classlist when setting row', function () {

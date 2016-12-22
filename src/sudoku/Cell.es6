@@ -8,18 +8,20 @@ class Cell {
     constructor(dom) {
         dom.classList.add('cell');
         this.dom = dom;
+        this.setInactive();
+        this.dom.addEventListener('click', this.clickHandler(), false);
+    };
+
+    clickHandler() {
+        return () => {
+            this.setActive();
+            this.spawnSelector();
+        }
     };
 
     registerSelectionHandler(createPadCallback) {
         const clickHandler = this.createClickHandler(createPadCallback);
         this.dom.addEventListener('click', clickHandler, false);
-    };
-
-    createClickHandler(createPadCallback) {
-        return (event) => {
-            this.setActive();
-            const selectorPad = createPadCallback(event, this);
-        };
     };
 
     setRowNumber(rowNumber) {
@@ -59,10 +61,12 @@ class Cell {
     };
 
     setActive() {
+        this.active = true;
         this.dom.classList.add('active');
     };
 
     setInactive() {
+        this.active = false;
         this.dom.classList.remove('active');
     };
 
@@ -71,11 +75,11 @@ class Cell {
     };
 
     spawnSelector() {
-        const selector = new SelectorPadRepresentation(this.dom);
+        new SelectorPadRepresentation(this.dom);
+    }
 
-
-
-        // this.dom.appendChild(selector);
+    isActive() {
+        return this.active;
     }
 }
 
