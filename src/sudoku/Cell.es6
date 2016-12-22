@@ -66,6 +66,12 @@ class Cell {
     getDom() {
        return this.dom;
     };
+
+    spawnSelector() {
+        const selector = document.createElement('div');
+
+        this.dom.appendChild(selector);
+    }
 }
 
 export {Cell};
