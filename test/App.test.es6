@@ -47,11 +47,5 @@ describe('App', function () {
 
             expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
         });
-
-        it('should register the deselection handler on the appdom', function() {
-           testee.initialise();
-
-           expect(appDomStub.addEventListener).to.have.been.called;
-        });
     });
 });

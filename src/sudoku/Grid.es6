@@ -10,24 +10,7 @@ class Grid {
         });
         this.rows = rows;
 
-        const deselectCellsHandler = () => {
-            this.deselectAllCells();
-        };
-
-        gridDom.addEventListener('click', deselectCellsHandler, true);
         this.dom = gridDom;
-    };
-
-    registerCellSelectionHandler(handler) {
-        this.rows.map(row => {
-            row.registerCellSelectionHandler(handler);
-        });
-    };
-
-    deselectAllCells() {
-        this.rows.map(function (row) {
-            row.deselectAllCells();
-        });
     };
 
     getRows() {

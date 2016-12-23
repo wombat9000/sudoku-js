@@ -14,14 +14,18 @@ class Cell {
 
     clickHandler() {
         return () => {
-            this.setActive();
-            this.spawnSelector();
+            this.toggleSelectionState();
         }
     };
 
-    registerSelectionHandler(createPadCallback) {
-        const clickHandler = this.createClickHandler(createPadCallback);
-        this.dom.addEventListener('click', clickHandler, false);
+    toggleSelectionState() {
+        if(this.isActive()) {
+            console.log('deselect');
+            this.deselect();
+        } else {
+            console.log('select');
+            this.select();
+        }
     };
 
     setRowNumber(rowNumber) {
@@ -54,6 +58,11 @@ class Cell {
 
     addRightBorderCSS() {
         this.dom.classList.add('bold-right-border');
+    };
+
+    select() {
+        this.spawnSelector();
+        this.setActive();
     };
 
     deselect() {

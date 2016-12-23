@@ -22,28 +22,4 @@ describe('Grid', function () {
 
         expect(actualHtml.outerHTML).to.equal(expectedHtml);
     });
-
-    it('should register cell selection handler with all rows', function () {
-        const gridDom = document.createElement('div');
-
-        let someRow = sinon.createStubInstance(Row);
-        someRow.getDom = sinon.spy(function () {
-            return document.createElement('div');
-        });
-
-        let anotherRow = sinon.createStubInstance(Row);
-        anotherRow.getDom = sinon.spy(function () {
-            return document.createElement('div');
-        });
-
-        testee = new Grid(gridDom, [someRow, anotherRow]);
-
-        const handler = () => {};
-
-        testee.registerCellSelectionHandler(handler);
-
-
-        expect(someRow.registerCellSelectionHandler).to.have.been.calledWith(handler);
-        expect(anotherRow.registerCellSelectionHandler).to.have.been.calledWith(handler);
-    });
 });
