@@ -20,10 +20,8 @@ class Cell {
 
     toggleSelectionState() {
         if(this.isActive()) {
-            console.log('deselect');
             this.deselect();
         } else {
-            console.log('select');
             this.select();
         }
     };
@@ -66,6 +64,7 @@ class Cell {
     };
 
     deselect() {
+        this.destroySelector();
         this.setInactive();
     };
 
@@ -84,8 +83,15 @@ class Cell {
     };
 
     spawnSelector() {
-        new SelectorPadRepresentation(this.dom);
-    }
+        this.selector = new SelectorPadRepresentation(this.dom);
+        return this.selector;
+    };
+
+    destroySelector() {
+        if(this.selector) {
+            this.selector.destroy();
+        }
+    };
 
     isActive() {
         return this.active;

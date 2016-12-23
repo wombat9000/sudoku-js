@@ -18,7 +18,8 @@ describe('SelectorPadRepresentation', function () {
 
         cellDomStub = {
             getBoundingClientRect: sinon.stub().returns(rectStub),
-            appendChild: sinon.spy()
+            appendChild: sinon.spy(),
+            removeChild: sinon.spy()
         };
 
         cellStub = {
@@ -32,7 +33,6 @@ describe('SelectorPadRepresentation', function () {
         it('should create a new dom object with class selector pad', function() {
             const dom = testee.getDom();
 
-            console.log(dom.classList);
             expect(dom.classList.contains('selector_pad')).to.equal(true);
         });
     });
@@ -55,5 +55,13 @@ describe('SelectorPadRepresentation', function () {
             const dom = testee.getDom();
             expect(dom.classList.contains('fade')).to.equal(true);
         });
+    });
+
+    it('should be destructible', function () {
+        const dom = testee.getDom();
+
+        testee.destroy();
+
+        expect(cellDomStub.removeChild).to.have.been.calledWith(dom);
     });
 });

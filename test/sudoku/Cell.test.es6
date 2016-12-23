@@ -120,13 +120,30 @@ describe('Cell', function () {
                 mock.verify();
             });
 
-            xit('should set state to active', function() {
+            it('should set state to active', function() {
+                mock.expects('setActive').once();
+
+                testee.select();
+
+                mock.verify();
             });
         });
 
         describe('- on deselection', function () {
-            xit('should destroy selection pad', function() {
+            it('should destroy selection pad', function() {
+                mock.expects('destroySelector').once();
 
+                testee.deselect();
+
+                mock.verify();
+            });
+
+            it('should set state to inactive', function() {
+                mock.expects('setInactive').once();
+
+                testee.deselect();
+
+                mock.verify();
             });
         });
     });
@@ -192,7 +209,7 @@ describe('Cell', function () {
         });
     });
 
-    describe('- spawns selector pad', function() {
+    describe('- selector pad interactions', function() {
         it('should append a div to its dom with id selector pad', function () {
             const dom = document.createElement('div');
             testee = new Cell(dom);
@@ -203,6 +220,19 @@ describe('Cell', function () {
             const children = cellDom.children;
             expect(children).to.have.length(1);
             expect(children[0].classList.contains('selector_pad')).to.equal(true);
+        });
+
+        it('should destroy selector pad', function() {
+            const cellDom = document.createElement('div');
+            testee = new Cell(cellDom);
+            const selector = testee.spawnSelector();
+
+            const mock = sinon.mock(selector);
+            mock.expects('destroy').once();
+
+            testee.destroySelector();
+
+            mock.verify();
         });
     });
 });
