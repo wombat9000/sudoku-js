@@ -17,13 +17,20 @@ class Grid {
 
     cellSelectionHandler() {
         return (event) => {
-            if (this.cell && this.cell !== event.detail.cell) {
-                this.cell.deselect();
-                this.cell = event.detail.cell;
+            const newlySelectedCell = event.detail.cell;
+
+            if (this.selectionHasChanged(newlySelectedCell)) {
+                this.previouslySelectedCell.deselect();
             }
-            this.cell = event.detail.cell;
+
+            this.previouslySelectedCell = newlySelectedCell;
         };
     };
+
+    selectionHasChanged(newlySelectedCell) {
+        return this.previouslySelectedCell &&
+            this.previouslySelectedCell !== newlySelectedCell;
+    }
 
     getRows() {
         return this.rows;

@@ -22,7 +22,8 @@ describe('Cell', function () {
             },
             addEventListener: sinon.spy(),
             getBoundingClientRect: sinon.stub().returns(rectStub),
-            dispatchEvent: sinon.spy()
+            dispatchEvent: sinon.spy(),
+            appendChild: sinon.spy()
         };
 
         someEventHandler = () => {};
@@ -76,12 +77,10 @@ describe('Cell', function () {
 
     describe('- selection state', function () {
 
-        let someCellDom;
         let mock;
 
         beforeEach(() => {
-            someCellDom = document.createElement('div');
-            testee = new Cell(someCellDom);
+            testee = new Cell(cellDomStub);
             mock = sinon.mock(testee);
         });
 
@@ -108,6 +107,23 @@ describe('Cell', function () {
         });
 
         describe('- on selection', function () {
+            describe(' - cellSelected event', function () {
+                let eventFired;
+
+                beforeEach(() => {
+                    testee.select();
+                    eventFired = cellDomStub.dispatchEvent.getCall(0).args[0];
+                });
+
+                it('should contain reference to cell within its detail', function () {
+                    expect(eventFired.detail.cell).to.equal(testee);
+                });
+
+                it('should bubble the event to the top', function () {
+                    expect(eventFired.bubbles).to.equal(true);
+                });
+            });
+
             it('should spawn selection pad', function() {
                 mock.expects('spawnSelector').once();
 

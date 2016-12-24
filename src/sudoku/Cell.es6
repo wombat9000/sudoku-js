@@ -23,8 +23,7 @@ class Cell {
             detail: {
               cell: this
             },
-            bubbles: true,
-            canceable: true
+            bubbles: true
         });
         this.dom.dispatchEvent(event);
     };

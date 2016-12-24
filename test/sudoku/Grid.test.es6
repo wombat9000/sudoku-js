@@ -58,7 +58,7 @@ describe('Grid', function () {
 
         it('should deselect previously selected cell', function () {
             const previouslySelectedCell = sinon.createStubInstance(Cell);
-            someGrid.cell = previouslySelectedCell;
+            someGrid.previouslySelectedCell = previouslySelectedCell;
 
             cellSelectionHandler(someEvent);
 
@@ -67,7 +67,7 @@ describe('Grid', function () {
 
         it('should not deselect if previously selected cell equals new cell', function () {
             const previouslySelectedCell = newlySelectedCell;
-            someGrid.cell = previouslySelectedCell;
+            someGrid.previouslySelectedCell = previouslySelectedCell;
 
             cellSelectionHandler(someEvent);
 
@@ -76,17 +76,17 @@ describe('Grid', function () {
 
         it('should remember newly selected cell, when no cell was selected previously', function () {
             cellSelectionHandler(someEvent);
-            let cell = someGrid.cell;
+            let cell = someGrid.previouslySelectedCell;
 
             expect(cell).to.equal(newlySelectedCell);
         });
 
         it('should remember selected cell', function () {
             const previouslySelectedCell = sinon.createStubInstance(Cell);
-            someGrid.cell = previouslySelectedCell;
+            someGrid.previouslySelectedCell = previouslySelectedCell;
 
             cellSelectionHandler(someEvent);
-            let cell = someGrid.cell;
+            let cell = someGrid.previouslySelectedCell;
 
             expect(cell).to.equal(newlySelectedCell);
         });
