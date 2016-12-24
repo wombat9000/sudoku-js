@@ -21,7 +21,8 @@ describe('Cell', function () {
                 remove: sinon.spy()
             },
             addEventListener: sinon.spy(),
-            getBoundingClientRect: sinon.stub().returns(rectStub)
+            getBoundingClientRect: sinon.stub().returns(rectStub),
+            dispatchEvent: sinon.spy()
         };
 
         someEventHandler = () => {};
@@ -31,7 +32,7 @@ describe('Cell', function () {
 
     describe('- initialisation', function () {
         it('should register onclick eventhandler', function () {
-            expect(cellDomStub.addEventListener).to.have.been.called;
+            expect(cellDomStub.addEventListener).to.have.been.calledWith('click');
         });
 
         it('should initialise as inactive', function () {
@@ -52,7 +53,7 @@ describe('Cell', function () {
         });
     });
 
-    describe('- onClick', function() {
+    describe('- onClick', function () {
         let clickFunction;
         let someCellDom;
         let mock;
@@ -64,21 +65,58 @@ describe('Cell', function () {
             clickFunction = testee.clickHandler();
         });
 
-        it('should toggle selection state', function() {
+        it('should toggle selection state', function () {
             mock.expects('toggleSelectionState').once();
 
             clickFunction();
 
             mock.verify();
         });
+    });
 
+    describe('- onOtherCellSelection', function () {
 
-        xit('should toggle other cells off ... ?', function() {
+        let cellSelectionHandler;
+        let someCellDom;
+        let mock;
 
+        beforeEach(() => {
+
+            someCellDom = document.createElement('div');
+            testee = new Cell(someCellDom);
+            mock = sinon.mock(testee);
+            cellSelectionHandler = testee.otherSelectionHandler();
+        });
+
+        it('should go inactive if cell is not the emitter', function () {
+            const eventStub = {
+                detail: {
+                    cell: new Cell(someCellDom)
+                }
+            };
+
+            mock.expects('deselect').once();
+
+            cellSelectionHandler(eventStub);
+
+            mock.verify();
+        });
+
+        it('should not go inactive if cell is the emitter', function () {
+            const eventStub = {
+                detail: {
+                    cell: testee
+                }
+            };
+            mock.expects('deselect').never();
+
+            cellSelectionHandler(eventStub);
+
+            mock.verify();
         });
     });
 
-    describe('- selection state toggle', function() {
+    describe('- selection state toggle', function () {
 
         let someCellDom;
         let mock;
@@ -89,7 +127,7 @@ describe('Cell', function () {
             mock = sinon.mock(testee);
         });
 
-        it('should toggle off if it is active', function() {
+        it('should toggle off if it is active', function () {
            testee.setActive();
 
            mock.expects('setInactive').once();
@@ -100,7 +138,7 @@ describe('Cell', function () {
            mock.verify();
         });
 
-        it('should toggle on if it is inactive', function() {
+        it('should toggle on if it is inactive', function () {
            testee.setInactive();
 
            mock.expects('setActive').once();
@@ -122,6 +160,14 @@ describe('Cell', function () {
 
             it('should set state to active', function() {
                 mock.expects('setActive').once();
+
+                testee.select();
+
+                mock.verify();
+            });
+
+            it('should broadCast cellSelected event', function () {
+                mock.expects('broadCastSelectionEvent').once();
 
                 testee.select();
 

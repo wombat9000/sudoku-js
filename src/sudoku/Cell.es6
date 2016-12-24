@@ -10,12 +10,35 @@ class Cell {
         this.dom = dom;
         this.setInactive();
         this.dom.addEventListener('click', this.clickHandler(), false);
+        // this.dom.addEventListener('cellSelected', this.otherSelectionHandler(), false);
     };
 
     clickHandler() {
         return () => {
             this.toggleSelectionState();
         }
+    };
+
+    otherSelectionHandler() {
+        return (event) => {
+            if(event.detail.cell === this) {
+                // this is the emitting cell. do nothing...
+            } else {
+                // another cell has emitted the event!
+                this.deselect();
+            }
+        }
+    };
+
+    broadCastSelectionEvent() {
+        let event = new CustomEvent('cellSelected', {
+            detail: {
+              cell: this
+            },
+            bubbles: true,
+            canceable: true
+        });
+        this.dom.dispatchEvent(event);
     };
 
     toggleSelectionState() {
@@ -61,6 +84,7 @@ class Cell {
     select() {
         this.spawnSelector();
         this.setActive();
+        this.broadCastSelectionEvent();
     };
 
     deselect() {
