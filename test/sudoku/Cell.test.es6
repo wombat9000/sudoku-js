@@ -74,49 +74,7 @@ describe('Cell', function () {
         });
     });
 
-    describe('- onOtherCellSelection', function () {
-
-        let cellSelectionHandler;
-        let someCellDom;
-        let mock;
-
-        beforeEach(() => {
-
-            someCellDom = document.createElement('div');
-            testee = new Cell(someCellDom);
-            mock = sinon.mock(testee);
-            cellSelectionHandler = testee.otherSelectionHandler();
-        });
-
-        it('should go inactive if cell is not the emitter', function () {
-            const eventStub = {
-                detail: {
-                    cell: new Cell(someCellDom)
-                }
-            };
-
-            mock.expects('deselect').once();
-
-            cellSelectionHandler(eventStub);
-
-            mock.verify();
-        });
-
-        it('should not go inactive if cell is the emitter', function () {
-            const eventStub = {
-                detail: {
-                    cell: testee
-                }
-            };
-            mock.expects('deselect').never();
-
-            cellSelectionHandler(eventStub);
-
-            mock.verify();
-        });
-    });
-
-    describe('- selection state toggle', function () {
+    describe('- selection state', function () {
 
         let someCellDom;
         let mock;
@@ -173,10 +131,21 @@ describe('Cell', function () {
 
                 mock.verify();
             });
+
+            it('should not select if already selected', function () {
+                testee.setActive();
+                mock.expects('broadCastSelectionEvent').never();
+                mock.expects('setActive').never();
+
+                testee.select();
+
+                mock.verify();
+            });
         });
 
         describe('- on deselection', function () {
             it('should destroy selection pad', function() {
+                testee.setActive();
                 mock.expects('destroySelector').once();
 
                 testee.deselect();
@@ -185,7 +154,18 @@ describe('Cell', function () {
             });
 
             it('should set state to inactive', function() {
+                testee.setActive();
                 mock.expects('setInactive').once();
+
+                testee.deselect();
+
+                mock.verify();
+            });
+
+            it('should not deselect if already inactive', function () {
+                testee.setInactive();
+                mock.expects('setInactive').never();
+                mock.expects('destroySelector').never();
 
                 testee.deselect();
 

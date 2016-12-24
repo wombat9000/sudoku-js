@@ -10,24 +10,12 @@ class Cell {
         this.dom = dom;
         this.setInactive();
         this.dom.addEventListener('click', this.clickHandler(), false);
-        // this.dom.addEventListener('cellSelected', this.otherSelectionHandler(), false);
     };
 
     clickHandler() {
         return () => {
             this.toggleSelectionState();
-        }
-    };
-
-    otherSelectionHandler() {
-        return (event) => {
-            if(event.detail.cell === this) {
-                // this is the emitting cell. do nothing...
-            } else {
-                // another cell has emitted the event!
-                this.deselect();
-            }
-        }
+        };
     };
 
     broadCastSelectionEvent() {
@@ -82,14 +70,18 @@ class Cell {
     };
 
     select() {
-        this.spawnSelector();
-        this.setActive();
-        this.broadCastSelectionEvent();
+        if(!this.isActive()) {
+            this.spawnSelector();
+            this.setActive();
+            this.broadCastSelectionEvent();
+        }
     };
 
     deselect() {
-        this.destroySelector();
-        this.setInactive();
+        if(this.isActive()) {
+            this.destroySelector();
+            this.setInactive();
+        }
     };
 
     setActive() {
@@ -119,7 +111,7 @@ class Cell {
 
     isActive() {
         return this.active;
-    }
+    };
 }
 
 export {Cell};
