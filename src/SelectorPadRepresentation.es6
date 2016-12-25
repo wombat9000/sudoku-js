@@ -7,7 +7,6 @@ const TOP_OFFSET = 40;
 class SelectorPadRepresentation {
 
     constructor(cellDom) {
-        this.cellDom = cellDom;
         this.dom = document.createElement('div');
         this.dom.classList.add(SELECTOR_CLASS);
         this.bindToCell(cellDom);
@@ -20,12 +19,16 @@ class SelectorPadRepresentation {
 
         cellDom.appendChild(this.dom);
 
+        this.fadeIn();
+    };
+
+    fadeIn() {
         this.dom.classList.add('fade');
     };
 
     destroy() {
-        this.cellDom.removeChild(this.dom);
-    }
+        this.dom.parentNode.removeChild(this.dom);
+    };
 
     getDom() {
         return this.dom;

@@ -57,11 +57,16 @@ describe('SelectorPadRepresentation', function () {
         });
     });
 
-    it('should be destructible', function () {
-        const dom = testee.getDom();
+    describe('- tear down', function () {
+        it('should be destructible', function () {
+            const domStub = {
+                parentNode: cellDomStub
+            };
+            testee.dom = domStub;
 
-        testee.destroy();
+            testee.destroy();
 
-        expect(cellDomStub.removeChild).to.have.been.calledWith(dom);
+            expect(cellDomStub.removeChild).to.have.been.calledWith(domStub);
+        });
     });
 });

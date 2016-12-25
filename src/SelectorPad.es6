@@ -1,14 +1,13 @@
 'use strict';
 
+import {SelectorPadRepresentation} from '../src/SelectorPadRepresentation.es6';
+
 class SelectorPad {
 
-    constructor(selectorPadRepresentation, targetCell) {
+    constructor(targetCell) {
         this.cell = targetCell;
-    }
-
-    getCell() {
-        return this.cell;
-    }
+        this.presentation = new SelectorPadRepresentation(this.cell.getDom());
+    };
 }
 
 export {SelectorPad};
