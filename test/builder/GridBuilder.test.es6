@@ -32,7 +32,6 @@ describe('GridBuilder', function () {
         const firstRowCell = rows[0].getCells()[0];
         const secondRowCell = rows[1].getCells()[0];
 
-
         expect(firstRowCell.getDom().classList.contains('row1')).to.equal(true);
         expect(secondRowCell.getDom().classList.contains('row2')).to.equal(true);
     });

@@ -116,6 +116,7 @@ describe('Cell', function () {
         });
 
         describe('- on selection', function () {
+
             describe(' - cellSelected event', function () {
                 let eventFired;
 

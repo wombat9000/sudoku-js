@@ -3,7 +3,6 @@
 import {App} from '../src/App.es6';
 import {Cell} from '../src/sudoku/Cell.es6';
 
-
 describe('App', function () {
 
     let testee;
@@ -86,7 +85,6 @@ describe('App', function () {
 
             expect(previouslySelectedCell.deselect).to.have.been.called;
         });
-
     });
 
     describe('- cellSelectionHandler', function () {
@@ -143,5 +141,4 @@ describe('App', function () {
             expect(cell).to.equal(newlySelectedCell);
         });
     });
-
 });

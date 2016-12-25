@@ -1,6 +1,5 @@
 'use strict';
 
-import {Cell} from '../../src/sudoku/Cell.es6';
 import {Row} from '../../src/sudoku/Row.es6';
 import {Grid} from '../../src/sudoku/Grid.es6';
 
