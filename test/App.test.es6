@@ -1,6 +1,7 @@
 'use strict';
 
 import {App} from '../src/App.es6';
+import {Cell} from '../src/sudoku/Cell.es6';
 
 
 describe('App', function () {
@@ -8,7 +9,6 @@ describe('App', function () {
     let testee;
     let appDomStub;
     let gridBuilderStub;
-    let selectorServiceStub;
     let gridStub;
 
     beforeEach(() => {
@@ -26,11 +26,7 @@ describe('App', function () {
             createGrid: sinon.stub().returns(gridStub)
         };
 
-        selectorServiceStub = {
-            getSpawnPadCb: sinon.stub()
-        };
-
-        testee = new App(appDomStub, gridBuilderStub, selectorServiceStub);
+        testee = new App(appDomStub, gridBuilderStub);
     });
 
     describe('initialisation', function () {
@@ -47,5 +43,67 @@ describe('App', function () {
 
             expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
         });
+
+        it('should register cell selection handler', function () {
+            testee.initialise();
+
+            expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected');
+        });
     });
+
+    describe('- cellSelectionHandler', function () {
+        let cellSelectionHandler;
+        let someApp;
+        let someEvent;
+        let newlySelectedCell;
+
+        beforeEach(() => {
+            newlySelectedCell = sinon.createStubInstance(Cell);
+
+            someEvent = {
+                detail: {
+                    cell: newlySelectedCell
+                }
+            };
+
+            someApp = new App(appDomStub, gridBuilderStub);
+            cellSelectionHandler = someApp.cellSelectionHandler();
+        });
+
+        it('should deselect previously selected cell', function () {
+            const previouslySelectedCell = sinon.createStubInstance(Cell);
+            someApp.previouslySelectedCell = previouslySelectedCell;
+
+            cellSelectionHandler(someEvent);
+
+            expect(previouslySelectedCell.deselect).to.have.been.called;
+        });
+
+        it('should not deselect if previously selected cell equals new cell', function () {
+            const previouslySelectedCell = newlySelectedCell;
+            someApp.previouslySelectedCell = previouslySelectedCell;
+
+            cellSelectionHandler(someEvent);
+
+            expect(previouslySelectedCell.deselect).to.have.not.been.called;
+        });
+
+        it('should remember newly selected cell, when no cell was selected previously', function () {
+            cellSelectionHandler(someEvent);
+            let cell = someApp.previouslySelectedCell;
+
+            expect(cell).to.equal(newlySelectedCell);
+        });
+
+        it('should remember selected cell', function () {
+            const previouslySelectedCell = sinon.createStubInstance(Cell);
+            someApp.previouslySelectedCell = previouslySelectedCell;
+
+            cellSelectionHandler(someEvent);
+            let cell = someApp.previouslySelectedCell;
+
+            expect(cell).to.equal(newlySelectedCell);
+        });
+    });
+
 });
