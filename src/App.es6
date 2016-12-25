@@ -16,7 +16,6 @@ class App {
 
     cellSelectionHandler() {
         return (event) => {
-            console.log('new2');
             const newlySelectedCell = event.detail.cell;
 
             if (this.selectionHasChanged(newlySelectedCell)) {

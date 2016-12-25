@@ -51,6 +51,12 @@ describe('App', function () {
         });
     });
 
+    describe('- clickOutOfBoundsHandler', function () {
+        xit('should deselect cells', function () {
+
+        });
+    });
+
     describe('- cellSelectionHandler', function () {
         let cellSelectionHandler;
         let someApp;
