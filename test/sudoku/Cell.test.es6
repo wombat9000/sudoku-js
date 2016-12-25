@@ -58,9 +58,13 @@ describe('Cell', function () {
         let clickFunction;
         let someCellDom;
         let mock;
+        let someEvent;
 
         beforeEach(() => {
             someCellDom = document.createElement('div');
+            someEvent = {
+                stopPropagation: sinon.spy()
+            };
             testee = new Cell(someCellDom);
             mock = sinon.mock(testee);
             clickFunction = testee.clickHandler();
@@ -69,9 +73,14 @@ describe('Cell', function () {
         it('should toggle selection state', function () {
             mock.expects('toggleSelectionState').once();
 
-            clickFunction();
+            clickFunction(someEvent);
 
             mock.verify();
+        });
+
+        it('should stop propagation', function () {
+            clickFunction(someEvent);
+            expect(someEvent.stopPropagation).to.have.been.called;
         });
     });
 

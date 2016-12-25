@@ -13,8 +13,9 @@ class Cell {
     };
 
     clickHandler() {
-        return () => {
+        return (event) => {
             this.toggleSelectionState();
+            event.stopPropagation();
         };
     };
 

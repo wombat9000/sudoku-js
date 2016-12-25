@@ -12,6 +12,15 @@ class App {
         const grid = this.gridBuilder.createGrid();
         this.dom.appendChild(grid.getDom());
         this.dom.addEventListener('cellSelected', this.cellSelectionHandler());
+        document.addEventListener('click', this.outOfBoundsClickHandler(), false);
+    };
+
+    outOfBoundsClickHandler() {
+        return () => {
+            if(this.previouslySelectedCell) {
+                this.previouslySelectedCell.deselect();
+            }
+        };
     };
 
     cellSelectionHandler() {

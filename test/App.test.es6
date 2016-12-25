@@ -45,16 +45,48 @@ describe('App', function () {
         });
 
         it('should register cell selection handler', function () {
+            const handler = () => {};
+            testee.cellSelectionHandler = sinon.stub().returns(handler);
+
             testee.initialise();
 
-            expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected');
+            expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected', handler);
+        });
+
+        it('should register out of bounds click handler', function () {
+            const handler = () => {};
+            testee.outOfBoundsClickHandler = sinon.stub().returns(handler);
+            document.addEventListener = sinon.spy();
+
+            testee.initialise();
+
+            expect(document.addEventListener).to.have.been.calledWith('click', handler);
         });
     });
 
     describe('- clickOutOfBoundsHandler', function () {
-        xit('should deselect cells', function () {
+        let outOfBoundsClickHandler;
+        let someApp;
+        let someEvent;
+        let previouslySelectedCell;
 
+        beforeEach(() => {
+            previouslySelectedCell = sinon.createStubInstance(Cell);
+
+            someEvent = {};
+
+            someApp = new App(appDomStub, gridBuilderStub);
+            outOfBoundsClickHandler = someApp.outOfBoundsClickHandler();
         });
+
+        it('should deselect cells', function () {
+            someApp.previouslySelectedCell = previouslySelectedCell;
+
+            outOfBoundsClickHandler();
+
+            expect(previouslySelectedCell.deselect).to.have.been.called;
+        });
+
     });
 
     describe('- cellSelectionHandler', function () {
