@@ -28,7 +28,7 @@ describe('App', function () {
         testee = new App(appDomStub, gridBuilderStub);
     });
 
-    describe('initialisation', function () {
+    describe('- initialisation', function () {
         it('should build a new grid', function () {
            testee.initialise();
 

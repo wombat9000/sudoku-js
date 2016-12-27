@@ -2,7 +2,6 @@
 
 import {SelectorPadRepresentation} from '../../src/SelectorPadRepresentation.es6';
 
-
 class Cell {
 
     constructor(dom) {
@@ -10,6 +9,16 @@ class Cell {
         this.dom = dom;
         this.setInactive();
         this.dom.addEventListener('click', this.clickHandler(), false);
+        this.dom.addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
+    };
+
+    numberPadSelectionHandler() {
+        return (event) => {
+            // the order matters, because innerHTML overwrites the child elements. i.e. attempting
+            // to destroy the child after overwriting innerHTML results in nullReference
+            this.deselect();
+            this.setValue(event.detail.value);
+        };
     };
 
     clickHandler() {

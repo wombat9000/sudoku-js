@@ -59,12 +59,13 @@ body {
 }
 
 .selector_pad {
+  $selector-size: 20px;
   background-color: #AAA;
   position:absolute;
   display: flex;
   flex-direction: column;
-  height: 50px;
-  width: 50px;
+  height: ($selector-size * 3);
+  width: ($selector-size * 3);
   opacity: 0;
   border-radius: 4px;
 
@@ -75,10 +76,10 @@ body {
 
   .cell {
     color: darkgoldenrod;
-    $selector-size: 20px;
     height: $selector-size;
     width: $selector-size;
     line-height: $selector-size;
+    border-radius: 0px;
   }
 
   .cell:hover {
@@ -95,7 +96,8 @@ body {
 @-webkit-keyframes fade {
   from {opacity: 0}
   to {opacity: 0.8}
-}@keyframes fade {
+}
+@keyframes fade {
    from {opacity: 0}
    to {opacity: 0.8}
- }
+}

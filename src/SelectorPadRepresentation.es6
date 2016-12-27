@@ -1,5 +1,7 @@
 'use strict';
 
+import {Selector} from './Selector.es6';
+
 const SELECTOR_CLASS = 'selector_pad';
 const LEFT_OFFSET = 20;
 const TOP_OFFSET = 40;
@@ -24,10 +26,10 @@ class SelectorPadRepresentation {
         for (let i = 0; i < 3; i++) {
             let rowDom = document.createElement('div');
             rowDom.classList.add('row');
-            let cells = this.buildSelectorPadCells(i);
+            let selectors = this.buildSelectorPadCells(i);
 
-            cells.forEach(cell => {
-                rowDom.appendChild(cell);
+            selectors.forEach(selector => {
+                rowDom.appendChild(selector.getDom());
             });
 
             rows[i] = rowDom;
@@ -40,11 +42,10 @@ class SelectorPadRepresentation {
         let cells = [];
 
         for (let i = 0; i < 3; i++) {
-            let cellDom = document.createElement('div');
-            cellDom.classList.add('cell');
             let value = i + 1 + rowNum * 3;
-            cellDom.innerHTML = value;
-            cells[i] = cellDom;
+            let selector = new Selector(value);
+
+            cells[i] = selector;
         }
 
         return cells;
