@@ -67,6 +67,9 @@ class Cell {
     };
 
     setValue(value) {
+        // todo: dont set innerHTML, find a way to manipulate the text or value or something
+        // overwriting innerHTML destroys any child elements, which causes problems with the application
+        // instead: create and target a child span element
         this.dom.innerHTML = value;
     };
 
