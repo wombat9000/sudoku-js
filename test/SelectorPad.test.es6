@@ -1,9 +1,9 @@
 'use strict';
 
-import {SelectorPadRepresentation} from '../src/SelectorPadRepresentation.es6';
+import {SelectorPad} from '../src/SelectorPad.es6';
 
 
-describe('SelectorPadRepresentation', function () {
+describe('SelectorPad', function () {
 
     let testee;
     let cellStub;
@@ -26,7 +26,7 @@ describe('SelectorPadRepresentation', function () {
             getDom: sinon.stub().returns(cellDomStub)
         };
 
-        testee = new SelectorPadRepresentation(cellDomStub);
+        testee = new SelectorPad(cellDomStub);
     });
 
     describe('- instantiation', function () {

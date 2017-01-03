@@ -1,6 +1,6 @@
 'use strict';
 
-import {SelectorPadRepresentation} from '../../src/SelectorPadRepresentation.es6';
+import {SelectorPad} from '../SelectorPad.es6';
 
 class Cell {
 
@@ -111,7 +111,7 @@ class Cell {
     };
 
     spawnSelector() {
-        this.selector = new SelectorPadRepresentation(this.dom);
+        this.selector = new SelectorPad(this.dom);
         return this.selector;
     };
 

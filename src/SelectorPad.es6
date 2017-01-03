@@ -6,7 +6,7 @@ const SELECTOR_CLASS = 'selector_pad';
 const LEFT_OFFSET = 20;
 const TOP_OFFSET = 40;
 
-class SelectorPadRepresentation {
+class SelectorPad {
 
     constructor(cellDom) {
         this.dom = document.createElement('div');
@@ -79,4 +79,4 @@ class SelectorPadRepresentation {
     };
 }
 
-export {SelectorPadRepresentation};
+export {SelectorPad};
