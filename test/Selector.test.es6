@@ -4,29 +4,46 @@ import {Selector} from '../src/Selector.es6';
 
 describe('Selector', function () {
 
+    let sandbox;
     let testee;
     let someValue;
+    let domStub;
 
     beforeEach(() => {
+        sandbox = sinon.sandbox.create();
+
+        domStub = {
+            classList: {
+                add: sinon.spy(),
+                remove: sinon.spy()
+            },
+            dispatchEvent: sinon.spy(),
+            appendChild: sinon.spy(),
+            addEventListener: sinon.spy()
+        };
+
+        sandbox.stub(document, 'createElement').returns(domStub);
+
         someValue = 4;
         testee = new Selector(someValue);
+    });
+
+    afterEach(() => {
+        sandbox.restore();
     });
 
     describe('-> initialisation', function () {
 
         it('should give dom element class of cell', function () {
-            const dom = testee.getDom();
-            expect(dom.classList.contains('cell')).to.equal(true);
+            expect(testee.dom.classList.add).to.have.been.calledWith('cell');
         });
 
-        xit('should register clickhandler', function () {
-
+        it('should listen for click event', function () {
+            expect(domStub.addEventListener).to.have.been.calledWith('click');
         });
 
         it('should set its value', function () {
-            const dom = testee.getDom();
             expect(testee.value).to.equal(someValue);
-            expect(dom.innerHTML).to.equal(''+someValue);
         });
     });
 
