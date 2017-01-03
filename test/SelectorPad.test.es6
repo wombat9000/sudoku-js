@@ -37,6 +37,21 @@ describe('SelectorPad', function () {
         });
     });
 
+    describe('- presentation', function () {
+        it('has three rows', function () {
+        const rows = testee.getDom().children;
+            expect(rows[0].classList.contains('row')).to.equal(true);
+            expect(rows).to.have.length(3);
+        });
+
+        describe('- row', function () {
+            it('has three cells', function () {
+                const cells = testee.getDom().firstChild.children;
+                expect(cells).to.have.length(3);
+            });
+        });
+    });
+
     describe('- binding to cell', function() {
         it('should bind to a cell', function() {
             const selectorDom = testee.getDom();

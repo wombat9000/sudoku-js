@@ -12,37 +12,30 @@ class SelectorPad {
         this.dom = document.createElement('div');
         this.dom.classList.add(SELECTOR_CLASS);
 
-        // todo: needs tests
         let rows = this.buildSelectorPadRows();
-
         rows.forEach(row => {
            this.dom.appendChild(row);
         });
-        // end: needs tests
-
 
         this.bindToCell(cellDom);
     };
 
-    // todo: needs tests
     buildSelectorPadRows() {
         let rows = [];
         for (let i = 0; i < 3; i++) {
             let rowDom = document.createElement('div');
             rowDom.classList.add('row');
-            let selectors = this.buildSelectorPadCells(i);
 
+            let selectors = this.buildSelectorPadCells(i);
             selectors.forEach(selector => {
                 rowDom.appendChild(selector.getDom());
             });
 
             rows[i] = rowDom;
         }
-
         return rows;
     }
 
-    // todo: needs tests
     buildSelectorPadCells(rowNum) {
         let cells = [];
 
@@ -52,7 +45,6 @@ class SelectorPad {
 
             cells[i] = selector;
         }
-
         return cells;
     }
 
