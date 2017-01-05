@@ -67,11 +67,16 @@ class Cell {
     };
 
     setValue(value) {
+        this.value = value;
         // todo: dont set innerHTML, find a way to manipulate the text or value or something
         // overwriting innerHTML destroys any child elements, which causes problems with the application
         // instead: create and target a child span element
         this.dom.innerHTML = value;
     };
+
+    getValue() {
+        return this.value;
+    }
 
     addBottomBorderCSS() {
         this.dom.classList.add('bold-bottom-border');
