@@ -4,17 +4,18 @@ import {GridBuilder} from '../../src/builder/GridBuilder.es6';
 
 describe('GridBuilder', () => {
 
+    let grid;
+
+    beforeEach(() => {
+        grid = GridBuilder.createGrid();
+    });
+
     it('should initialise a grid with 9 rows', () => {
-        const grid = GridBuilder.createGrid();
-
         const rows = grid.rows;
-
         expect(rows).to.have.lengthOf(9);
     });
 
     it('should initialise the rows within the grid with 9 cells', () => {
-        const grid = GridBuilder.createGrid();
-
         const rows = grid.rows;
         const cells = rows[0].cells;
 
@@ -22,8 +23,6 @@ describe('GridBuilder', () => {
     });
 
     it('should initialise the rows with rownumbers', () => {
-        const grid = GridBuilder.createGrid();
-
         const rows = grid.rows;
         const firstRowCell = rows[0].cells[0];
         const secondRowCell = rows[1].cells[0];

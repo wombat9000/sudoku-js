@@ -30,7 +30,6 @@ function createCells() {
     for (let i = 0; i < 9; i++) {
         let cellDom = document.createElement('div');
         let cell = new Cell(cellDom);
-        cell.setValue("0");
         cells[i] = cell;
     }
     return cells;
