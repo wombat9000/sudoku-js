@@ -2,6 +2,7 @@
 
 import {App} from './../src/App.es6';
 import {Cell} from './../src/sudoku/Cell.es6';
+import {Grid} from './../src/sudoku/Grid.es6';
 import {GridBuilder} from './../src/builder/GridBuilder.es6';
 
 describe('App', () => {
@@ -15,10 +16,7 @@ describe('App', () => {
     beforeEach(() => {
         sandbox = sinon.sandbox.create();
 
-        gridStub = {
-            getDom: sandbox.spy(),
-            registerCellSelectionHandler: sandbox.spy()
-        };
+        gridStub = sinon.createStubInstance(Grid);
 
         appDomStub = {
             appendChild: sandbox.spy(),
@@ -44,7 +42,7 @@ describe('App', () => {
         it('should append gridDom to appDom', () => {
             testee.initialise();
 
-            const gridHtml = gridStub.getDom();
+            const gridHtml = gridStub.dom;
 
             expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
         });
@@ -147,4 +145,19 @@ describe('App', () => {
             expect(cell).to.equal(newlySelectedCell);
         });
     });
+
+    // it.only("should work with ES6 classes", function () {
+    //     class C {
+    //         foo(){ }
+    //     }
+    //
+    //     const c = new C();
+    //
+    //     const sandbox = sinon.sandbox.create();
+    //
+    //     sandbox.stub(c);
+    //     sandbox.restore();
+    //     sandbox.stub(c);
+    //     sandbox.restore();
+    // });
 });

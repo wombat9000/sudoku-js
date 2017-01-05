@@ -10,7 +10,7 @@ class App {
 
     initialise() {
         const grid = GridBuilder.createGrid();
-        this.dom.appendChild(grid.getDom());
+        this.dom.appendChild(grid.dom);
         this.dom.addEventListener('cellSelected', this.cellSelectionHandler());
         document.addEventListener('click', this.outOfBoundsClickHandler(), false);
     };

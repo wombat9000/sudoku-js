@@ -1,4 +1,7 @@
 'use strict';
+let Symbol = require('es6-symbol');
+const _rows = Symbol();
+const _dom = Symbol();
 
 class Grid {
 
@@ -9,16 +12,16 @@ class Grid {
             gridDom.appendChild(row.getDom());
         });
 
-        this.rows = rows;
-        this.dom = gridDom;
+        this[_rows] = rows;
+        this[_dom] = gridDom;
     };
 
-    getRows() {
-        return this.rows;
+    get rows() {
+        return this[_rows];
     };
 
-    getDom() {
-        return this.dom;
+    get dom() {
+        return this[_dom];
     };
 }
 

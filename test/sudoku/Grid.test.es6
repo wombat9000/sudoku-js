@@ -1,5 +1,4 @@
 'use strict';
-
 import {Row} from '../../src/sudoku/Row.es6';
 import {Grid} from '../../src/sudoku/Grid.es6';
 
@@ -27,7 +26,7 @@ describe('Grid', () => {
     });
 
     it('should provide its HTML representation', () => {
-        const dom = testee.getDom();
+        const dom = testee.dom;
         expect(dom).to.equal(gridDomStub);
     });
 });

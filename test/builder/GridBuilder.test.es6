@@ -7,7 +7,7 @@ describe('GridBuilder', () => {
     it('should initialise a grid with 9 rows', () => {
         const grid = GridBuilder.createGrid();
 
-        const rows = grid.getRows();
+        const rows = grid.rows;
 
         expect(rows).to.have.lengthOf(9);
     });
@@ -15,7 +15,7 @@ describe('GridBuilder', () => {
     it('should initialise the rows within the grid with 9 cells', () => {
         const grid = GridBuilder.createGrid();
 
-        const rows = grid.getRows();
+        const rows = grid.rows;
         const cells = rows[0].getCells();
 
         expect(cells).to.have.lengthOf(9);
@@ -24,7 +24,7 @@ describe('GridBuilder', () => {
     it('should initialise the rows with rownumbers', () => {
         const grid = GridBuilder.createGrid();
 
-        const rows = grid.getRows();
+        const rows = grid.rows;
         const firstRowCell = rows[0].getCells()[0];
         const secondRowCell = rows[1].getCells()[0];
 
