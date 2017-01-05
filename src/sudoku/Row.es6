@@ -1,4 +1,7 @@
 'use strict';
+let Symbol = require('es6-symbol');
+const _cells = Symbol();
+const _dom = Symbol();
 
 class Row {
 
@@ -13,16 +16,16 @@ class Row {
             colIndex++;
         });
 
-        this.cells = cells;
-        this.rowDom = rowDom;
+        this[_cells] = cells;
+        this[_dom] = rowDom;
     };
 
-    getCells() {
-        return this.cells;
+    get cells() {
+        return this[_cells];
     };
 
-    getDom() {
-        return this.rowDom;
+    get dom() {
+        return this[_dom];
     };
 }
 

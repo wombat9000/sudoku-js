@@ -16,7 +16,7 @@ describe('GridBuilder', () => {
         const grid = GridBuilder.createGrid();
 
         const rows = grid.rows;
-        const cells = rows[0].getCells();
+        const cells = rows[0].cells;
 
         expect(cells).to.have.lengthOf(9);
     });
@@ -25,8 +25,8 @@ describe('GridBuilder', () => {
         const grid = GridBuilder.createGrid();
 
         const rows = grid.rows;
-        const firstRowCell = rows[0].getCells()[0];
-        const secondRowCell = rows[1].getCells()[0];
+        const firstRowCell = rows[0].cells[0];
+        const secondRowCell = rows[1].cells[0];
 
         expect(firstRowCell.getDom().classList.contains('row1')).to.equal(true);
         expect(secondRowCell.getDom().classList.contains('row2')).to.equal(true);

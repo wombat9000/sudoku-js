@@ -9,7 +9,7 @@ class Grid {
         gridDom.classList.add('grid');
 
         rows.forEach(row => {
-            gridDom.appendChild(row.getDom());
+            gridDom.appendChild(row.dom);
         });
 
         this[_rows] = rows;
