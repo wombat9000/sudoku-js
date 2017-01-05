@@ -17,6 +17,10 @@ To install the project on your local machine, clone the repository and install t
 
     > npm install 
     
+To compile the es6 and scss into js and css, respectively:
+
+    > gulp build
+    > gulp sass
  
 # Run
 From within the project root:
