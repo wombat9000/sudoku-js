@@ -36,10 +36,12 @@ describe('Row', () => {
             expect(anotherCell.setColumnNumber).to.have.been.calledWith(2);
         });
 
-        it('should append cell dom to row dom', () => {
-            const someCellDom = someCell.getDom();
-
-            expect(rowDom.appendChild).to.have.been.calledWith(someCellDom);
+        it('should append each cell dom to row dom', () => {
+            let someCellDom;
+            cells.forEach(() => {
+                someCellDom = someCell.getDom();
+                expect(rowDom.appendChild).to.have.been.calledWith(someCellDom);
+            });
         });
     });
 });
