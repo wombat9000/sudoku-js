@@ -1,65 +1,45 @@
 'use strict';
 
-import {Cell} from '../../src/sudoku/Cell.es6';
-import {Row} from '../../src/sudoku/Row.es6';
+import {Cell} from './../../src/sudoku/Cell.es6';
+import {Row} from './../../src/sudoku/Row.es6';
 
 describe('Row', () => {
+
+    let testee;
+    let rowDom;
+    let rowNumber;
+    let cells;
+    let someCell;
+    let anotherCell;
+
+    beforeEach(() => {
+
+        rowDom = sinon.stub(document.createElement('div'));
+        rowNumber = 0;
+
+        cells = [
+            someCell = sinon.createStubInstance(Cell),
+            anotherCell = sinon.createStubInstance(Cell)
+        ];
+
+        testee = new Row(rowNumber, rowDom, cells);
+    });
+
     describe('- instantiation', () => {
         it('should update all member cells with its row number', () => {
-            const rowNumber = 0;
-            const rowDom = document.createElement('div');
-            const someCellMock = createCellMock(rowNumber, 0);
-            const anotherCellMock = createCellMock(rowNumber, 1);
-            const cellArray = [someCellMock, anotherCellMock];
-
-            new Row(rowNumber, rowDom, cellArray);
-
-            expect(someCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
-            expect(anotherCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
+            expect(someCell.setRowNumber).to.have.been.calledWith(rowNumber);
+            expect(anotherCell.setRowNumber).to.have.been.calledWith(rowNumber);
         });
 
         it('should update all member cells with their col number', () => {
-            const rowNumber = 0;
-            const rowDom = document.createElement('div');
-            const firstColumnCellMock = createCellMock(rowNumber, 1);
-            const secondColumnCellMock = createCellMock(rowNumber, 2);
-            const cellArray = [firstColumnCellMock, secondColumnCellMock];
-
-            new Row(rowNumber, rowDom, cellArray);
-
-            expect(firstColumnCellMock.setColumnNumber).to.have.been.calledWith(1);
-            expect(secondColumnCellMock.setColumnNumber).to.have.been.calledWith(2);
-        });
-    });
-
-    it('provides its html representation', () => {
-        const rowDom = document.createElement('div');
-        const rowNumber = 1;
-        const colNumber = 0;
-        const someCellMock = createCellMock(rowNumber, colNumber);
-
-        const cellArray = [someCellMock];
-
-        const expectedHtml = '<div class="row"><div class="row' + rowNumber + ' col'+ colNumber +'"></div></div>';
-
-        const testee = new Row(rowNumber, rowDom, cellArray);
-
-        const actualHtml = testee.getDom();
-
-        expect(actualHtml.outerHTML).to.equal(expectedHtml);
-    });
-
-        const createCellMock = (rowNumber, colNumber) => {
-        let cellMock = sinon.createStubInstance(Cell);
-
-        cellMock.getDom = sinon.spy(() => {
-            let cellDom = document.createElement('div');
-            cellDom.classList.add('row' + rowNumber);
-            cellDom.classList.add('col' + colNumber);
-
-            return cellDom;
+            expect(someCell.setColumnNumber).to.have.been.calledWith(1);
+            expect(anotherCell.setColumnNumber).to.have.been.calledWith(2);
         });
 
-        return cellMock;
-    };
+        it('should append cell dom to row dom', () => {
+            const someCellDom = someCell.getDom();
+
+            expect(rowDom.appendChild).to.have.been.calledWith(someCellDom);
+        });
+    });
 });
