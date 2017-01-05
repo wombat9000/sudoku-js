@@ -2,13 +2,9 @@
 
 import {GridBuilder} from '../../src/builder/GridBuilder.es6';
 
-describe('GridBuilder', function () {
+describe('GridBuilder', () => {
 
-    const someCallback = () => {};
-
-    // const testee = new GridBuilder(someCallback);
-
-    it('should initialise a grid with 9 rows', function () {
+    it('should initialise a grid with 9 rows', () => {
         const grid = GridBuilder.createGrid();
 
         const rows = grid.getRows();
@@ -16,7 +12,7 @@ describe('GridBuilder', function () {
         expect(rows).to.have.lengthOf(9);
     });
 
-    it('should initialise the rows within the grid with 9 cells', function () {
+    it('should initialise the rows within the grid with 9 cells', () => {
         const grid = GridBuilder.createGrid();
 
         const rows = grid.getRows();
@@ -25,7 +21,7 @@ describe('GridBuilder', function () {
         expect(cells).to.have.lengthOf(9);
     });
 
-    it('should initialise the rows with rownumbers', function () {
+    it('should initialise the rows with rownumbers', () => {
         const grid = GridBuilder.createGrid();
 
         const rows = grid.getRows();

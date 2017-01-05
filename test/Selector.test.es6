@@ -2,7 +2,7 @@
 
 import {Selector} from '../src/Selector.es6';
 
-describe('Selector', function () {
+describe('Selector', () => {
 
     let sandbox;
     let testee;
@@ -32,22 +32,22 @@ describe('Selector', function () {
         sandbox.restore();
     });
 
-    describe('-> initialisation', function () {
+    describe('-> initialisation', () => {
 
-        it('should give dom element class of cell', function () {
+        it('should give dom element class of cell', () => {
             expect(testee.dom.classList.add).to.have.been.calledWith('cell');
         });
 
-        it('should listen for click event', function () {
+        it('should listen for click event', () => {
             expect(domStub.addEventListener).to.have.been.calledWith('click');
         });
 
-        it('should set its value', function () {
+        it('should set its value', () => {
             expect(testee.value).to.equal(someValue);
         });
     });
 
-    describe('-> clickHandler', function () {
+    describe('-> clickHandler', () => {
         let someEvent;
         beforeEach(() => {
             someEvent = {
@@ -55,7 +55,7 @@ describe('Selector', function () {
             }
         });
 
-        it('should stop click propagation', function () {
+        it('should stop click propagation', () => {
             let clickHandler = testee.clickHandler();
 
             clickHandler(someEvent);
@@ -63,7 +63,7 @@ describe('Selector', function () {
             expect(someEvent.stopPropagation).to.have.been.called;
         });
 
-        it('should broadcast the new value', function () {
+        it('should broadcast the new value', () => {
             let clickHandler = testee.clickHandler();
             let mock = sinon.mock(testee);
             mock.expects('broadcastNewNumber').once();
@@ -74,7 +74,7 @@ describe('Selector', function () {
         });
     });
 
-    describe('-> new value broadcast', function () {
+    describe('-> new value broadcast', () => {
         let domStub;
 
         beforeEach(() => {
@@ -85,13 +85,13 @@ describe('Selector', function () {
             testee.dom = domStub;
         });
 
-        it('should dispatch an event', function () {
+        it('should dispatch an event', () => {
             testee.broadcastNewNumber();
 
             expect(domStub.dispatchEvent).to.have.been.called;
         });
 
-        it('broadcasted event should hold the selectors value', function () {
+        it('broadcasted event should hold the selectors value', () => {
             testee.broadcastNewNumber();
 
             const firedEvent = domStub.dispatchEvent.getCall(0).args[0];

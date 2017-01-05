@@ -11,7 +11,7 @@ class GridBuilder {
         const rows = createRows();
         return new Grid(gridDom, rows);
     };
-};
+}
 
 function createRows() {
     const rows = [];

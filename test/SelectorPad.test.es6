@@ -3,7 +3,7 @@
 import {SelectorPad} from '../src/SelectorPad.es6';
 
 
-describe('SelectorPad', function () {
+describe('SelectorPad', () => {
 
     let testee;
     let cellStub;
@@ -29,51 +29,51 @@ describe('SelectorPad', function () {
         testee = new SelectorPad(cellDomStub);
     });
 
-    describe('- instantiation', function () {
-        it('should create a new dom object with class selector pad', function() {
+    describe('- instantiation', () => {
+        it('should create a new dom object with class selector pad', () => {
             const dom = testee.getDom();
 
             expect(dom.classList.contains('selector_pad')).to.equal(true);
         });
     });
 
-    describe('- presentation', function () {
-        it('has three rows', function () {
+    describe('- presentation', () => {
+        it('has three rows', () => {
         const rows = testee.getDom().children;
             expect(rows[0].classList.contains('row')).to.equal(true);
             expect(rows).to.have.length(3);
         });
 
-        describe('- row', function () {
-            it('has three cells', function () {
+        describe('- row', () => {
+            it('has three cells', () => {
                 const cells = testee.getDom().firstChild.children;
                 expect(cells).to.have.length(3);
             });
         });
     });
 
-    describe('- binding to cell', function() {
-        it('should bind to a cell', function() {
+    describe('- binding to cell', () => {
+        it('should bind to a cell', () => {
             const selectorDom = testee.getDom();
 
             expect(cellDomStub.appendChild).to.have.been.calledWith(selectorDom);
         });
 
-        it('should be positioned relative to the cell', function() {
+        it('should be positioned relative to the cell', () => {
             const dom = testee.getDom();
 
             expect(dom.style.left).to.equal(rectStub.left + 20 + 'px');
             expect(dom.style.top).to.equal(rectStub.top + 40 + 'px');
         });
 
-        it('should fade in', function() {
+        it('should fade in', () => {
             const dom = testee.getDom();
             expect(dom.classList.contains('fade')).to.equal(true);
         });
     });
 
-    describe('- tear down', function () {
-        it('should be destructible', function () {
+    describe('- tear down', () => {
+        it('should be destructible', () => {
             const domStub = {
                 parentNode: cellDomStub
             };

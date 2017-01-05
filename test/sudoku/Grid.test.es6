@@ -3,7 +3,7 @@
 import {Row} from '../../src/sudoku/Row.es6';
 import {Grid} from '../../src/sudoku/Grid.es6';
 
-describe('Grid', function () {
+describe('Grid', () => {
 
     let testee;
     let rowMock;
@@ -19,14 +19,14 @@ describe('Grid', function () {
         };
 
         rowMock = sinon.createStubInstance(Row);
-        rowMock.getDom = sinon.spy(function () {
+        rowMock.getDom = sinon.spy(() => {
             return document.createElement('div');
         });
 
         testee = new Grid(gridDomStub, [rowMock]);
     });
 
-    it('should provide its HTML representation', function () {
+    it('should provide its HTML representation', () => {
         const dom = testee.getDom();
         expect(dom).to.equal(gridDomStub);
     });

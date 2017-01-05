@@ -2,7 +2,7 @@
 
 import {Cell} from '../../src/sudoku/Cell.es6';
 
-describe('Cell', function () {
+describe('Cell', () => {
 
     let testee;
     let cellDomStub;
@@ -31,20 +31,20 @@ describe('Cell', function () {
         testee = new Cell(cellDomStub);
     });
 
-    describe('- initialisation', function () {
-        it('should register onclick eventhandler', function () {
+    describe('- initialisation', () => {
+        it('should register onclick eventhandler', () => {
             expect(cellDomStub.addEventListener).to.have.been.calledWith('click');
         });
 
-        it('should initialise as inactive', function () {
+        it('should initialise as inactive', () => {
             expect(testee.isActive()).to.equal(false);
         });
 
-        it('updates classlist with cell', function () {
+        it('updates classlist with cell', () => {
             expect(cellDomStub.classList.add).to.have.been.calledWith('cell');
         });
 
-        it('should not have a selector pad initially', function () {
+        it('should not have a selector pad initially', () => {
             const dom = document.createElement('div');
             testee = new Cell(dom);
             let cellDom = testee.getDom();
@@ -54,7 +54,7 @@ describe('Cell', function () {
         });
     });
 
-    describe('- onClick', function () {
+    describe('- onClick', () => {
         let clickFunction;
         let someCellDom;
         let mock;
@@ -70,7 +70,7 @@ describe('Cell', function () {
             clickFunction = testee.clickHandler();
         });
 
-        it('should toggle selection state', function () {
+        it('should toggle selection state', () => {
             mock.expects('toggleSelectionState').once();
 
             clickFunction(someEvent);
@@ -78,13 +78,13 @@ describe('Cell', function () {
             mock.verify();
         });
 
-        it('should stop propagation', function () {
+        it('should stop propagation', () => {
             clickFunction(someEvent);
             expect(someEvent.stopPropagation).to.have.been.called;
         });
     });
 
-    describe('- selection state', function () {
+    describe('- selection state', () => {
 
         let mock;
 
@@ -93,7 +93,7 @@ describe('Cell', function () {
             mock = sinon.mock(testee);
         });
 
-        it('should toggle off if it is active', function () {
+        it('should toggle off if it is active', () => {
            testee.setActive();
 
            mock.expects('setInactive').once();
@@ -104,7 +104,7 @@ describe('Cell', function () {
            mock.verify();
         });
 
-        it('should toggle on if it is inactive', function () {
+        it('should toggle on if it is inactive', () => {
            testee.setInactive();
 
            mock.expects('setActive').once();
@@ -115,9 +115,9 @@ describe('Cell', function () {
            mock.verify();
         });
 
-        describe('- on selection', function () {
+        describe('- on selection', () => {
 
-            describe(' - cellSelected event', function () {
+            describe(' - cellSelected event', () => {
                 let eventFired;
 
                 beforeEach(() => {
@@ -125,16 +125,16 @@ describe('Cell', function () {
                     eventFired = cellDomStub.dispatchEvent.getCall(0).args[0];
                 });
 
-                it('should contain reference to cell within its detail', function () {
+                it('should contain reference to cell within its detail', () => {
                     expect(eventFired.detail.cell).to.equal(testee);
                 });
 
-                it('should bubble the event to the top', function () {
+                it('should bubble the event to the top', () => {
                     expect(eventFired.bubbles).to.equal(true);
                 });
             });
 
-            it('should spawn selection pad', function() {
+            it('should spawn selection pad', () => {
                 mock.expects('spawnSelector').once();
 
                 testee.select();
@@ -142,7 +142,7 @@ describe('Cell', function () {
                 mock.verify();
             });
 
-            it('should set state to active', function() {
+            it('should set state to active', () => {
                 mock.expects('setActive').once();
 
                 testee.select();
@@ -150,7 +150,7 @@ describe('Cell', function () {
                 mock.verify();
             });
 
-            it('should broadCast cellSelected event', function () {
+            it('should broadCast cellSelected event', () => {
                 mock.expects('broadCastSelectionEvent').once();
 
                 testee.select();
@@ -158,7 +158,7 @@ describe('Cell', function () {
                 mock.verify();
             });
 
-            it('should not select if already selected', function () {
+            it('should not select if already selected', () => {
                 testee.setActive();
                 mock.expects('broadCastSelectionEvent').never();
                 mock.expects('setActive').never();
@@ -169,8 +169,8 @@ describe('Cell', function () {
             });
         });
 
-        describe('- on deselection', function () {
-            it('should destroy selection pad', function() {
+        describe('- on deselection', () => {
+            it('should destroy selection pad', () => {
                 testee.setActive();
                 mock.expects('destroySelector').once();
 
@@ -179,7 +179,7 @@ describe('Cell', function () {
                 mock.verify();
             });
 
-            it('should set state to inactive', function() {
+            it('should set state to inactive', () => {
                 testee.setActive();
                 mock.expects('setInactive').once();
 
@@ -188,7 +188,7 @@ describe('Cell', function () {
                 mock.verify();
             });
 
-            it('should not deselect if already inactive', function () {
+            it('should not deselect if already inactive', () => {
                 testee.setInactive();
                 mock.expects('setInactive').never();
                 mock.expects('destroySelector').never();
@@ -200,22 +200,22 @@ describe('Cell', function () {
         });
     });
 
-    describe('- presentation', function () {
-        it('updates classlist when setting row', function () {
+    describe('- presentation', () => {
+        it('updates classlist when setting row', () => {
             const someRowNumber = 5;
             testee.setRowNumber(someRowNumber);
 
             expect(cellDomStub.classList.add).to.have.been.calledWith('row'+someRowNumber);
         });
 
-        it('updates classlist when setting column', function () {
+        it('updates classlist when setting column', () => {
             const someColumnNumber = 5;
             testee.setColumnNumber(someColumnNumber);
 
             expect(cellDomStub.classList.add).to.have.been.calledWith('col'+someColumnNumber);
         });
 
-        it('provides its html representation', function () {
+        it('provides its html representation', () => {
             let testee = new Cell(document.createElement('div'));
             const someRowNumber = 5;
             testee.setRowNumber(someRowNumber);
@@ -230,39 +230,39 @@ describe('Cell', function () {
             expect(actualHtml.outerHTML).to.equal(expectedHtml);
         });
 
-        it('applies bold-bottom-border class for third row', function () {
+        it('applies bold-bottom-border class for third row', () => {
             testee.setRowNumber(3);
             expect(cellDomStub.classList.add).to.have.been.calledWith('bold-bottom-border');
         });
 
-        it('applies bold-bottom-border class for sixth row', function () {
+        it('applies bold-bottom-border class for sixth row', () => {
             testee.setRowNumber(6);
             expect(cellDomStub.classList.add).to.have.been.calledWith('bold-bottom-border');
         });
 
-        it('does not apply bold-bottom-border class for fifth row', function () {
+        it('does not apply bold-bottom-border class for fifth row', () => {
             testee.setRowNumber(5);
             expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-bottom-border');
         });
 
-        it('applies bold-right-border class for third column', function () {
+        it('applies bold-right-border class for third column', () => {
             testee.setColumnNumber(3);
             expect(cellDomStub.classList.add).to.have.been.calledWith('bold-right-border');
         });
 
-        it('applies bold-right-border class for sixth column', function () {
+        it('applies bold-right-border class for sixth column', () => {
             testee.setColumnNumber(6);
             expect(cellDomStub.classList.add).to.have.been.calledWith('bold-right-border');
         });
 
-        it('does not apply bold-right-border class for fifth column', function () {
+        it('does not apply bold-right-border class for fifth column', () => {
             testee.setColumnNumber(5);
             expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-right-border');
         });
     });
 
-    describe('- selector pad interactions', function() {
-        it('should append a div to its dom with id selector pad', function () {
+    describe('- selector pad interactions', () => {
+        it('should append a div to its dom with id selector pad', () => {
             const dom = document.createElement('div');
             testee = new Cell(dom);
 
@@ -274,7 +274,7 @@ describe('Cell', function () {
             expect(children[0].classList.contains('selector_pad')).to.equal(true);
         });
 
-        it('should destroy selector pad', function() {
+        it('should destroy selector pad', () => {
             const cellDom = document.createElement('div');
             testee = new Cell(cellDom);
             const selector = testee.spawnSelector();

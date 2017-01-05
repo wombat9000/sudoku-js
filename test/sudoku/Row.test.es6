@@ -3,9 +3,9 @@
 import {Cell} from '../../src/sudoku/Cell.es6';
 import {Row} from '../../src/sudoku/Row.es6';
 
-describe('Row', function() {
-    describe('- instantiation', function() {
-        it('should update all member cells with its row number', function () {
+describe('Row', () => {
+    describe('- instantiation', () => {
+        it('should update all member cells with its row number', () => {
             const rowNumber = 0;
             const rowDom = document.createElement('div');
             const someCellMock = createCellMock(rowNumber, 0);
@@ -18,7 +18,7 @@ describe('Row', function() {
             expect(anotherCellMock.setRowNumber).to.have.been.calledWith(rowNumber);
         });
 
-        it('should update all member cells with their col number', function() {
+        it('should update all member cells with their col number', () => {
             const rowNumber = 0;
             const rowDom = document.createElement('div');
             const firstColumnCellMock = createCellMock(rowNumber, 1);
@@ -32,7 +32,7 @@ describe('Row', function() {
         });
     });
 
-    it('provides its html representation', function() {
+    it('provides its html representation', () => {
         const rowDom = document.createElement('div');
         const rowNumber = 1;
         const colNumber = 0;
@@ -52,7 +52,7 @@ describe('Row', function() {
         const createCellMock = (rowNumber, colNumber) => {
         let cellMock = sinon.createStubInstance(Cell);
 
-        cellMock.getDom = sinon.spy(function () {
+        cellMock.getDom = sinon.spy(() => {
             let cellDom = document.createElement('div');
             cellDom.classList.add('row' + rowNumber);
             cellDom.classList.add('col' + colNumber);
