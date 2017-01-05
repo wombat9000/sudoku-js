@@ -1,41 +1,47 @@
 'use strict';
 
-import {App} from '../src/App.es6';
-import {Cell} from '../src/sudoku/Cell.es6';
+import {App} from './../src/App.es6';
+import {Cell} from './../src/sudoku/Cell.es6';
+import {GridBuilder} from './../src/builder/GridBuilder.es6';
 
-describe('App', function () {
+describe('App', () => {
 
+    let sandbox;
     let testee;
     let appDomStub;
     let gridBuilderStub;
     let gridStub;
 
     beforeEach(() => {
+        sandbox = sinon.sandbox.create();
+
         gridStub = {
-            getDom: sinon.spy(),
-            registerCellSelectionHandler: sinon.spy()
+            getDom: sandbox.spy(),
+            registerCellSelectionHandler: sandbox.spy()
         };
 
         appDomStub = {
-            appendChild: sinon.spy(),
-            addEventListener: sinon.spy()
+            appendChild: sandbox.spy(),
+            addEventListener: sandbox.spy()
         };
 
-        gridBuilderStub = {
-            createGrid: sinon.stub().returns(gridStub)
-        };
+        sandbox.stub(GridBuilder, 'createGrid').returns(gridStub);
 
-        testee = new App(appDomStub, gridBuilderStub);
+        testee = new App(appDomStub);
     });
 
-    describe('- initialisation', function () {
-        it('should build a new grid', function () {
+    afterEach(() => {
+        sandbox.restore();
+    });
+
+    describe('- initialisation', () => {
+        it('should build a new grid', () => {
            testee.initialise();
 
-           expect(gridBuilderStub.createGrid).to.have.been.called;
+           expect(GridBuilder.createGrid).to.have.been.called;
         });
 
-        it('should append gridDom to appDom', function() {
+        it('should append gridDom to appDom', () => {
             testee.initialise();
 
             const gridHtml = gridStub.getDom();
@@ -43,7 +49,7 @@ describe('App', function () {
             expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
         });
 
-        it('should register cell selection handler', function () {
+        it('should register cell selection handler', () => {
             const handler = () => {};
             testee.cellSelectionHandler = sinon.stub().returns(handler);
 
@@ -52,7 +58,7 @@ describe('App', function () {
             expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected', handler);
         });
 
-        it('should register out of bounds click handler', function () {
+        it('should register out of bounds click handler', () => {
             const handler = () => {};
             testee.outOfBoundsClickHandler = sinon.stub().returns(handler);
             document.addEventListener = sinon.spy();
@@ -63,7 +69,7 @@ describe('App', function () {
         });
     });
 
-    describe('- clickOutOfBoundsHandler', function () {
+    describe('- clickOutOfBoundsHandler', () => {
         let outOfBoundsClickHandler;
         let someApp;
         let someEvent;
@@ -78,7 +84,7 @@ describe('App', function () {
             outOfBoundsClickHandler = someApp.outOfBoundsClickHandler();
         });
 
-        it('should deselect cells', function () {
+        it('should deselect cells', () => {
             someApp.previouslySelectedCell = previouslySelectedCell;
 
             outOfBoundsClickHandler();
@@ -87,7 +93,7 @@ describe('App', function () {
         });
     });
 
-    describe('- cellSelectionHandler', function () {
+    describe('- cellSelectionHandler', () => {
         let cellSelectionHandler;
         let someApp;
         let someEvent;
@@ -106,7 +112,7 @@ describe('App', function () {
             cellSelectionHandler = someApp.cellSelectionHandler();
         });
 
-        it('should deselect previously selected cell', function () {
+        it('should deselect previously selected cell', () => {
             const previouslySelectedCell = sinon.createStubInstance(Cell);
             someApp.previouslySelectedCell = previouslySelectedCell;
 
@@ -115,7 +121,7 @@ describe('App', function () {
             expect(previouslySelectedCell.deselect).to.have.been.called;
         });
 
-        it('should not deselect if previously selected cell equals new cell', function () {
+        it('should not deselect if previously selected cell equals new cell', () => {
             const previouslySelectedCell = newlySelectedCell;
             someApp.previouslySelectedCell = previouslySelectedCell;
 
@@ -124,14 +130,14 @@ describe('App', function () {
             expect(previouslySelectedCell.deselect).to.have.not.been.called;
         });
 
-        it('should remember newly selected cell, when no cell was selected previously', function () {
+        it('should remember newly selected cell, when no cell was selected previously', () => {
             cellSelectionHandler(someEvent);
             let cell = someApp.previouslySelectedCell;
 
             expect(cell).to.equal(newlySelectedCell);
         });
 
-        it('should remember selected cell', function () {
+        it('should remember selected cell', () => {
             const previouslySelectedCell = sinon.createStubInstance(Cell);
             someApp.previouslySelectedCell = previouslySelectedCell;
 

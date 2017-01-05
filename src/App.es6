@@ -1,14 +1,15 @@
 'use strict';
 
+import {GridBuilder} from './builder/GridBuilder.es6';
+
 class App {
 
-    constructor(appDom, gridBuilder) {
+    constructor(appDom) {
         this.dom = appDom;
-        this.gridBuilder = gridBuilder;
     };
 
     initialise() {
-        const grid = this.gridBuilder.createGrid();
+        const grid = GridBuilder.createGrid();
         this.dom.appendChild(grid.getDom());
         this.dom.addEventListener('cellSelected', this.cellSelectionHandler());
         document.addEventListener('click', this.outOfBoundsClickHandler(), false);

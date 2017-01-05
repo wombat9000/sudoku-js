@@ -6,10 +6,10 @@ describe('GridBuilder', function () {
 
     const someCallback = () => {};
 
-    const testee = new GridBuilder(someCallback);
+    // const testee = new GridBuilder(someCallback);
 
     it('should initialise a grid with 9 rows', function () {
-        const grid = testee.createGrid();
+        const grid = GridBuilder.createGrid();
 
         const rows = grid.getRows();
 
@@ -17,7 +17,7 @@ describe('GridBuilder', function () {
     });
 
     it('should initialise the rows within the grid with 9 cells', function () {
-        const grid = testee.createGrid();
+        const grid = GridBuilder.createGrid();
 
         const rows = grid.getRows();
         const cells = rows[0].getCells();
@@ -26,7 +26,7 @@ describe('GridBuilder', function () {
     });
 
     it('should initialise the rows with rownumbers', function () {
-        const grid = testee.createGrid();
+        const grid = GridBuilder.createGrid();
 
         const rows = grid.getRows();
         const firstRowCell = rows[0].getCells()[0];
