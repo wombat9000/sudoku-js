@@ -1,5 +1,7 @@
 'use strict';
 
+import {SelectorPadBuilder} from '../builder/SelectorPadBuilder.es6';
+
 let Symbol = require('es6-symbol');
 const _dom = Symbol();
 const _valueDom = Symbol();
@@ -10,6 +12,8 @@ class CellPresentation {
         this[_valueDom] = document.createElement('span');
         this[_dom].appendChild(this[_valueDom]);
         this[_dom].classList.add('cell');
+
+        this.setInactive();
     };
 
     registerEventHandler(event, handler, bubble) {
@@ -49,15 +53,32 @@ class CellPresentation {
     };
 
     setActive() {
+        this.active = true;
         this.dom.classList.add('active');
     };
 
     setInactive() {
+        this.active = false;
         this.dom.classList.remove('active');
+    };
+
+    spawnSelector() {
+        this.selector = SelectorPadBuilder.createSelectorPad(this.dom);
+        return this.selector;
+    };
+
+    destroySelector() {
+        if(this.selector) {
+            this.selector.destroy();
+        }
     };
 
     get dom() {
         return this[_dom];
+    };
+
+    isActive() {
+        return this.active;
     };
 }
 

@@ -1,7 +1,5 @@
 'use strict';
 
-import {SelectorPadBuilder} from '../builder/SelectorPadBuilder.es6';
-
 let Symbol = require('es6-symbol');
 const _presentation = Symbol();
 
@@ -9,17 +7,14 @@ class Cell {
 
     constructor(cellPresentation) {
         this[_presentation] = cellPresentation;
-        this.setInactive();
         this[_presentation].registerEventHandler('click', this.clickHandler(), false);
         this[_presentation].registerEventHandler('numberPadSelection', this.numberPadSelectionHandler(), false);
     };
 
     numberPadSelectionHandler() {
         return (event) => {
-            // the order matters, because innerHTML overwrites the child elements. i.e. attempting
-            // to destroy the child after overwriting innerHTML results in nullReference
-            this.deselect();
             this.setValue(event.detail.value);
+            this.deselect();
         };
     };
 
@@ -48,22 +43,9 @@ class Cell {
         }
     };
 
-    setRowNumber(rowNumber) {
-        this[_presentation].setRowNumber(rowNumber);
-    };
-
-    setColumnNumber(colNumber) {
-        this[_presentation].setColumnNumber(colNumber);
-    };
-
-    setValue(value) {
-        this.value = value;
-        this[_presentation].setValue(value);
-    };
-
     getValue() {
         return this.value;
-    }
+    };
 
     select() {
         if(!this.isActive()) {
@@ -80,33 +62,51 @@ class Cell {
         }
     };
 
+    setValue(value) {
+        this.value = value;
+        this[_presentation].setValue(value);
+    };
+
+    // todo: move this function to CellPresentation
+    setRowNumber(rowNumber) {
+        this[_presentation].setRowNumber(rowNumber);
+    };
+
+    // todo: move this function to CellPresentation
+    setColumnNumber(colNumber) {
+        this[_presentation].setColumnNumber(colNumber);
+    };
+
+    // todo: move this function to CellPresentation
     setActive() {
         this.active = true;
         this[_presentation].setActive();
     };
 
+    // todo: move this function to CellPresentation
     setInactive() {
         this.active = false;
         this[_presentation].setInactive();
     };
 
-    getDom() {
-       return this[_presentation].dom;
-    };
-
+    // todo: move this function to CellPresentation
     spawnSelector() {
-        this.selector = SelectorPadBuilder.createSelectorPad(this.getDom());
-        return this.selector;
+        this[_presentation].spawnSelector();
     };
 
+    // todo: move this function to CellPresentation
     destroySelector() {
-        if(this.selector) {
-            this.selector.destroy();
-        }
+        this[_presentation].destroySelector();
     };
 
+    // todo: move this function to CellPresentation
     isActive() {
         return this.active;
+    };
+
+    // todo: check for usages and redirect to CellPresentation
+    getDom() {
+        return this[_presentation].dom;
     };
 }
 

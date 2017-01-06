@@ -41,10 +41,6 @@ describe('Cell', () => {
         it('should register onclick eventhandler', () => {
             expect(cellPresentationStub.registerEventHandler).to.have.been.calledWith('click');
         });
-
-        it('should initialise as inactive', () => {
-            expect(testee.isActive()).to.equal(false);
-        });
     });
 
     describe('- onClick', () => {
@@ -210,43 +206,6 @@ describe('Cell', () => {
             testee.setColumnNumber(someColumnNumber);
 
             expect(cellPresentationStub.setColumnNumber).to.have.been.calledWith(someColumnNumber);
-        });
-    });
-
-    describe('- selector pad interactions', () => {
-
-        let sandbox;
-        let selectorStub;
-        let selectorPadBuilderStub;
-
-
-        beforeEach(() => {
-            sandbox = sinon.sandbox.create();
-            selectorStub = sinon.createStubInstance(SelectorPad);
-
-            selectorPadBuilderStub = sandbox.stub(SelectorPadBuilder, 'createSelectorPad').returns(selectorStub);
-
-        });
-
-        afterEach(() => {
-            sandbox.restore();
-        });
-
-        it('should get a new selector pad from the builder', () => {
-            testee = new Cell(cellPresentationStub);
-
-            testee.spawnSelector();
-
-            expect(selectorPadBuilderStub).to.have.been.calledWith(testee.getDom());
-        });
-
-        it('should destroy selector pad', () => {
-            testee = new Cell(cellPresentationStub);
-            testee.spawnSelector();
-
-            testee.destroySelector();
-
-            expect(selectorStub.destroy).to.have.been.called;
         });
     });
 });

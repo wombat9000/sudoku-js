@@ -2,6 +2,8 @@
 
 
 import {CellPresentation} from '../../src/sudoku/CellPresentation.es6';
+import {SelectorPad} from '../../src/SelectorPad.es6';
+import {SelectorPadBuilder} from '../../src/builder/SelectorPadBuilder.es6';
 
 describe('CellPresentation', () => {
 
@@ -18,7 +20,8 @@ describe('CellPresentation', () => {
             addEventListener: sandbox.spy(),
             appendChild: sandbox.spy(),
             classList: {
-                add: sandbox.spy()
+                add: sandbox.spy(),
+                remove: sandbox.spy()
             }
         };
 
@@ -48,7 +51,7 @@ describe('CellPresentation', () => {
             expect(testee.dom.addEventListener).to.have.been.calledWith('click');
         });
 
-        xit('should initialise as inactive', () => {
+        it('should initialise as inactive', () => {
             expect(testee.isActive()).to.equal(false);
         });
     });
@@ -64,6 +67,42 @@ describe('CellPresentation', () => {
             testee.setValue(5);
 
             expect(valueDomStub.innerHTML).to.equal(5);
+        });
+    });
+
+    describe('-> selector pad interactions', () => {
+
+        let sandbox;
+        let selectorStub;
+        let selectorPadBuilderStub;
+
+        beforeEach(() => {
+            sandbox = sinon.sandbox.create();
+            selectorStub = sinon.createStubInstance(SelectorPad);
+
+            selectorPadBuilderStub = sandbox.stub(SelectorPadBuilder, 'createSelectorPad').returns(selectorStub);
+
+        });
+
+        afterEach(() => {
+            sandbox.restore();
+        });
+
+        it('should get a new selector pad from the builder', () => {
+            testee = new CellPresentation();
+
+            testee.spawnSelector();
+
+            expect(selectorPadBuilderStub).to.have.been.calledWith(domStub);
+        });
+
+        it('should destroy selector pad', () => {
+            testee = new CellPresentation();
+            testee.spawnSelector();
+
+            testee.destroySelector();
+
+            expect(selectorStub.destroy).to.have.been.called;
         });
     });
 
