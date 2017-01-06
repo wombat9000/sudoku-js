@@ -2,10 +2,13 @@
 
 let Symbol = require('es6-symbol');
 const _dom = Symbol();
+const _valueDom = Symbol();
 
 class CellPresentation {
     constructor() {
         this[_dom] = document.createElement('div');
+        this[_valueDom] = document.createElement('span');
+        this[_dom].appendChild(this[_valueDom]);
         this[_dom].classList.add('cell');
     };
 
@@ -30,14 +33,11 @@ class CellPresentation {
     };
 
     setValue(value) {
-        // todo: dont set innerHTML, find a way to manipulate the text or value or something
-        // overwriting innerHTML destroys any child elements, which causes problems with the application
-        // instead: create and target a child span element
         if (value === 0) {
-            this[_dom].innerHTML = '';
+            this[_valueDom].innerHTML = '';
             return;
         }
-        this[_dom].innerHTML = value;
+        this[_valueDom].innerHTML = value;
     };
 
     addBottomBorderCSS() {

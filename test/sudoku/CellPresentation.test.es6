@@ -7,7 +7,9 @@ describe('CellPresentation', () => {
 
     let sandbox;
     let testee;
+    let docStub;
     let domStub;
+    let valueDomStub;
 
     beforeEach(() => {
         sandbox = sinon.sandbox.create();
@@ -20,7 +22,11 @@ describe('CellPresentation', () => {
             }
         };
 
-        sandbox.stub(document, 'createElement').returns(domStub);
+        valueDomStub = {};
+
+        docStub = sandbox.stub(document, 'createElement');
+        docStub.withArgs('div').returns(domStub);
+        docStub.withArgs('span').returns(valueDomStub);
 
         testee = new CellPresentation();
     });
@@ -34,6 +40,10 @@ describe('CellPresentation', () => {
             expect(testee.dom.classList.add).to.have.been.calledWith('cell');
         });
 
+        it('should append a span for holding cell value to the dom', () => {
+           expect(testee.dom.appendChild).to.have.been.calledWith(valueDomStub);
+        });
+
         xit('should register click eventhandler', () => {
             expect(testee.dom.addEventListener).to.have.been.calledWith('click');
         });
@@ -43,10 +53,18 @@ describe('CellPresentation', () => {
         });
     });
 
-    it('when setting value 0, the cell is blank', () => {
-       testee.setValue(0);
+    describe('-> setting value', () => {
+        it('leaves the cell blank, when setting value 0', () => {
+           testee.setValue(0);
 
-       expect(testee.dom.innerHTML).to.equal('');
+           expect(valueDomStub.innerHTML).to.equal('');
+        });
+
+        it('it sets value', () => {
+            testee.setValue(5);
+
+            expect(valueDomStub.innerHTML).to.equal(5);
+        });
     });
 
     it('applies bold-bottom-border class for third row', () => {
