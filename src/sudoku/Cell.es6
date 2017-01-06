@@ -1,15 +1,17 @@
 'use strict';
 
-import {SelectorPad} from '../SelectorPad.es6';
+import {SelectorPadBuilder} from '../builder/SelectorPadBuilder.es6';
+
+let Symbol = require('es6-symbol');
+const _presentation = Symbol();
 
 class Cell {
 
-    constructor(dom) {
-        dom.classList.add('cell');
-        this.dom = dom;
+    constructor(cellPresentation) {
+        this[_presentation] = cellPresentation;
         this.setInactive();
-        this.dom.addEventListener('click', this.clickHandler(), false);
-        this.dom.addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
+        this[_presentation].registerEventHandler('click', this.clickHandler(), false);
+        this[_presentation].registerEventHandler('numberPadSelection', this.numberPadSelectionHandler(), false);
     };
 
     numberPadSelectionHandler() {
@@ -35,7 +37,7 @@ class Cell {
             },
             bubbles: true
         });
-        this.dom.dispatchEvent(event);
+        this.getDom().dispatchEvent(event);
     };
 
     toggleSelectionState() {
@@ -47,44 +49,21 @@ class Cell {
     };
 
     setRowNumber(rowNumber) {
-        this.dom.classList.add('row'+rowNumber);
-
-        if (this.isBoxDelimiter(rowNumber)) {
-            this.addBottomBorderCSS();
-        }
+        this[_presentation].setRowNumber(rowNumber);
     };
 
     setColumnNumber(colNumber) {
-        this.dom.classList.add('col'+colNumber);
-
-        if (this.isBoxDelimiter(colNumber)) {
-            this.addRightBorderCSS();
-        }
-    };
-
-    isBoxDelimiter(colOrRowNumber) {
-        return colOrRowNumber == 3 || colOrRowNumber == 6;
+        this[_presentation].setColumnNumber(colNumber);
     };
 
     setValue(value) {
         this.value = value;
-        // todo: dont set innerHTML, find a way to manipulate the text or value or something
-        // overwriting innerHTML destroys any child elements, which causes problems with the application
-        // instead: create and target a child span element
-        this.dom.innerHTML = value;
+        this[_presentation].setValue(value);
     };
 
     getValue() {
         return this.value;
     }
-
-    addBottomBorderCSS() {
-        this.dom.classList.add('bold-bottom-border');
-    };
-
-    addRightBorderCSS() {
-        this.dom.classList.add('bold-right-border');
-    };
 
     select() {
         if(!this.isActive()) {
@@ -103,20 +82,20 @@ class Cell {
 
     setActive() {
         this.active = true;
-        this.dom.classList.add('active');
+        this[_presentation].setActive();
     };
 
     setInactive() {
         this.active = false;
-        this.dom.classList.remove('active');
+        this[_presentation].setInactive();
     };
 
     getDom() {
-       return this.dom;
+       return this[_presentation].dom;
     };
 
     spawnSelector() {
-        this.selector = new SelectorPad(this.dom);
+        this.selector = SelectorPadBuilder.createSelectorPad(this.getDom());
         return this.selector;
     };
 

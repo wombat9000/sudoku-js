@@ -3,6 +3,7 @@
 import {Grid} from '../sudoku/Grid.es6';
 import {Row} from '../sudoku/Row.es6';
 import {Cell} from '../sudoku/Cell.es6';
+import {CellPresentation} from '../sudoku/CellPresentation.es6';
 
 class GridBuilder {
 
@@ -27,12 +28,9 @@ function createRows(rawGrid) {
 function createCells(rawRow) {
     const cells = [];
 
-
     for (let i = 0; i < 9; i++) {
-        let cellDom = document.createElement('div');
-        let cell = new Cell(cellDom);
-        // console.log(rawRow[i]);
-
+        let cellPresentation = new CellPresentation();
+        let cell = new Cell(cellPresentation);
         cell.setValue(rawRow[i]);
         cells[i] = cell;
     }

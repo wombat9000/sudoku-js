@@ -1,11 +1,15 @@
 'use strict';
 
 import {Cell} from '../../src/sudoku/Cell.es6';
+import {CellPresentation} from '../../src/sudoku/CellPresentation.es6';
+import {SelectorPad} from '../../src/SelectorPad.es6';
+import {SelectorPadBuilder} from '../../src/builder/SelectorPadBuilder.es6';
 
 describe('Cell', () => {
 
     let testee;
     let cellDomStub;
+    let cellPresentationStub;
     let someEventHandler;
     let rectStub;
 
@@ -26,46 +30,33 @@ describe('Cell', () => {
             appendChild: sinon.spy()
         };
 
+        cellPresentationStub = sinon.createStubInstance(CellPresentation);
+
         someEventHandler = () => {};
 
-        testee = new Cell(cellDomStub);
+        testee = new Cell(cellPresentationStub);
     });
 
     describe('- initialisation', () => {
         it('should register onclick eventhandler', () => {
-            expect(cellDomStub.addEventListener).to.have.been.calledWith('click');
+            expect(cellPresentationStub.registerEventHandler).to.have.been.calledWith('click');
         });
 
         it('should initialise as inactive', () => {
             expect(testee.isActive()).to.equal(false);
         });
-
-        it('updates classlist with cell', () => {
-            expect(cellDomStub.classList.add).to.have.been.calledWith('cell');
-        });
-
-        it('should not have a selector pad initially', () => {
-            const dom = document.createElement('div');
-            testee = new Cell(dom);
-            let cellDom = testee.getDom();
-            let children = cellDom.children;
-
-            expect(children).to.have.length(0);
-        });
     });
 
     describe('- onClick', () => {
         let clickFunction;
-        let someCellDom;
         let mock;
         let someEvent;
 
         beforeEach(() => {
-            someCellDom = document.createElement('div');
             someEvent = {
                 stopPropagation: sinon.spy()
             };
-            testee = new Cell(someCellDom);
+            testee = new Cell(cellPresentationStub);
             mock = sinon.mock(testee);
             clickFunction = testee.clickHandler();
         });
@@ -79,7 +70,10 @@ describe('Cell', () => {
         });
 
         it('should stop propagation', () => {
+            // simulate click
+            testee.toggleSelectionState = sinon.stub();
             clickFunction(someEvent);
+
             expect(someEvent.stopPropagation).to.have.been.called;
         });
     });
@@ -89,8 +83,9 @@ describe('Cell', () => {
         let mock;
 
         beforeEach(() => {
-            testee = new Cell(cellDomStub);
+            testee = new Cell(cellPresentationStub);
             mock = sinon.mock(testee);
+            sinon.stub(testee, 'getDom').returns(cellDomStub);
         });
 
         it('should toggle off if it is active', () => {
@@ -99,7 +94,10 @@ describe('Cell', () => {
            mock.expects('setInactive').once();
            mock.expects('setActive').never();
 
-           testee.toggleSelectionState();
+            sinon.stub(testee, 'select');
+            sinon.stub(testee, 'broadCastSelectionEvent');
+
+            testee.toggleSelectionState();
 
            mock.verify();
         });
@@ -116,7 +114,6 @@ describe('Cell', () => {
         });
 
         describe('- on selection', () => {
-
             describe(' - cellSelected event', () => {
                 let eventFired;
 
@@ -205,86 +202,51 @@ describe('Cell', () => {
             const someRowNumber = 5;
             testee.setRowNumber(someRowNumber);
 
-            expect(cellDomStub.classList.add).to.have.been.calledWith('row'+someRowNumber);
+            expect(cellPresentationStub.setRowNumber).to.have.been.calledWith(someRowNumber);
         });
 
         it('updates classlist when setting column', () => {
             const someColumnNumber = 5;
             testee.setColumnNumber(someColumnNumber);
 
-            expect(cellDomStub.classList.add).to.have.been.calledWith('col'+someColumnNumber);
-        });
-
-        it('provides its html representation', () => {
-            let testee = new Cell(document.createElement('div'));
-            const someRowNumber = 5;
-            testee.setRowNumber(someRowNumber);
-            const someColumnNumber = 5;
-            testee.setColumnNumber(someColumnNumber);
-            const someValue = 1;
-            testee.setValue(someValue);
-            const expectedHtml = '<div class="cell row' + someRowNumber + ' col' + someColumnNumber + '">' + someValue + '</div>';
-
-            const actualHtml = testee.getDom();
-
-            expect(actualHtml.outerHTML).to.equal(expectedHtml);
-        });
-
-        it('applies bold-bottom-border class for third row', () => {
-            testee.setRowNumber(3);
-            expect(cellDomStub.classList.add).to.have.been.calledWith('bold-bottom-border');
-        });
-
-        it('applies bold-bottom-border class for sixth row', () => {
-            testee.setRowNumber(6);
-            expect(cellDomStub.classList.add).to.have.been.calledWith('bold-bottom-border');
-        });
-
-        it('does not apply bold-bottom-border class for fifth row', () => {
-            testee.setRowNumber(5);
-            expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-bottom-border');
-        });
-
-        it('applies bold-right-border class for third column', () => {
-            testee.setColumnNumber(3);
-            expect(cellDomStub.classList.add).to.have.been.calledWith('bold-right-border');
-        });
-
-        it('applies bold-right-border class for sixth column', () => {
-            testee.setColumnNumber(6);
-            expect(cellDomStub.classList.add).to.have.been.calledWith('bold-right-border');
-        });
-
-        it('does not apply bold-right-border class for fifth column', () => {
-            testee.setColumnNumber(5);
-            expect(cellDomStub.classList.add).to.not.have.been.calledWith('bold-right-border');
+            expect(cellPresentationStub.setColumnNumber).to.have.been.calledWith(someColumnNumber);
         });
     });
 
     describe('- selector pad interactions', () => {
-        it('should append a div to its dom with id selector pad', () => {
-            const dom = document.createElement('div');
-            testee = new Cell(dom);
+
+        let sandbox;
+        let selectorStub;
+        let selectorPadBuilderStub;
+
+
+        beforeEach(() => {
+            sandbox = sinon.sandbox.create();
+            selectorStub = sinon.createStubInstance(SelectorPad);
+
+            selectorPadBuilderStub = sandbox.stub(SelectorPadBuilder, 'createSelectorPad').returns(selectorStub);
+
+        });
+
+        afterEach(() => {
+            sandbox.restore();
+        });
+
+        it('should get a new selector pad from the builder', () => {
+            testee = new Cell(cellPresentationStub);
 
             testee.spawnSelector();
 
-            const cellDom = testee.getDom();
-            const children = cellDom.children;
-            expect(children).to.have.length(1);
-            expect(children[0].classList.contains('selector_pad')).to.equal(true);
+            expect(selectorPadBuilderStub).to.have.been.calledWith(testee.getDom());
         });
 
         it('should destroy selector pad', () => {
-            const cellDom = document.createElement('div');
-            testee = new Cell(cellDom);
-            const selector = testee.spawnSelector();
-
-            const mock = sinon.mock(selector);
-            mock.expects('destroy').once();
+            testee = new Cell(cellPresentationStub);
+            testee.spawnSelector();
 
             testee.destroySelector();
 
-            mock.verify();
+            expect(selectorStub.destroy).to.have.been.called;
         });
     });
 });
