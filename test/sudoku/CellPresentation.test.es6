@@ -43,6 +43,12 @@ describe('CellPresentation', () => {
         });
     });
 
+    it('when setting value 0, the cell is blank', () => {
+       testee.setValue(0);
+
+       expect(testee.dom.innerHTML).to.equal('');
+    });
+
     it('applies bold-bottom-border class for third row', () => {
         testee.setRowNumber(3);
         expect(testee.dom.classList.add).to.have.been.calledWith('bold-bottom-border');

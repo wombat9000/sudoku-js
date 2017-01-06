@@ -33,6 +33,10 @@ class CellPresentation {
         // todo: dont set innerHTML, find a way to manipulate the text or value or something
         // overwriting innerHTML destroys any child elements, which causes problems with the application
         // instead: create and target a child span element
+        if (value === 0) {
+            this[_dom].innerHTML = '';
+            return;
+        }
         this[_dom].innerHTML = value;
     };
 
