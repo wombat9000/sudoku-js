@@ -13,7 +13,32 @@ class CellPresentation {
         this[_dom].appendChild(this[_valueDom]);
         this[_dom].classList.add('cell');
 
+        this[_dom].addEventListener('click', this.clickHandler(), false);
+        this[_dom].addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
+
         this.setInactive();
+    };
+
+    numberPadSelectionHandler() {
+        return (event) => {
+            this.setValue(event.detail.value);
+            this.deselect();
+        };
+    };
+
+    clickHandler() {
+        return (event) => {
+            this.toggleSelectionState();
+            event.stopPropagation();
+        };
+    };
+
+    toggleSelectionState() {
+        if(this.isActive()) {
+            this.deselect();
+        } else {
+            this.select();
+        }
     };
 
     registerEventHandler(event, handler, bubble) {
@@ -33,6 +58,14 @@ class CellPresentation {
 
         if (isBoxDelimiter(colNumber)) {
             this.addRightBorderCSS();
+        }
+    };
+
+    select() {
+        if(!this.isActive()) {
+            this.spawnSelector();
+            this.setActive();
+            this.broadCastSelectionEvent();
         }
     };
 
@@ -70,6 +103,23 @@ class CellPresentation {
     destroySelector() {
         if(this.selector) {
             this.selector.destroy();
+        }
+    };
+
+    broadCastSelectionEvent() {
+        let event = new CustomEvent('cellSelected', {
+            detail: {
+                cell: this
+            },
+            bubbles: true
+        });
+        this[_dom].dispatchEvent(event);
+    };
+
+    deselect() {
+        if(this.isActive()) {
+            this.destroySelector();
+            this.setInactive();
         }
     };
 

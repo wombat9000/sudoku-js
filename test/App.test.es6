@@ -1,9 +1,9 @@
 'use strict';
 
 import {App} from './../src/App.es6';
-import {Cell} from './../src/sudoku/Cell.es6';
 import {Grid} from './../src/sudoku/Grid.es6';
 import {GridBuilder} from './../src/builder/GridBuilder.es6';
+import {CellPresentation} from '../src/sudoku/CellPresentation.es6';
 
 describe('App', () => {
 
@@ -74,7 +74,7 @@ describe('App', () => {
         let previouslySelectedCell;
 
         beforeEach(() => {
-            previouslySelectedCell = sinon.createStubInstance(Cell);
+            previouslySelectedCell = sinon.createStubInstance(CellPresentation);
 
             someEvent = {};
 
@@ -98,7 +98,7 @@ describe('App', () => {
         let newlySelectedCell;
 
         beforeEach(() => {
-            newlySelectedCell = sinon.createStubInstance(Cell);
+            newlySelectedCell = sinon.createStubInstance(CellPresentation);
 
             someEvent = {
                 detail: {
@@ -111,7 +111,7 @@ describe('App', () => {
         });
 
         it('should deselect previously selected cell', () => {
-            const previouslySelectedCell = sinon.createStubInstance(Cell);
+            const previouslySelectedCell = sinon.createStubInstance(CellPresentation);
             someApp.previouslySelectedCell = previouslySelectedCell;
 
             cellSelectionHandler(someEvent);
@@ -136,7 +136,7 @@ describe('App', () => {
         });
 
         it('should remember selected cell', () => {
-            const previouslySelectedCell = sinon.createStubInstance(Cell);
+            const previouslySelectedCell = sinon.createStubInstance(CellPresentation);
             someApp.previouslySelectedCell = previouslySelectedCell;
 
             cellSelectionHandler(someEvent);
@@ -145,19 +145,4 @@ describe('App', () => {
             expect(cell).to.equal(newlySelectedCell);
         });
     });
-
-    // it.only("should work with ES6 classes", function () {
-    //     class C {
-    //         foo(){ }
-    //     }
-    //
-    //     const c = new C();
-    //
-    //     const sandbox = sinon.sandbox.create();
-    //
-    //     sandbox.stub(c);
-    //     sandbox.restore();
-    //     sandbox.stub(c);
-    //     sandbox.restore();
-    // });
 });
