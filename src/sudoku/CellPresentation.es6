@@ -6,9 +6,12 @@ let Symbol = require('es6-symbol');
 const _dom = Symbol();
 const _valueDom = Symbol();
 const _cell = Symbol();
+const _filled = Symbol();
+const _active = Symbol();
 
 class CellPresentation {
     constructor(cell) {
+        this.filled = false;
         this[_cell] = cell;
         this[_valueDom] = document.createElement('span');
         this[_dom] = document.createElement('div');
@@ -34,7 +37,7 @@ class CellPresentation {
     };
 
     toggleSelectionState() {
-        if(this.isActive()) {
+        if(this.active) {
             this.deselect();
         } else {
             this.select();
@@ -58,7 +61,7 @@ class CellPresentation {
     };
 
     select() {
-        if(!this.isActive()) {
+        if(!this.active) {
             this.spawnSelector();
             this.setActive();
             this.broadCastSelectionEvent();
@@ -71,6 +74,8 @@ class CellPresentation {
             return;
         }
         this[_valueDom].innerHTML = value;
+        this.dom.classList.add('filled');
+        this.filled = true;
     };
 
     addBottomBorderCSS() {
@@ -113,7 +118,7 @@ class CellPresentation {
     };
 
     deselect() {
-        if(this.isActive()) {
+        if(this[_active]) {
             this.destroySelector();
             this.setInactive();
         }
@@ -123,8 +128,20 @@ class CellPresentation {
         return this[_dom];
     };
 
-    isActive() {
-        return this.active;
+    get active() {
+        return this[_active];
+    };
+
+    set active(value) {
+        this[_active] = value;
+    };
+
+    get filled() {
+        return this[_filled];
+    };
+
+    set filled(value) {
+        this[_filled] = value;
     };
 }
 

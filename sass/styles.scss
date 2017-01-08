@@ -50,6 +50,12 @@ body {
     font-size: 20px;
 }
 
+.cell.filled {
+    background-color: darken($background-color, 10%);
+    color: lighten($color-primary, 15%);
+    font-size: 20px;
+}
+
 .bold-right-border {
     border-right: 3px solid darken($color-primary, 15%);
 }

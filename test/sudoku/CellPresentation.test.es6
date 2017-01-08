@@ -63,7 +63,12 @@ describe('CellPresentation', () => {
         });
 
         it('should initialise as inactive', () => {
-            expect(testee.isActive()).to.equal(false);
+            expect(testee.active).to.equal(false);
+        });
+
+        it('should initialise as not yet filled', () => {
+            expect(testee.filled).to.equal(false);
+            expect(testee.dom.classList.add).to.not.have.been.calledWith('filled');
         });
     });
 
@@ -78,6 +83,13 @@ describe('CellPresentation', () => {
             testee.setValue(5);
 
             expect(valueDomStub.innerHTML).to.equal(5);
+        });
+
+        it('sets the filled state', () => {
+            testee.setValue(5);
+
+            expect(testee.filled).to.equal(true);
+            expect(testee.dom.classList.add).to.have.been.calledWith('filled');
         });
     });
 
