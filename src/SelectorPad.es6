@@ -17,6 +17,12 @@ class SelectorPad {
            this.dom.appendChild(row);
         });
 
+        this.addClearButton();
+
+        this.bindToCell(cellDom);
+    };
+
+    addClearButton() {
         const clearButton = new Selector(0);
         clearButton.getDom().classList.add('clear-selection');
 
@@ -24,9 +30,7 @@ class SelectorPad {
         rowDom.classList.add('row');
         rowDom.appendChild(clearButton.getDom());
         this.dom.appendChild(rowDom);
-
-        this.bindToCell(cellDom);
-    };
+    }
 
     buildSelectorPadRows() {
         let rows = [];
@@ -49,9 +53,7 @@ class SelectorPad {
 
         for (let i = 0; i < 3; i++) {
             let value = i + 1 + rowNum * 3;
-            let selector = new Selector(value);
-
-            cells[i] = selector;
+            cells[i] = new Selector(value);
         }
         return cells;
     }
