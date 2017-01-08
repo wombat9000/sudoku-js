@@ -1,6 +1,7 @@
 'use strict';
 
 import {SelectorPadBuilder} from '../builder/SelectorPadBuilder.es6';
+import {DomFactory} from '../factory/DomFactory.es6';
 
 let Symbol = require('es6-symbol');
 const _dom = Symbol();
@@ -14,9 +15,8 @@ class CellPresentation {
         this.filled = false;
         this[_cell] = cell;
         this[_valueDom] = document.createElement('span');
-        this[_dom] = document.createElement('div');
+        this[_dom] = DomFactory.createCellDom();
         this[_dom].appendChild(this[_valueDom]);
-        this[_dom].classList.add('cell');
         this[_dom].addEventListener('click', this.clickHandler(), false);
         this[_dom].addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
         this.setInactive();

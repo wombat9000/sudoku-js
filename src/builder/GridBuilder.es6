@@ -4,11 +4,12 @@ import {Grid} from '../sudoku/Grid.es6';
 import {Cell} from '../sudoku/Cell.es6';
 import {CellPresentationBuilder} from './CellPresentationBuilder.es6';
 import {RowBuilder} from './RowBuilder.es6';
+import {DomFactory} from '../factory/DomFactory.es6';
 
 class GridBuilder {
 
     static createGrid(rawRows) {
-        const gridDom = document.createElement('div');
+        const gridDom = DomFactory.createGridDom();
         const rows = createRows(rawRows);
         return new Grid(gridDom, rows);
     };

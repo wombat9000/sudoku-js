@@ -6,8 +6,6 @@ const _dom = Symbol();
 class Row {
 
     constructor(rowNumber, rowDom, cells) {
-        rowDom.classList.add('row');
-
         let colIndex = 1;
         cells.map(cellPresentation => {
             cellPresentation.setRowNumber(rowNumber);
