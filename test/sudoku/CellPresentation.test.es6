@@ -73,10 +73,12 @@ describe('CellPresentation', () => {
     });
 
     describe('-> setting value', () => {
-        it('leaves the cell blank, when setting value 0', () => {
-           testee.setValue(0);
+        it('clears the cell, when setting value 0', () => {
+            testee.setValue(2);
+            testee.setValue(0);
 
-           expect(valueDomStub.innerHTML).to.equal('');
+            expect(valueDomStub.innerHTML).to.equal('');
+            expect(domStub.classList.remove).to.have.been.calledWith('filled');
         });
 
         it('it sets value', () => {

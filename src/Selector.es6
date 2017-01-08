@@ -5,8 +5,13 @@ class Selector {
     constructor(value) {
         this.dom = document.createElement('div');
         this.dom.classList.add('cell');
-        this.dom.innerHTML = value;
         this.value = value;
+
+        if (value == 0) {
+            this.dom.innerHTML = 'clear';
+        } else {
+            this.dom.innerHTML = value;
+        }
 
         this.dom.addEventListener('click', this.clickHandler(), false);
     };

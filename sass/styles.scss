@@ -64,21 +64,16 @@ body {
     border-bottom: 3px solid darken($color-primary, 15%);
 }
 
-.selector_pad {
+.selector-pad {
   $selector-size: 20px;
   background-color: #AAA;
   position:absolute;
   display: flex;
   flex-direction: column;
-  height: ($selector-size * 3);
+  height: ($selector-size * 4) + 4;
   width: ($selector-size * 3);
   opacity: 0;
   border-radius: 4px;
-
-  .selector_row {
-    display: flex;
-    flex-direction: row;
-  }
 
   .cell {
     color: darkgoldenrod;
@@ -86,6 +81,10 @@ body {
     width: $selector-size;
     line-height: $selector-size;
     border-radius: 0px;
+  }
+
+  .clear-selection {
+    width: ($selector-size * 3);
   }
 
   .cell:hover {

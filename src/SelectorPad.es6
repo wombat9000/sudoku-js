@@ -2,7 +2,7 @@
 
 import {Selector} from './Selector.es6';
 
-const SELECTOR_CLASS = 'selector_pad';
+const SELECTOR_CLASS = 'selector-pad';
 const LEFT_OFFSET = 20;
 const TOP_OFFSET = 40;
 
@@ -16,6 +16,14 @@ class SelectorPad {
         rows.forEach(row => {
            this.dom.appendChild(row);
         });
+
+        const clearButton = new Selector(0);
+        clearButton.getDom().classList.add('clear-selection');
+
+        let rowDom = document.createElement('div');
+        rowDom.classList.add('row');
+        rowDom.appendChild(clearButton.getDom());
+        this.dom.appendChild(rowDom);
 
         this.bindToCell(cellDom);
     };

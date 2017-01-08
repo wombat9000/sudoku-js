@@ -71,6 +71,7 @@ class CellPresentation {
     setValue(value) {
         if (value === 0) {
             this[_valueDom].innerHTML = '';
+            this.dom.classList.remove('filled');
             return;
         }
         this[_valueDom].innerHTML = value;

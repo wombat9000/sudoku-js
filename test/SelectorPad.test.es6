@@ -33,15 +33,20 @@ describe('SelectorPad', () => {
         it('should create a new dom object with class selector pad', () => {
             const dom = testee.getDom();
 
-            expect(dom.classList.contains('selector_pad')).to.equal(true);
+            expect(dom.classList.contains('selector-pad')).to.equal(true);
         });
     });
 
     describe('- presentation', () => {
-        it('has three rows', () => {
-        const rows = testee.getDom().children;
+        it('has four rows', () => {
+            const rows = testee.getDom().children;
             expect(rows[0].classList.contains('row')).to.equal(true);
-            expect(rows).to.have.length(3);
+            expect(rows).to.have.length(4);
+        });
+
+        it('should have a fourth row which only has one cell', () => {
+            const rows = testee.getDom().children;
+            expect(rows[3].children).to.have.length(1);
         });
 
         describe('- row', () => {

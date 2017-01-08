@@ -44,6 +44,14 @@ describe('Selector', () => {
 
         it('should set its value', () => {
             expect(testee.value).to.equal(someValue);
+            expect(testee.getDom().innerHTML).to.equal(someValue);
+        });
+
+        it('should read "clear" if value is 0', () => {
+            testee = new Selector(0);
+
+            expect(testee.value).to.equal(0);
+            expect(testee.getDom().innerHTML).to.equal('clear');
         });
     });
 
