@@ -7,33 +7,35 @@ import {RowBuilder} from './RowBuilder.es6';
 
 class GridBuilder {
 
-    static createGrid(rawGrid) {
+    static createGrid(rawRows) {
         const gridDom = document.createElement('div');
-        const rows = createRows(rawGrid);
+        const rows = createRows(rawRows);
         return new Grid(gridDom, rows);
     };
 }
 
-function createRows(rawGrid) {
+function createRows(rawRows) {
     const rows = [];
 
     for (let i = 0; i < 9; i++) {
-        let rowDom = document.createElement('div');
-        let cells = createCells(rawGrid[i]);
-        rows[i] = RowBuilder.createRow(i+1, rowDom, cells);
+        let cellsForRow = createCells(rawRows[i]);
+        let rowNumber = i+1;
+        rows.push(RowBuilder.createRow(rowNumber, cellsForRow));
     }
+
     return rows;
 };
 
-function createCells(rawRow) {
+function createCells(rawCells) {
     const cells = [];
 
-    for (let i = 0; i < 9; i++) {
+    rawCells.forEach(rawCell => {
         let cell = new Cell();
         let cellPresentation = CellPresentationBuilder.createPresentationFor(cell);
-        cellPresentation.setValue(rawRow[i]);
-        cells[i] = cellPresentation;
-    }
+        cellPresentation.setValue(rawCell);
+        cells.push(cellPresentation);
+    });
+
     return cells;
 };
 

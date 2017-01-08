@@ -1,5 +1,5 @@
 'use strict';
-let Symbol = require('es6-symbol');
+const Symbol = require('es6-symbol');
 const _cells = Symbol();
 const _dom = Symbol();
 
