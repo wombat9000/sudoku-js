@@ -4,6 +4,7 @@
 import {CellPresentation} from '../../src/sudoku/CellPresentation.es6';
 import {SelectorPad} from '../../src/SelectorPad.es6';
 import {SelectorPadBuilder} from '../../src/builder/SelectorPadBuilder.es6';
+import {Cell} from '../../src/sudoku/Cell.es6';
 
 describe('CellPresentation', () => {
 
@@ -14,11 +15,10 @@ describe('CellPresentation', () => {
     let valueDomStub;
     let selectorStub;
     let selectorPadBuilderStub;
-
+    let someCell;
 
     beforeEach(() => {
         sandbox = sinon.sandbox.create();
-
 
         selectorStub = sinon.createStubInstance(SelectorPad);
 
@@ -40,7 +40,9 @@ describe('CellPresentation', () => {
         docStub.withArgs('div').returns(domStub);
         docStub.withArgs('span').returns(valueDomStub);
 
-        testee = new CellPresentation();
+        someCell = sinon.createStubInstance(Cell);
+
+        testee = new CellPresentation(someCell);
     });
 
     afterEach(() => {
@@ -246,6 +248,22 @@ describe('CellPresentation', () => {
         });
     });
 
+    describe('-> presentation', () => {
+        it('updates classlist when setting row', () => {
+            const someRowNumber = 5;
+            testee.setRowNumber(someRowNumber);
+
+            expect(domStub.classList.add).to.have.been.calledWith('row'+someRowNumber);
+        });
+
+        it('updates classlist when setting column', () => {
+            const someColumnNumber = 5;
+            testee.setColumnNumber(someColumnNumber);
+
+            expect(domStub.classList.add).to.have.been.calledWith('col'+someColumnNumber);
+        });
+    });
+
     it('applies bold-bottom-border class for third row', () => {
         testee.setRowNumber(3);
         expect(testee.dom.classList.add).to.have.been.calledWith('bold-bottom-border');
@@ -276,7 +294,8 @@ describe('CellPresentation', () => {
         expect(testee.dom.classList.add).to.not.have.been.calledWith('bold-right-border');
     });
 
-    xit('should not have a selector pad initially', () => {
-        expect(testee.dom.appendChild).to.not.have.been.called;
+    it('should not have a selector pad initially', () => {
+        expect(SelectorPadBuilder.createSelectorPad).to.not.have.been.called;
+        // expect(testee.dom.appendChild).to.not.have.been.calledWith('');
     });
 });

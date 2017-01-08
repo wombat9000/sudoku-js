@@ -5,17 +5,17 @@ import {SelectorPadBuilder} from '../builder/SelectorPadBuilder.es6';
 let Symbol = require('es6-symbol');
 const _dom = Symbol();
 const _valueDom = Symbol();
+const _cell = Symbol();
 
 class CellPresentation {
-    constructor() {
-        this[_dom] = document.createElement('div');
+    constructor(cell) {
+        this[_cell] = cell;
         this[_valueDom] = document.createElement('span');
+        this[_dom] = document.createElement('div');
         this[_dom].appendChild(this[_valueDom]);
         this[_dom].classList.add('cell');
-
         this[_dom].addEventListener('click', this.clickHandler(), false);
         this[_dom].addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
-
         this.setInactive();
     };
 
@@ -39,10 +39,6 @@ class CellPresentation {
         } else {
             this.select();
         }
-    };
-
-    registerEventHandler(event, handler, bubble) {
-        this[_dom].addEventListener(event, handler, bubble);
     };
 
     setRowNumber(rowNumber) {

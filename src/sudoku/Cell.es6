@@ -1,36 +1,19 @@
 'use strict';
 
 let Symbol = require('es6-symbol');
-const _presentation = Symbol();
+const _value = Symbol();
 
 class Cell {
 
-    constructor(cellPresentation) {
-        this[_presentation] = cellPresentation;
+    constructor() {
     };
 
-    getValue() {
-        return this.value;
+    get value() {
+        return this[_value];
     };
 
-    setValue(value) {
-        this.value = value;
-        this[_presentation].setValue(value);
-    };
-
-    // todo: move this function to CellPresentation
-    setRowNumber(rowNumber) {
-        this[_presentation].setRowNumber(rowNumber);
-    };
-
-    // todo: move this function to CellPresentation
-    setColumnNumber(colNumber) {
-        this[_presentation].setColumnNumber(colNumber);
-    };
-
-    // todo: check for usages and redirect to CellPresentation
-    getDom() {
-        return this[_presentation].dom;
+    set value(value) {
+        this[_value] = value;
     };
 }
 

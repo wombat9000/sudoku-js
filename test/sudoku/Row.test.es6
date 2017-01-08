@@ -1,6 +1,6 @@
 'use strict';
 
-import {Cell} from './../../src/sudoku/Cell.es6';
+import {CellPresentation} from './../../src/sudoku/CellPresentation.es6';
 import {Row} from './../../src/sudoku/Row.es6';
 
 describe('Row', () => {
@@ -18,8 +18,8 @@ describe('Row', () => {
         rowNumber = 0;
 
         cells = [
-            someCell = sinon.createStubInstance(Cell),
-            anotherCell = sinon.createStubInstance(Cell)
+            someCell = sinon.createStubInstance(CellPresentation),
+            anotherCell = sinon.createStubInstance(CellPresentation)
         ];
 
         testee = new Row(rowNumber, rowDom, cells);
@@ -39,7 +39,7 @@ describe('Row', () => {
         it('should append each cell dom to row dom', () => {
             let someCellDom;
             cells.forEach(() => {
-                someCellDom = someCell.getDom();
+                someCellDom = someCell.dom;
                 expect(rowDom.appendChild).to.have.been.calledWith(someCellDom);
             });
         });

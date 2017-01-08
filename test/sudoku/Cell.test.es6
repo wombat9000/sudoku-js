@@ -35,23 +35,5 @@ describe('Cell', () => {
         testee = new Cell(cellPresentationStub);
     });
 
-    describe('- initialisation', () => {
 
-    });
-
-    describe('- presentation', () => {
-        it('updates classlist when setting row', () => {
-            const someRowNumber = 5;
-            testee.setRowNumber(someRowNumber);
-
-            expect(cellPresentationStub.setRowNumber).to.have.been.calledWith(someRowNumber);
-        });
-
-        it('updates classlist when setting column', () => {
-            const someColumnNumber = 5;
-            testee.setColumnNumber(someColumnNumber);
-
-            expect(cellPresentationStub.setColumnNumber).to.have.been.calledWith(someColumnNumber);
-        });
-    });
 });
