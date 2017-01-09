@@ -31,9 +31,9 @@ function createCells(rawCells) {
     const cells = [];
 
     rawCells.forEach(rawCell => {
-        let cell = new Cell();
+        let cell = new Cell(rawCell);
         let cellPresentation = CellPresentationBuilder.createPresentationFor(cell);
-        cellPresentation.setValue(rawCell);
+        // cellPresentation.setValue(rawCell);
         cells.push(cellPresentation);
     });
 

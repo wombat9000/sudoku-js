@@ -9,10 +9,20 @@ const _valueDom = Symbol();
 const _cell = Symbol();
 const _filled = Symbol();
 const _active = Symbol();
+const _initial = Symbol();
 
 class CellPresentation {
+
+    get initial() {
+        return this[_initial];
+    };
+
+    set initial(value) {
+        this[_initial] = value;
+    };
+
     constructor(cell) {
-        this.filled = false;
+        this.initial = false;
         this[_cell] = cell;
         this[_valueDom] = document.createElement('span');
         this[_dom] = DomFactory.createCellDom();
@@ -20,6 +30,18 @@ class CellPresentation {
         this[_dom].addEventListener('click', this.clickHandler(), false);
         this[_dom].addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
         this.setInactive();
+        this.setInitialValue(cell.value);
+    };
+
+    setInitialValue(value) {
+        this.setValue(value);
+        this.filled = false;
+
+        if(value > 0) {
+            this.filled = true;
+            this.initial = true;
+            this[_dom].classList.add('initial');
+        }
     };
 
     numberPadSelectionHandler() {
@@ -61,7 +83,7 @@ class CellPresentation {
     };
 
     select() {
-        if(!this.active) {
+        if(!this.active && !this.initial) {
             this.spawnSelector();
             this.setActive();
             this.broadCastSelectionEvent();
@@ -69,14 +91,15 @@ class CellPresentation {
     };
 
     setValue(value) {
-        if (value === 0) {
+        if (value > 0) {
+            this[_valueDom].innerHTML = value;
+            this.dom.classList.add('filled');
+            this.filled = true;
+        } else {
             this[_valueDom].innerHTML = '';
             this.dom.classList.remove('filled');
-            return;
+            this.filled = false;
         }
-        this[_valueDom].innerHTML = value;
-        this.dom.classList.add('filled');
-        this.filled = true;
     };
 
     addBottomBorderCSS() {
@@ -119,7 +142,7 @@ class CellPresentation {
     };
 
     deselect() {
-        if(this[_active]) {
+        if(this.active) {
             this.destroySelector();
             this.setInactive();
         }

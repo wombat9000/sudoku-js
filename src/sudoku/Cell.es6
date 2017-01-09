@@ -5,7 +5,8 @@ const _value = Symbol();
 
 class Cell {
 
-    constructor() {
+    constructor(value) {
+        this.value = value;
     };
 
     get value() {

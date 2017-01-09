@@ -42,6 +42,12 @@ describe('CellPresentation', () => {
 
         someCell = sinon.createStubInstance(Cell);
 
+        sinon.wrapMethod(someCell, 'value', {
+            get: function () {
+                return 2;
+            }
+        });
+
         testee = new CellPresentation(someCell);
     });
 
@@ -50,12 +56,13 @@ describe('CellPresentation', () => {
     });
 
     describe('-> initialisation', () => {
+
         it('should add cell css class', () => {
             expect(testee.dom.classList.add).to.have.been.calledWith('cell');
         });
 
         it('should append a span for holding cell value to the dom', () => {
-           expect(testee.dom.appendChild).to.have.been.calledWith(valueDomStub);
+            expect(testee.dom.appendChild).to.have.been.calledWith(valueDomStub);
         });
 
         it('should register click eventhandler', () => {
@@ -66,8 +73,23 @@ describe('CellPresentation', () => {
             expect(testee.active).to.equal(false);
         });
 
-        it('should initialise as not yet filled', () => {
+        it('should initialise as initial for non-empty cell', () => {
+            expect(testee.initial).to.equal(true);
+            expect(testee.dom.classList.add).to.have.been.calledWith('initial');
+        });
+
+        it('should initialise as not yet filled for empty cell', () => {
+            sinon.wrapMethod(someCell, 'value', {
+                get: function () {
+                    return 0;
+                }
+            });
+
+            testee.dom.classList.add.reset();
+            testee = new CellPresentation(someCell);
+
             expect(testee.filled).to.equal(false);
+            expect(testee.initial).to.equal(false);
             expect(testee.dom.classList.add).to.not.have.been.calledWith('filled');
         });
     });
@@ -104,7 +126,7 @@ describe('CellPresentation', () => {
             someEvent = {
                 stopPropagation: sinon.spy()
             };
-            testee = new CellPresentation();
+            testee = new CellPresentation(someCell);
             mock = sinon.mock(testee);
             clickFunction = testee.clickHandler();
         });
@@ -130,7 +152,13 @@ describe('CellPresentation', () => {
         let mock;
 
         beforeEach(() => {
-            testee = new CellPresentation();
+            sinon.wrapMethod(someCell, 'value', {
+                get: function () {
+                    return 0;
+                }
+            });
+
+            testee = new CellPresentation(someCell);
             mock = sinon.mock(testee);
         });
 
@@ -245,7 +273,7 @@ describe('CellPresentation', () => {
 
     describe('-> selector pad interactions', () => {
         it('should get a new selector pad from the builder', () => {
-            testee = new CellPresentation();
+            testee = new CellPresentation(someCell);
 
             testee.spawnSelector();
 
@@ -253,7 +281,7 @@ describe('CellPresentation', () => {
         });
 
         it('should destroy selector pad', () => {
-            testee = new CellPresentation();
+            testee = new CellPresentation(someCell);
             testee.spawnSelector();
 
             testee.destroySelector();
@@ -310,6 +338,5 @@ describe('CellPresentation', () => {
 
     it('should not have a selector pad initially', () => {
         expect(SelectorPadBuilder.createSelectorPad).to.not.have.been.called;
-        // expect(testee.dom.appendChild).to.not.have.been.calledWith('');
     });
 });
