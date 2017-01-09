@@ -28,8 +28,8 @@ body {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
     cursor: default;
-  background-color: darken($color-primary, 30%);
-  color: #ccc;
+    background-color: darken($color-primary, 30%);
+    color: #ccc;
     text-align: center;
     line-height: $cell-size;
     height: $cell-size;
@@ -37,28 +37,36 @@ body {
     border: $cell-border-width solid $border-color;
     border-radius: 8px;
     margin: (-1 * $cell-border-width) 0 0 (-1 * $cell-border-width);
-}
 
-.cell:hover {
-    background-color: lighten($background-color, 25%);
+  &:hover {
+    background-color: darken($color-primary, 10%);
     color: $color-primary;
     font-size: 20px;
-}
+  }
 
-.cell.active {
+  &.active {
     background-color: darken($background-color, 10%);
     color: lighten($color-primary, 15%);
     font-size: 20px;
-}
+  }
 
-.cell.filled {
+  &.filled {
     background-color: lighten($background-color, 15%);
     color: lighten($color-primary, 15%);
     font-size: 20px;
-}.cell.filled.initial {
-    background-color: darken($background-color, 10%);
-    color: lighten($color-primary, 15%);
-    font-size: 20px;
+
+    &:hover {
+      background-color: darken($color-primary, 15%);
+      color: darken($background-color, 5%);
+      font-size: 20px;
+    }
+
+    &.initial {
+      background-color: darken($background-color, 10%);
+      color: lighten($color-primary, 15%);
+      font-size: 20px;
+    }
+  }
 }
 
 .bold-right-border {
