@@ -1,10 +1,8 @@
 'use strict';
 
 import {Grid} from '../sudoku/Grid.es6';
-import {Cell} from '../sudoku/Cell.es6';
-import {CellPresentationBuilder} from './CellPresentationBuilder.es6';
-import {RowBuilder} from './RowBuilder.es6';
 import {DomFactory} from '../factory/DomFactory.es6';
+import {InstanceProvider} from '../InstanceProvider.es6';
 
 class GridBuilder {
 
@@ -21,7 +19,7 @@ function createRows(rawRows) {
     for (let i = 0; i < 9; i++) {
         let cellsForRow = createCells(rawRows[i]);
         let rowNumber = i+1;
-        rows.push(RowBuilder.createRow(rowNumber, cellsForRow));
+        rows.push(InstanceProvider.row(rowNumber, cellsForRow));
     }
 
     return rows;
@@ -31,9 +29,8 @@ function createCells(rawCells) {
     const cells = [];
 
     rawCells.forEach(rawCell => {
-        let cell = new Cell(rawCell);
-        let cellPresentation = CellPresentationBuilder.createPresentationFor(cell);
-        // cellPresentation.setValue(rawCell);
+        let cell = InstanceProvider.cell(rawCell);
+        let cellPresentation = InstanceProvider.cellPresentation(cell);
         cells.push(cellPresentation);
     });
 

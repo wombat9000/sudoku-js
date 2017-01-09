@@ -1,7 +1,7 @@
 'use strict';
 
-import {SelectorPadBuilder} from '../builder/SelectorPadBuilder.es6';
 import {DomFactory} from '../factory/DomFactory.es6';
+import {InstanceProvider} from '../InstanceProvider.es6';
 
 let Symbol = require('es6-symbol');
 const _dom = Symbol();
@@ -121,7 +121,7 @@ class CellPresentation {
     };
 
     spawnSelector() {
-        this.selector = SelectorPadBuilder.createSelectorPad(this.dom);
+        this.selector = InstanceProvider.selectorPad(this.dom);
         return this.selector;
     };
 

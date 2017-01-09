@@ -3,8 +3,8 @@
 
 import {CellPresentation} from '../../src/sudoku/CellPresentation.es6';
 import {SelectorPad} from '../../src/SelectorPad.es6';
-import {SelectorPadBuilder} from '../../src/builder/SelectorPadBuilder.es6';
 import {Cell} from '../../src/sudoku/Cell.es6';
+import {InstanceProvider} from '../../src/InstanceProvider.es6';
 
 describe('CellPresentation', () => {
 
@@ -14,7 +14,7 @@ describe('CellPresentation', () => {
     let domStub;
     let valueDomStub;
     let selectorStub;
-    let selectorPadBuilderStub;
+    let providerStub;
     let someCell;
 
     beforeEach(() => {
@@ -22,7 +22,7 @@ describe('CellPresentation', () => {
 
         selectorStub = sinon.createStubInstance(SelectorPad);
 
-        selectorPadBuilderStub = sandbox.stub(SelectorPadBuilder, 'createSelectorPad').returns(selectorStub);
+        providerStub = sandbox.stub(InstanceProvider, 'selectorPad').returns(selectorStub);
 
         domStub = {
             addEventListener: sandbox.spy(),
@@ -277,7 +277,7 @@ describe('CellPresentation', () => {
 
             testee.spawnSelector();
 
-            expect(selectorPadBuilderStub).to.have.been.calledWith(domStub);
+            expect(providerStub).to.have.been.calledWith(domStub);
         });
 
         it('should destroy selector pad', () => {
@@ -337,6 +337,6 @@ describe('CellPresentation', () => {
     });
 
     it('should not have a selector pad initially', () => {
-        expect(SelectorPadBuilder.createSelectorPad).to.not.have.been.called;
+        expect(InstanceProvider.selectorPad).to.not.have.been.called;
     });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-import {Selector} from './Selector.es6';
+import {InstanceProvider} from './InstanceProvider.es6';
 
 const SELECTOR_CLASS = 'selector-pad';
 const LEFT_OFFSET = 20;
@@ -23,7 +23,7 @@ class SelectorPad {
     };
 
     addClearButton() {
-        const clearButton = new Selector(0);
+        const clearButton = InstanceProvider.selector(0);
         clearButton.getDom().classList.add('clear-selection');
 
         let rowDom = document.createElement('div');
@@ -53,7 +53,7 @@ class SelectorPad {
 
         for (let i = 0; i < 3; i++) {
             let value = i + 1 + rowNum * 3;
-            cells[i] = new Selector(value);
+            cells[i] = InstanceProvider.selector(value);
         }
         return cells;
     }
