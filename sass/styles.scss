@@ -28,7 +28,8 @@ body {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+ */
     cursor: default;
-    color: #ccc;
+  background-color: darken($color-primary, 30%);
+  color: #ccc;
     text-align: center;
     line-height: $cell-size;
     height: $cell-size;
@@ -51,6 +52,10 @@ body {
 }
 
 .cell.filled {
+    background-color: lighten($background-color, 15%);
+    color: lighten($color-primary, 15%);
+    font-size: 20px;
+}.cell.filled.initial {
     background-color: darken($background-color, 10%);
     color: lighten($color-primary, 15%);
     font-size: 20px;
