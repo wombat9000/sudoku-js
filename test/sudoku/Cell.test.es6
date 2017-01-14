@@ -5,35 +5,17 @@ import {CellPresentation} from '../../src/sudoku/CellPresentation.es6';
 
 describe('Cell', () => {
 
-    let testee;
-    let cellDomStub;
-    let cellPresentationStub;
-    let someEventHandler;
-    let rectStub;
+	// let testee;
+	let cellPresentationStub;
+	// let someEventHandler;
 
-    beforeEach(() => {
-        rectStub = {
-            left: 10,
-            top: 20
-        };
+	beforeEach(() => {
+		cellPresentationStub = sinon.createStubInstance(CellPresentation);
 
-        cellDomStub = {
-            classList: {
-                add: sinon.spy(),
-                remove: sinon.spy()
-            },
-            addEventListener: sinon.spy(),
-            getBoundingClientRect: sinon.stub().returns(rectStub),
-            dispatchEvent: sinon.spy(),
-            appendChild: sinon.spy()
-        };
+		// someEventHandler = () => {};
 
-        cellPresentationStub = sinon.createStubInstance(CellPresentation);
-
-        someEventHandler = () => {};
-
-        testee = new Cell(cellPresentationStub);
-    });
+		new Cell(cellPresentationStub);
+	});
 
 
 });

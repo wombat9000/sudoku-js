@@ -4,29 +4,29 @@ import {Grid} from '../../src/sudoku/Grid.es6';
 
 describe('Grid', () => {
 
-    let testee;
-    let rowMock;
-    let gridDomStub;
+	let testee;
+	let rowMock;
+	let gridDomStub;
 
-    beforeEach(() => {
-        gridDomStub = {
-            classList: {
-                add: sinon.spy()
-            },
-            appendChild: sinon.spy(),
-            addEventListener: sinon.spy()
-        };
+	beforeEach(() => {
+		gridDomStub = {
+			classList: {
+				add: sinon.spy()
+			},
+			appendChild: sinon.spy(),
+			addEventListener: sinon.spy()
+		};
 
-        rowMock = sinon.createStubInstance(Row);
-        rowMock.getDom = sinon.spy(() => {
-            return document.createElement('div');
-        });
+		rowMock = sinon.createStubInstance(Row);
+		rowMock.getDom = sinon.spy(() => {
+			return document.createElement('div');
+		});
 
-        testee = new Grid(gridDomStub, [rowMock]);
-    });
+		testee = new Grid(gridDomStub, [rowMock]);
+	});
 
-    it('should provide its HTML representation', () => {
-        const dom = testee.dom;
-        expect(dom).to.equal(gridDomStub);
-    });
+	it('should provide its HTML representation', () => {
+		const dom = testee.dom;
+		expect(dom).to.equal(gridDomStub);
+	});
 });

@@ -7,142 +7,139 @@ import {CellPresentation} from '../src/sudoku/CellPresentation.es6';
 
 describe('App', () => {
 
-    let sandbox;
-    let testee;
-    let appDomStub;
-    let gridBuilderStub;
-    let gridStub;
+	let sandbox;
+	let testee;
+	let appDomStub;
+	let gridBuilderStub;
+	let gridStub;
 
-    beforeEach(() => {
-        sandbox = sinon.sandbox.create();
+	beforeEach(() => {
+		sandbox = sinon.sandbox.create();
 
-        gridStub = sinon.createStubInstance(Grid);
+		gridStub = sinon.createStubInstance(Grid);
 
-        appDomStub = {
-            appendChild: sandbox.spy(),
-            addEventListener: sandbox.spy()
-        };
+		appDomStub = {
+			appendChild: sandbox.spy(),
+			addEventListener: sandbox.spy()
+		};
 
-        sandbox.stub(GridBuilder, 'createGrid').returns(gridStub);
+		sandbox.stub(GridBuilder, 'createGrid').returns(gridStub);
 
-        testee = new App(appDomStub);
-    });
+		testee = new App(appDomStub);
+	});
 
-    afterEach(() => {
-        sandbox.restore();
-    });
+	afterEach(() => {
+		sandbox.restore();
+	});
 
-    describe('- initialisation', () => {
-        it('should build a new grid', () => {
-           testee.initialise();
+	describe('- initialisation', () => {
+		it('should build a new grid', () => {
+			testee.initialise();
 
-           expect(GridBuilder.createGrid).to.have.been.called;
-        });
+			expect(GridBuilder.createGrid).to.have.been.called;
+		});
 
-        it('should append gridDom to appDom', () => {
-            testee.initialise();
+		it('should append gridDom to appDom', () => {
+			testee.initialise();
 
-            const gridHtml = gridStub.dom;
+			const gridHtml = gridStub.dom;
 
-            expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
-        });
+			expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
+		});
 
-        it('should register cell selection handler', () => {
-            const handler = () => {};
-            testee.cellSelectionHandler = sinon.stub().returns(handler);
+		it('should register cell selection handler', () => {
+			const handler = () => {};
+			testee.cellSelectionHandler = sinon.stub().returns(handler);
 
-            testee.initialise();
+			testee.initialise();
 
-            expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected', handler);
-        });
+			expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected', handler);
+		});
 
-        it('should register out of bounds click handler', () => {
-            const handler = () => {};
-            testee.outOfBoundsClickHandler = sinon.stub().returns(handler);
-            document.addEventListener = sinon.spy();
+		it('should register out of bounds click handler', () => {
+			const handler = () => {};
+			testee.outOfBoundsClickHandler = sinon.stub().returns(handler);
+			document.addEventListener = sinon.spy();
 
-            testee.initialise();
+			testee.initialise();
 
-            expect(document.addEventListener).to.have.been.calledWith('click', handler);
-        });
-    });
+			expect(document.addEventListener).to.have.been.calledWith('click', handler);
+		});
+	});
 
-    describe('- clickOutOfBoundsHandler', () => {
-        let outOfBoundsClickHandler;
-        let someApp;
-        let someEvent;
-        let previouslySelectedCell;
+	describe('- clickOutOfBoundsHandler', () => {
+		let outOfBoundsClickHandler;
+		let someApp;
+		let previouslySelectedCell;
 
-        beforeEach(() => {
-            previouslySelectedCell = sinon.createStubInstance(CellPresentation);
+		beforeEach(() => {
+			previouslySelectedCell = sinon.createStubInstance(CellPresentation);
 
-            someEvent = {};
+			someApp = new App(appDomStub, gridBuilderStub);
+			outOfBoundsClickHandler = someApp.outOfBoundsClickHandler();
+		});
 
-            someApp = new App(appDomStub, gridBuilderStub);
-            outOfBoundsClickHandler = someApp.outOfBoundsClickHandler();
-        });
+		it('should deselect cells', () => {
+			someApp.previouslySelectedCell = previouslySelectedCell;
 
-        it('should deselect cells', () => {
-            someApp.previouslySelectedCell = previouslySelectedCell;
+			outOfBoundsClickHandler();
 
-            outOfBoundsClickHandler();
+			expect(previouslySelectedCell.deselect).to.have.been.called;
+		});
+	});
 
-            expect(previouslySelectedCell.deselect).to.have.been.called;
-        });
-    });
+	describe('- cellSelectionHandler', () => {
+		let cellSelectionHandler;
+		let someApp;
+		let someEvent;
+		let newlySelectedCell;
 
-    describe('- cellSelectionHandler', () => {
-        let cellSelectionHandler;
-        let someApp;
-        let someEvent;
-        let newlySelectedCell;
+		beforeEach(() => {
+			newlySelectedCell = sinon.createStubInstance(CellPresentation);
 
-        beforeEach(() => {
-            newlySelectedCell = sinon.createStubInstance(CellPresentation);
+			someEvent = {
+				detail: {
+					cell: newlySelectedCell
+				}
+			};
 
-            someEvent = {
-                detail: {
-                    cell: newlySelectedCell
-                }
-            };
+			someApp = new App(appDomStub, gridBuilderStub);
+			cellSelectionHandler = someApp.cellSelectionHandler();
+		});
 
-            someApp = new App(appDomStub, gridBuilderStub);
-            cellSelectionHandler = someApp.cellSelectionHandler();
-        });
+		it('should deselect previously selected cell', () => {
+			const previouslySelectedCell = sinon.createStubInstance(CellPresentation);
+			someApp.previouslySelectedCell = previouslySelectedCell;
 
-        it('should deselect previously selected cell', () => {
-            const previouslySelectedCell = sinon.createStubInstance(CellPresentation);
-            someApp.previouslySelectedCell = previouslySelectedCell;
+			cellSelectionHandler(someEvent);
 
-            cellSelectionHandler(someEvent);
+			expect(previouslySelectedCell.deselect).to.have.been.called;
+		});
 
-            expect(previouslySelectedCell.deselect).to.have.been.called;
-        });
+		it('should not deselect if previously selected cell equals new cell', () => {
+			const previouslySelectedCell = newlySelectedCell;
+			someApp.previouslySelectedCell = previouslySelectedCell;
 
-        it('should not deselect if previously selected cell equals new cell', () => {
-            const previouslySelectedCell = newlySelectedCell;
-            someApp.previouslySelectedCell = previouslySelectedCell;
+			cellSelectionHandler(someEvent);
 
-            cellSelectionHandler(someEvent);
+			expect(previouslySelectedCell.deselect).to.have.not.been.called;
+		});
 
-            expect(previouslySelectedCell.deselect).to.have.not.been.called;
-        });
+		it('should remember newly selected cell, when no cell was selected previously', () => {
+			cellSelectionHandler(someEvent);
+			let cell = someApp.previouslySelectedCell;
 
-        it('should remember newly selected cell, when no cell was selected previously', () => {
-            cellSelectionHandler(someEvent);
-            let cell = someApp.previouslySelectedCell;
+			expect(cell).to.equal(newlySelectedCell);
+		});
 
-            expect(cell).to.equal(newlySelectedCell);
-        });
+		it('should remember selected cell', () => {
+			const previouslySelectedCell = sinon.createStubInstance(CellPresentation);
+			someApp.previouslySelectedCell = previouslySelectedCell;
 
-        it('should remember selected cell', () => {
-            const previouslySelectedCell = sinon.createStubInstance(CellPresentation);
-            someApp.previouslySelectedCell = previouslySelectedCell;
+			cellSelectionHandler(someEvent);
+			let cell = someApp.previouslySelectedCell;
 
-            cellSelectionHandler(someEvent);
-            let cell = someApp.previouslySelectedCell;
-
-            expect(cell).to.equal(newlySelectedCell);
-        });
-    });
+			expect(cell).to.equal(newlySelectedCell);
+		});
+	});
 });
