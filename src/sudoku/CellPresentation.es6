@@ -21,8 +21,6 @@ class CellPresentation {
 	}
 
 	constructor(cell) {
-		let test;
-
 		this.initial = false;
 		this[_cell] = cell;
 		this[_valueDom] = document.createElement('span');
