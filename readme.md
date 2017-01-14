@@ -9,6 +9,7 @@ The following languages and tools are in use:
 - JavaScript - ES6
 - karma, chai, sinon, phantomJS
 - gulp
+- ESLint
 - HTML & SCSS
 
 # Build
