@@ -20,7 +20,7 @@ class CellPresentation {
 		this[_initial] = value;
 	}
 
-	constructor(cell) {
+	constructor(cell, rowNumber) {
 		this.initial = false;
 		this[_cell] = cell;
 		this[_valueDom] = document.createElement('span');
@@ -28,6 +28,7 @@ class CellPresentation {
 		this[_dom].appendChild(this[_valueDom]);
 		this[_dom].addEventListener('click', this.clickHandler(), false);
 		this[_dom].addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
+		this.setRowNumber(rowNumber);
 		this.setInactive();
 		this.setInitialValue(cell.value);
 	}
@@ -66,16 +67,12 @@ class CellPresentation {
 	}
 
 	setRowNumber(rowNumber) {
-		this[_dom].classList.add('row'+rowNumber);
-
 		if (isBoxDelimiter(rowNumber)) {
 			this.addBottomBorderCSS();
 		}
 	}
 
 	setColumnNumber(colNumber) {
-		this[_dom].classList.add('col'+colNumber);
-
 		if (isBoxDelimiter(colNumber)) {
 			this.addRightBorderCSS();
 		}

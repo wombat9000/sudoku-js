@@ -24,10 +24,6 @@ describe('Row', () => {
 	});
 
 	describe('- instantiation', () => {
-		it('should update all member cells with its row number', () => {
-			expect(someCell.setRowNumber).to.have.been.calledWith(rowNumber);
-			expect(anotherCell.setRowNumber).to.have.been.calledWith(rowNumber);
-		});
 
 		it('should update all member cells with their col number', () => {
 			expect(someCell.setColumnNumber).to.have.been.calledWith(1);

@@ -43,13 +43,8 @@ describe('GridBuilder', () => {
 			expect(cells).to.have.lengthOf(9);
 		});
 
-		it('should initialise the rows with rownumbers', () => {
-			const rows = grid.rows;
-			const firstRowCell = rows[0].cells[0];
-			const secondRowCell = rows[1].cells[0];
+		xit('should pass rownumbers and colnumbers into cellPresentation', () => {
 
-			expect(firstRowCell.dom.classList.contains('row1')).to.equal(true);
-			expect(secondRowCell.dom.classList.contains('row2')).to.equal(true);
 		});
 
 		xit('should propagate values to cells', () => {

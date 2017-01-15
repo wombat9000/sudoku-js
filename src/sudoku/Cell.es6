@@ -2,14 +2,23 @@
 
 import Symbol from 'es6-symbol';
 const _value = Symbol();
+const cellGroups = Symbol();
 
 class Cell {
 
 	constructor(value) {
+		this[cellGroups] = [];
 		this.value = value;
 	}
 
+	registerCellGroup(cellGroup) {
+		this[cellGroups].push(cellGroup);
+	}
+
 	validate(value) {
+		this[cellGroups].forEach(cellGroup => {
+			if (cellGroup.contains(value)) return false;
+		});
 		return !!value;
 	}
 

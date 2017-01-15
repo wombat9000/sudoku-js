@@ -8,7 +8,7 @@ class Row {
 	constructor(rowNumber, rowDom, cells) {
 		let colIndex = 1;
 		cells.map(cellPresentation => {
-			cellPresentation.setRowNumber(rowNumber);
+			// cellPresentation.setRowNumber(rowNumber);
 			cellPresentation.setColumnNumber(colIndex);
 			rowDom.appendChild(cellPresentation.dom);
 			colIndex++;

@@ -307,22 +307,6 @@ describe('CellPresentation', function () {
 		});
 	});
 
-	describe('-> presentation', () => {
-		it('updates classlist when setting row', () => {
-			const someRowNumber = 5;
-			testee.setRowNumber(someRowNumber);
-
-			expect(domStub.classList.add).to.have.been.calledWith('row' + someRowNumber);
-		});
-
-		it('updates classlist when setting column', () => {
-			const someColumnNumber = 5;
-			testee.setColumnNumber(someColumnNumber);
-
-			expect(domStub.classList.add).to.have.been.calledWith('col' + someColumnNumber);
-		});
-	});
-
 	it('applies bold-bottom-border class for third row', () => {
 		testee.setRowNumber(3);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-bottom-border');
