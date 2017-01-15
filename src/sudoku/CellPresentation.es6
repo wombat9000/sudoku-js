@@ -90,7 +90,7 @@ class CellPresentation {
 	}
 
 	setValue(value) {
-		if (value > 0) {
+		if (value > 0 && this[_cell].validate(value)) {
 			this[_valueDom].innerHTML = value;
 			this.dom.classList.add('filled');
 			this.filled = true;

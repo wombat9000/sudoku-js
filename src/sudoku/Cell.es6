@@ -9,6 +9,10 @@ class Cell {
 		this.value = value;
 	}
 
+	validate(value) {
+		return !!value;
+	}
+
 	get value() {
 		return this[_value];
 	}

@@ -82,6 +82,7 @@ describe('CellPresentation', function () {
 				}
 			});
 
+
 			testee.dom.classList.add.reset();
 			testee = new CellPresentation(someCell);
 
@@ -92,6 +93,16 @@ describe('CellPresentation', function () {
 	});
 
 	describe('-> setting value', () => {
+		beforeEach(() => {
+			someCell.validate.returns(true);
+		});
+
+		it('should check for validity', () => {
+			const someValue = 2;
+			testee.setValue(someValue);
+			expect(someCell.validate).to.have.been.calledWith(someValue);
+		});
+
 		it('clears the cell, when setting value 0', () => {
 			testee.setValue(2);
 			testee.setValue(0);
@@ -111,6 +122,15 @@ describe('CellPresentation', function () {
 
 			expect(testee.filled).to.equal(true);
 			expect(testee.dom.classList.add).to.have.been.calledWith('filled');
+		});
+
+		it('should not change value if validation fails', () => {
+			someCell.validate.returns(false);
+
+			testee.setValue(5);
+
+			expect(testee.filled).to.equal(false);
+			expect(valueDomStub.innerHTML).to.equal('');
 		});
 	});
 

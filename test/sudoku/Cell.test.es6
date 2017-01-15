@@ -16,6 +16,4 @@ describe('Cell', () => {
 
 		new Cell(cellPresentationStub);
 	});
-
-
 });
