@@ -19,7 +19,7 @@ function createRows(rawRows) {
 	for (let i = 0; i < 9; i++) {
 		let rowNumber = i+1;
 		let cellsForRow = createCells(rawRows[i], rowNumber);
-		rows.push(InstanceProvider.row(rowNumber, cellsForRow));
+		rows.push(InstanceProvider.row(cellsForRow));
 	}
 
 	return rows;
@@ -28,11 +28,12 @@ function createRows(rawRows) {
 function createCells(rawCells, rowNumber) {
 	const cells = [];
 
-	rawCells.forEach(rawCell => {
-		let cell = InstanceProvider.cell(rawCell);
-		let cellPresentation = InstanceProvider.cellPresentation(cell, rowNumber);
+	for (let i = 0; i < 9; i++) {
+		let colNumber = i+1;
+		let cell = InstanceProvider.cell(rawCells[i]);
+		let cellPresentation = InstanceProvider.cellPresentation(cell, rowNumber, colNumber);
 		cells.push(cellPresentation);
-	});
+	}
 
 	return cells;
 }

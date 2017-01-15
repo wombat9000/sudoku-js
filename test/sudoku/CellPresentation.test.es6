@@ -15,6 +15,8 @@ describe('CellPresentation', function () {
 	let selectorStub;
 	let providerStub;
 	let someCell;
+	let someRowNumber;
+	let someColNumber;
 
 	beforeEach(function () {
 		sandbox = sinon.sandbox.create();
@@ -47,7 +49,10 @@ describe('CellPresentation', function () {
 			}
 		});
 
-		testee = new CellPresentation(someCell);
+		someRowNumber = 1;
+		someColNumber = 2;
+
+		testee = new CellPresentation(someCell, someRowNumber, someColNumber);
 	});
 
 	afterEach(() => sandbox.restore());
@@ -143,7 +148,7 @@ describe('CellPresentation', function () {
 			someEvent = {
 				stopPropagation: sinon.spy()
 			};
-			testee = new CellPresentation(someCell);
+			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
 			mock = sinon.mock(testee);
 			clickFunction = testee.clickHandler();
 		});
@@ -175,7 +180,7 @@ describe('CellPresentation', function () {
 				}
 			});
 
-			testee = new CellPresentation(someCell);
+			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
 			mock = sinon.mock(testee);
 		});
 
@@ -290,7 +295,7 @@ describe('CellPresentation', function () {
 
 	describe('-> selector pad interactions', () => {
 		it('should get a new selector pad from the builder', () => {
-			testee = new CellPresentation(someCell);
+			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
 
 			testee.spawnSelector();
 
@@ -298,7 +303,7 @@ describe('CellPresentation', function () {
 		});
 
 		it('should destroy selector pad', () => {
-			testee = new CellPresentation(someCell);
+			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
 			testee.spawnSelector();
 
 			testee.destroySelector();
@@ -308,32 +313,32 @@ describe('CellPresentation', function () {
 	});
 
 	it('applies bold-bottom-border class for third row', () => {
-		testee.setRowNumber(3);
+		testee = new CellPresentation(someCell, 3, someColNumber);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-bottom-border');
 	});
 
 	it('applies bold-bottom-border class for sixth row', () => {
-		testee.setRowNumber(6);
+		testee = new CellPresentation(someCell, 6, someColNumber);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-bottom-border');
 	});
 
 	it('does not apply bold-bottom-border class for fifth row', () => {
-		testee.setRowNumber(5);
+		testee = new CellPresentation(someCell, 5, someColNumber);
 		expect(testee.dom.classList.add).to.not.have.been.calledWith('bold-bottom-border');
 	});
 
 	it('applies bold-right-border class for third column', () => {
-		testee.setColumnNumber(3);
+		testee = new CellPresentation(someCell, someRowNumber, 3);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-right-border');
 	});
 
 	it('applies bold-right-border class for sixth column', () => {
-		testee.setColumnNumber(6);
+		testee = new CellPresentation(someCell, someRowNumber, 6);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-right-border');
 	});
 
 	it('does not apply bold-right-border class for fifth column', () => {
-		testee.setColumnNumber(5);
+		testee = new CellPresentation(someCell, someRowNumber, 5);
 		expect(testee.dom.classList.add).to.not.have.been.calledWith('bold-right-border');
 	});
 

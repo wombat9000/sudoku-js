@@ -6,30 +6,20 @@ import {Row} from './../../src/sudoku/Row.es6';
 describe('Row', () => {
 
 	let rowDom;
-	let rowNumber;
 	let cells;
 	let someCell;
-	let anotherCell;
 
 	beforeEach(() => {
 		rowDom = sinon.stub(document.createElement('div'));
-		rowNumber = 0;
 
 		cells = [
 			someCell = sinon.createStubInstance(CellPresentation),
-			anotherCell = sinon.createStubInstance(CellPresentation)
 		];
 
-		new Row(rowNumber, rowDom, cells);
+		new Row(rowDom, cells);
 	});
 
 	describe('- instantiation', () => {
-
-		it('should update all member cells with their col number', () => {
-			expect(someCell.setColumnNumber).to.have.been.calledWith(1);
-			expect(anotherCell.setColumnNumber).to.have.been.calledWith(2);
-		});
-
 		it('should append each cell dom to row dom', () => {
 			let someCellDom;
 			cells.forEach(() => {

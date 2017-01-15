@@ -16,13 +16,13 @@ class InstanceProvider {
 		return new Selector(value);
 	}
 
-	static cellPresentation(cell, rowNumber) {
-		return new CellPresentation(cell, rowNumber);
+	static cellPresentation(cell, rowNumber, colNumber) {
+		return new CellPresentation(cell, rowNumber, colNumber);
 	}
 
-	static row(rowNumber, cells) {
+	static row(cells) {
 		const rowDom = DomFactory.createRowDom();
-		return new Row(rowNumber, rowDom, cells);
+		return new Row(rowDom, cells);
 	}
 
 	static selectorPad(cellPresentation) {
