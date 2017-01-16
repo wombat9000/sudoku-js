@@ -32,7 +32,7 @@ function createCells(rawCells, rowNumber) {
 		let colNumber = i+1;
 		let cellPresentation = InstanceProvider.cellPresentation(rowNumber, colNumber);
 		let cell = InstanceProvider.cell(rawCells[i], cellPresentation);
-		cells.push(cellPresentation);
+		cells.push(cell);
 	}
 
 	return cells;

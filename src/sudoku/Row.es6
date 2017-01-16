@@ -6,8 +6,8 @@ const _dom = Symbol();
 class Row {
 
 	constructor(rowDom, cells) {
-		cells.forEach(cellPresentation => {
-			rowDom.appendChild(cellPresentation.dom);
+		cells.forEach(cell => {
+			rowDom.appendChild(cell.presentation.dom);
 		});
 
 		this[_cells] = cells;

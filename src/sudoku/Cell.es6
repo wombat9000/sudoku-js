@@ -2,13 +2,15 @@
 
 import Symbol from 'es6-symbol';
 const _value = Symbol();
+const _presentation = Symbol();
 const cellGroups = Symbol();
 
 class Cell {
 
 	constructor(value, presentation) {
 		this[cellGroups] = [];
-		presentation.setInitialValue(value);
+		this[_presentation] = presentation;
+		this[_presentation].setInitialValue(value);
 		this.value = value;
 	}
 
@@ -21,6 +23,10 @@ class Cell {
 			if (cellGroup.contains(value)) return false;
 		});
 		return !!value;
+	}
+
+	get presentation() {
+		return this[_presentation];
 	}
 
 	get value() {
