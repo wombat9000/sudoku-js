@@ -6,6 +6,7 @@ import {Row} from './../../src/sudoku/Row.es6';
 
 describe('Row', () => {
 
+	let testee;
 	let rowDom;
 	let cells;
 	let someCellStub;
@@ -26,14 +27,25 @@ describe('Row', () => {
 			}
 		});
 
-		new Row(rowDom, cells);
+		testee = new Row(rowDom, cells);
 	});
 
-	describe('- instantiation', () => {
+	describe('-> initialisation', () => {
 		it('should append each cell dom to row dom', () => {
-			cells.forEach(() => {
-				expect(rowDom.appendChild).to.have.been.calledWith(someCellPresentationStub.dom);
+			cells.forEach((cell) => {
+				expect(rowDom.appendChild).to.have.been.calledWith(cell.presentation.dom);
 			});
+		});
+
+		it('should register with each cell as cellGroup', () => {
+			cells.forEach(cell => {
+				expect(cell.registerCellGroup).to.have.been.calledWith(testee);
+			});
+		});
+	});
+
+	xdescribe('-> add number', () => {
+		xit('should add a number', () => {
 		});
 	});
 });

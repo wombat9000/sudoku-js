@@ -15,14 +15,9 @@ class Cell {
 	}
 
 	registerCellGroup(cellGroup) {
+		// TODO how to test this w/o getters and setters?
 		this[cellGroups].push(cellGroup);
-	}
-
-	validate(value) {
-		this[cellGroups].forEach(cellGroup => {
-			if (cellGroup.contains(value)) return false;
-		});
-		return !!value;
+		cellGroup.addNumber(this.value);
 	}
 
 	get presentation() {

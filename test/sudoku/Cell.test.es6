@@ -20,4 +20,9 @@ describe('Cell', () => {
 			expect(cellPresentationStub.setInitialValue).to.have.been.calledWith(someInitialValue);
 		});
 	});
+
+	xdescribe('-> add cell group', () => {
+		xit('should report number', () => {
+		});
+	});
 });
