@@ -26,8 +26,8 @@ class CellPresentation {
 		this[_valueDom] = document.createElement('span');
 		this[_dom] = DomFactory.createCellDom();
 		this[_dom].appendChild(this[_valueDom]);
-		this[_dom].addEventListener('click', this.clickHandler(), false);
-		this[_dom].addEventListener('numberPadSelection', this.numberPadSelectionHandler(), false);
+		this[_dom].addEventListener('click', this.cellSelectionHandler(), false);
+		this[_dom].addEventListener('newNumberSelected', this.valueChangeHandler(), false);
 		this.setRowNumber(rowNumber);
 		this.setColumnNumber(colNumber);
 		this.setInactive();
@@ -45,14 +45,14 @@ class CellPresentation {
 		}
 	}
 
-	numberPadSelectionHandler() {
+	valueChangeHandler() {
 		return (event) => {
 			this.setValue(event.detail.value);
 			this.deselect();
 		};
 	}
 
-	clickHandler() {
+	cellSelectionHandler() {
 		return (event) => {
 			this.toggleSelectionState();
 			event.stopPropagation();

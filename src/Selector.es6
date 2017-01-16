@@ -24,7 +24,7 @@ class Selector {
 	}
 
 	broadcastNewNumber() {
-		let event = new CustomEvent('numberPadSelection', {
+		let event = new CustomEvent('newNumberSelected', {
 			detail: {
 				value: this.value
 			},

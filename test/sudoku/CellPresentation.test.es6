@@ -150,7 +150,7 @@ describe('CellPresentation', function () {
 			};
 			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
 			mock = sinon.mock(testee);
-			clickFunction = testee.clickHandler();
+			clickFunction = testee.cellSelectionHandler();
 		});
 
 		it('should toggle selection state', () => {
