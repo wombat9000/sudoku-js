@@ -5,7 +5,6 @@ import {InstanceProvider} from '../InstanceProvider.es6';
 import Symbol from 'es6-symbol';
 const _dom = Symbol();
 const _valueDom = Symbol();
-const _cell = Symbol();
 const _filled = Symbol();
 const _active = Symbol();
 const _initial = Symbol();
@@ -20,9 +19,8 @@ class CellPresentation {
 		this[_initial] = value;
 	}
 
-	constructor(cell, rowNumber, colNumber) {
+	constructor(rowNumber, colNumber) {
 		this.initial = false;
-		this[_cell] = cell;
 		this[_valueDom] = document.createElement('span');
 		this[_dom] = DomFactory.createCellDom();
 		this[_dom].appendChild(this[_valueDom]);
@@ -31,7 +29,6 @@ class CellPresentation {
 		this.setRowNumber(rowNumber);
 		this.setColumnNumber(colNumber);
 		this.setInactive();
-		this.setInitialValue(cell.value);
 	}
 
 	setInitialValue(value) {
@@ -88,7 +85,7 @@ class CellPresentation {
 	}
 
 	setValue(value) {
-		if (value > 0 && this[_cell].validate(value)) {
+		if (value > 0) {
 			this[_valueDom].innerHTML = value;
 			this.dom.classList.add('filled');
 			this.filled = true;

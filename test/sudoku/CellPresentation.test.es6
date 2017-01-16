@@ -14,7 +14,6 @@ describe('CellPresentation', function () {
 	let valueDomStub;
 	let selectorStub;
 	let providerStub;
-	let someCell;
 	let someRowNumber;
 	let someColNumber;
 
@@ -41,18 +40,10 @@ describe('CellPresentation', function () {
 		docStub.withArgs('div').returns(domStub);
 		docStub.withArgs('span').returns(valueDomStub);
 
-		someCell = sinon.createStubInstance(Cell);
-
-		sinon.wrapMethod(someCell, 'value', {
-			get: function () {
-				return 2;
-			}
-		});
-
 		someRowNumber = 1;
 		someColNumber = 2;
 
-		testee = new CellPresentation(someCell, someRowNumber, someColNumber);
+		testee = new CellPresentation(someRowNumber, someColNumber);
 	});
 
 	afterEach(() => sandbox.restore());
@@ -74,22 +65,18 @@ describe('CellPresentation', function () {
 		it('should initialise as inactive', function () {
 			expect(testee.active).to.equal(false);
 		});
+	});
 
-		it('should initialise as initial for non-empty cell', function () {
+	describe('-> setting initial value', () => {
+		it('should add initial class if it is initialised with nonzero value', () => {
+			testee.setInitialValue(1);
+
 			expect(testee.initial).to.equal(true);
 			expect(testee.dom.classList.add).to.have.been.calledWith('initial');
 		});
 
 		it('should initialise as not yet filled for empty cell', () => {
-			sinon.wrapMethod(someCell, 'value', {
-				get: function () {
-					return 0;
-				}
-			});
-
-
-			testee.dom.classList.add.reset();
-			testee = new CellPresentation(someCell);
+			testee.setInitialValue(0);
 
 			expect(testee.filled).to.equal(false);
 			expect(testee.initial).to.equal(false);
@@ -98,16 +85,6 @@ describe('CellPresentation', function () {
 	});
 
 	describe('-> setting value', () => {
-		beforeEach(() => {
-			someCell.validate.returns(true);
-		});
-
-		it('should check for validity', () => {
-			const someValue = 2;
-			testee.setValue(someValue);
-			expect(someCell.validate).to.have.been.calledWith(someValue);
-		});
-
 		it('clears the cell, when setting value 0', () => {
 			testee.setValue(2);
 			testee.setValue(0);
@@ -128,15 +105,6 @@ describe('CellPresentation', function () {
 			expect(testee.filled).to.equal(true);
 			expect(testee.dom.classList.add).to.have.been.calledWith('filled');
 		});
-
-		it('should not change value if validation fails', () => {
-			someCell.validate.returns(false);
-
-			testee.setValue(5);
-
-			expect(testee.filled).to.equal(false);
-			expect(valueDomStub.innerHTML).to.equal('');
-		});
 	});
 
 	describe('-> onClick', () => {
@@ -148,7 +116,7 @@ describe('CellPresentation', function () {
 			someEvent = {
 				stopPropagation: sinon.spy()
 			};
-			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
+			testee = new CellPresentation(someRowNumber, someColNumber);
 			mock = sinon.mock(testee);
 			clickFunction = testee.cellSelectionHandler();
 		});
@@ -174,13 +142,7 @@ describe('CellPresentation', function () {
 		let mock;
 
 		beforeEach(() => {
-			sinon.wrapMethod(someCell, 'value', {
-				get: function () {
-					return 0;
-				}
-			});
-
-			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
+			testee = new CellPresentation(someRowNumber, someColNumber);
 			mock = sinon.mock(testee);
 		});
 
@@ -295,7 +257,7 @@ describe('CellPresentation', function () {
 
 	describe('-> selector pad interactions', () => {
 		it('should get a new selector pad from the builder', () => {
-			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
+			testee = new CellPresentation(someRowNumber, someColNumber);
 
 			testee.spawnSelector();
 
@@ -303,7 +265,7 @@ describe('CellPresentation', function () {
 		});
 
 		it('should destroy selector pad', () => {
-			testee = new CellPresentation(someCell, someRowNumber, someColNumber);
+			testee = new CellPresentation(someRowNumber, someColNumber);
 			testee.spawnSelector();
 
 			testee.destroySelector();
@@ -313,32 +275,32 @@ describe('CellPresentation', function () {
 	});
 
 	it('applies bold-bottom-border class for third row', () => {
-		testee = new CellPresentation(someCell, 3, someColNumber);
+		testee = new CellPresentation(3, someColNumber);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-bottom-border');
 	});
 
 	it('applies bold-bottom-border class for sixth row', () => {
-		testee = new CellPresentation(someCell, 6, someColNumber);
+		testee = new CellPresentation(6, someColNumber);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-bottom-border');
 	});
 
 	it('does not apply bold-bottom-border class for fifth row', () => {
-		testee = new CellPresentation(someCell, 5, someColNumber);
+		testee = new CellPresentation(5, someColNumber);
 		expect(testee.dom.classList.add).to.not.have.been.calledWith('bold-bottom-border');
 	});
 
 	it('applies bold-right-border class for third column', () => {
-		testee = new CellPresentation(someCell, someRowNumber, 3);
+		testee = new CellPresentation(someRowNumber, 3);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-right-border');
 	});
 
 	it('applies bold-right-border class for sixth column', () => {
-		testee = new CellPresentation(someCell, someRowNumber, 6);
+		testee = new CellPresentation(someRowNumber, 6);
 		expect(testee.dom.classList.add).to.have.been.calledWith('bold-right-border');
 	});
 
 	it('does not apply bold-right-border class for fifth column', () => {
-		testee = new CellPresentation(someCell, someRowNumber, 5);
+		testee = new CellPresentation(someRowNumber, 5);
 		expect(testee.dom.classList.add).to.not.have.been.calledWith('bold-right-border');
 	});
 

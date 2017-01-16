@@ -6,8 +6,9 @@ const cellGroups = Symbol();
 
 class Cell {
 
-	constructor(value) {
+	constructor(value, presentation) {
 		this[cellGroups] = [];
+		presentation.setInitialValue(value);
 		this.value = value;
 	}
 

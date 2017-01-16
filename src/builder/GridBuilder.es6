@@ -30,8 +30,8 @@ function createCells(rawCells, rowNumber) {
 
 	for (let i = 0; i < 9; i++) {
 		let colNumber = i+1;
-		let cell = InstanceProvider.cell(rawCells[i]);
-		let cellPresentation = InstanceProvider.cellPresentation(cell, rowNumber, colNumber);
+		let cellPresentation = InstanceProvider.cellPresentation(rowNumber, colNumber);
+		let cell = InstanceProvider.cell(rawCells[i], cellPresentation);
 		cells.push(cellPresentation);
 	}
 

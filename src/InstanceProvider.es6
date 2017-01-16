@@ -8,16 +8,16 @@ import {Selector} from './Selector.es6';
 import {SelectorPad} from './SelectorPad.es6';
 
 class InstanceProvider {
-	static cell(value) {
-		return new Cell(value);
+	static cell(value, presentation) {
+		return new Cell(value, presentation);
 	}
 
 	static selector(value) {
 		return new Selector(value);
 	}
 
-	static cellPresentation(cell, rowNumber, colNumber) {
-		return new CellPresentation(cell, rowNumber, colNumber);
+	static cellPresentation(rowNumber, colNumber) {
+		return new CellPresentation(rowNumber, colNumber);
 	}
 
 	static row(cells) {
