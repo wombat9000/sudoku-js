@@ -11,6 +11,7 @@ class Cell {
 		this[cellGroups] = [];
 		this[_presentation] = presentation;
 		this[_presentation].setInitialValue(value);
+		// todo: pass callback for value change event & trigger eventRegister @presentation
 		this.value = value;
 	}
 

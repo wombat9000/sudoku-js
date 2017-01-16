@@ -2,7 +2,6 @@
 
 import {CellPresentation} from '../../src/sudoku/CellPresentation.es6';
 import {SelectorPad} from '../../src/SelectorPad.es6';
-import {Cell} from '../../src/sudoku/Cell.es6';
 import {InstanceProvider} from '../../src/InstanceProvider.es6';
 
 describe('CellPresentation', function () {
