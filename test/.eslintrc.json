@@ -4,6 +4,7 @@
   },
   "globals": {
     "sinon": true,
-    "expect": true
+    "expect": true,
+    "assert": true
   }
 }

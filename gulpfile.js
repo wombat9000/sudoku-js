@@ -66,4 +66,4 @@ gulp.task('tdd', function (done) {
     }).start();
 });
 
-gulp.task('default', ['watch', 'build']);
+gulp.task('default', ['build', 'sass', 'watch']);
