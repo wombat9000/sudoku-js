@@ -1,3 +1,5 @@
+/* global __dirname, process */
+
 var gulp = require('gulp');
 var del = require('del');
 var browserify = require('browserify');
