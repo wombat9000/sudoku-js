@@ -7,11 +7,15 @@
     "parserOptions": {
         "sourceType": "module"
     },
+    "globals": {
+        "require": true
+    },
     "rules": {
         "indent": [
             "error",
             "tab"
         ],
+        "no-console": 0,
         "linebreak-style": [
             "error",
             "unix"
