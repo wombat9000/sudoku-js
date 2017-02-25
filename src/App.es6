@@ -6,9 +6,6 @@ class App {
 
 	constructor(appDom) {
 		this.dom = appDom;
-	}
-
-	initialise() {
 		const grid = GridBuilder.createGrid(somePuzzle);
 		this.dom.appendChild(grid.dom);
 		this.dom.addEventListener('cellSelected', this.cellSelectionHandler());

@@ -10,7 +10,6 @@ describe('App', () => {
 	let sandbox;
 	let testee;
 	let appDomStub;
-	let gridBuilderStub;
 	let gridStub;
 
 	beforeEach(() => {
@@ -24,8 +23,8 @@ describe('App', () => {
 		};
 
 		sandbox.stub(GridBuilder, 'createGrid').returns(gridStub);
-
 		testee = new App(appDomStub);
+
 	});
 
 	afterEach(() => {
@@ -34,36 +33,23 @@ describe('App', () => {
 
 	describe('- initialisation', () => {
 		it('should build a new grid', () => {
-			testee.initialise();
-
 			expect(GridBuilder.createGrid).to.have.been.called;
 		});
 
 		it('should append gridDom to appDom', () => {
-			testee.initialise();
-
 			const gridHtml = gridStub.dom;
-
 			expect(appDomStub.appendChild).to.have.been.calledWith(gridHtml);
 		});
 
 		it('should register cell selection handler', () => {
-			const handler = () => {};
-			testee.cellSelectionHandler = sinon.stub().returns(handler);
-
-			testee.initialise();
-
-			expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected', handler);
+			expect(appDomStub.addEventListener).to.have.been.calledWith('cellSelected');
 		});
 
 		it('should register out of bounds click handler', () => {
-			const handler = () => {};
-			testee.outOfBoundsClickHandler = sinon.stub().returns(handler);
 			document.addEventListener = sinon.spy();
+			testee = new App(appDomStub);
 
-			testee.initialise();
-
-			expect(document.addEventListener).to.have.been.calledWith('click', handler);
+			expect(document.addEventListener).to.have.been.calledWith('click');
 		});
 	});
 
@@ -75,7 +61,7 @@ describe('App', () => {
 		beforeEach(() => {
 			previouslySelectedCell = sinon.createStubInstance(CellPresentation);
 
-			someApp = new App(appDomStub, gridBuilderStub);
+			someApp = new App(appDomStub);
 			outOfBoundsClickHandler = someApp.outOfBoundsClickHandler();
 		});
 
@@ -103,7 +89,7 @@ describe('App', () => {
 				}
 			};
 
-			someApp = new App(appDomStub, gridBuilderStub);
+			someApp = new App(appDomStub);
 			cellSelectionHandler = someApp.cellSelectionHandler();
 		});
 
