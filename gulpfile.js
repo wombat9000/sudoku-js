@@ -5,7 +5,12 @@ var del = require('del');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var sass = require('gulp-sass');
-var Server = require('karma').Server;
+var argv = require('yargs').argv;
+var isProduction = argv.prod;
+
+if(!isProduction) {
+	var Server = require('karma').Server;
+}
 
 var paths = {
     es6Src: './src/**/*.es6',
