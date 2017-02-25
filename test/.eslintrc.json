@@ -6,5 +6,13 @@
     "sinon": true,
     "expect": true,
     "assert": true
+  },
+  "rules": {
+    "no-unused-vars": ["error",
+      {
+        "varsIgnorePattern": "testee",
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": false }]
   }
 }

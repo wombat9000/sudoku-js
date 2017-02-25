@@ -24,7 +24,6 @@ describe('App', () => {
 
 		sandbox.stub(GridBuilder, 'createGrid').returns(gridStub);
 		testee = new App(appDomStub);
-
 	});
 
 	afterEach(() => {
