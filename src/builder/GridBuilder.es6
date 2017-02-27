@@ -3,6 +3,7 @@
 import {Grid} from '../sudoku/Grid.es6';
 import {DomFactory} from '../factory/DomFactory.es6';
 import {InstanceProvider} from '../InstanceProvider.es6';
+import {Cell} from '../sudoku/Cell.es6';
 
 class GridBuilder {
 
@@ -31,7 +32,8 @@ function createCells(rawCells, rowNumber) {
 	for (let i = 0; i < 9; i++) {
 		let colNumber = i+1;
 		let cellPresentation = InstanceProvider.cellPresentation(rowNumber, colNumber);
-		let cell = InstanceProvider.cell(rawCells[i], cellPresentation);
+		let cell = new Cell(rawCells[i], cellPresentation);
+
 		cells.push(cell);
 	}
 
